@@ -82,6 +82,17 @@
         <h1>POOR IMAGE DEGRADATION GENERATOR</h1>
         <p class="info">Based on Hito Steyerl's "In Defense of the Poor Image" (2009)</p>
         
+        <!-- PROVOCATION -->
+        <div style="margin: 20px 0; padding: 20px; background: #000; color: #fff; border: 3px solid #fff;">
+            <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px; color: #FF3B30;">⚠️ PROVOCATION:</div>
+            <p style="font-size: 14px; line-height: 1.6; margin-bottom: 10px;">
+                <strong>The worse the image quality, the greater its power.</strong> Why does a blurry, compressed, artifact-ridden image circulate faster and further than the pristine original?
+            </p>
+            <p style="font-size: 13px; line-height: 1.5; color: #ccc;">
+                This tool demonstrates <strong>Contagious Magic</strong>: each degraded copy retains a trace of the original (the "contact"), but loses control, context, and attribution. The image becomes a ghost—unmoored from its source, gaining viral power as it loses fidelity.
+            </p>
+        </div>
+        
         <div class="controls">
             <h2 style="color: #fff; font-size: 18px; margin-bottom: 10px;">STEP 1: LOAD SOURCE IMAGE</h2>
             <button onclick="loadMigrantMother()">↓ DOWNLOAD MIGRANT MOTHER FROM LOC</button>
@@ -96,6 +107,13 @@
         </div>
         
         <div class="status" id="status">Ready to generate images...</div>
+        
+        <div style="margin: 20px 0; padding: 15px; background: #fff3cd; border: 2px solid #ffc107;">
+            <strong>👁️ WHAT TO LOOK FOR:</strong><br>
+            <span style="font-size: 13px;">
+                Compare stages 1 → 4. You should see: <strong>Stage 2</strong> - slight softening; <strong>Stage 3</strong> - visible compression blocks; <strong>Stage 4</strong> - heavy pixelation and color banding. The degradation simulates what happens when images are shared, screenshotted, and re-uploaded across platforms.
+            </span>
+        </div>
         
         <!-- Original -->
         <div class="stage">
@@ -130,12 +148,20 @@
         </div>
         
         <div style="margin-top: 40px; padding: 20px; border: 2px dashed #000; background: #f9f9f9;">
-            <h3>THEORETICAL FRAMEWORK:</h3>
-            <ul style="margin: 10px 0; padding-left: 20px; line-height: 1.8;">
-                <li><strong>Hito Steyerl:</strong> "The poor image is a copy in motion... distributed for free... compressed... ripped... remixed"</li>
-                <li><strong>Paradox:</strong> As quality degrades, circulation increases</li>
-                <li><strong>Power dynamics:</strong> Who benefits from spread? Who loses control?</li>
-                <li><strong>Sympathetic magic connection:</strong> Each copy retains trace of original, but degradation shows the violence of circulation</li>
+            <h3>THEORETICAL FRAMEWORK: SYMPATHETIC MAGIC & THE POOR IMAGE</h3>
+            <div style="margin: 15px 0; padding: 15px; background: #fff; border-left: 4px solid #FF3B30;">
+                <strong style="color: #FF3B30;">[CONTAGION]</strong> → "Contact Leaves Permanent Trace"<br>
+                <span style="font-size: 13px; color: #666;">Once the image touches the internet, that contact is permanent. Each share, screenshot, and re-upload maintains the sympathetic link to Florence Owens Thompson (Migrant Mother's subject), even as quality degrades.</span>
+            </div>
+            <div style="margin: 15px 0; padding: 15px; background: #fff; border-left: 4px solid #FF3B30;">
+                <strong style="color: #FF3B30;">[SIMILARITY]</strong> → "Like Affects Like"<br>
+                <span style="font-size: 13px; color: #666;">The degraded image still <em>resembles</em> the original enough to carry its emotional weight and historical authority, but the resemblance becomes spectral—a ghost of itself.</span>
+            </div>
+            <ul style="margin: 10px 0; padding-left: 20px; line-height: 1.8; font-size: 14px;">
+                <li><strong>Hito Steyerl (2009):</strong> "The poor image is a copy in motion... distributed for free... compressed... ripped... remixed"</li>
+                <li><strong>The Paradox:</strong> As quality ↓ circulation ↑ power ↑</li>
+                <li><strong>Ethical Question:</strong> Florence Owens Thompson never controlled or benefited from Migrant Mother's circulation. Does compression violence compound representational violence?</li>
+                <li><strong>Who benefits?</strong> Platforms profit from circulation. Original subject loses agency with each generation.</li>
             </ul>
         </div>
     </div>
@@ -228,15 +254,39 @@
             canvas.width = targetWidth;
             canvas.height = targetHeight;
             
-            // Draw image
-            ctx.drawImage(sourceImg, 0, 0, targetWidth, targetHeight);
-            
-            // Add slight pixelation for lower quality stages
-            if (quality < 0.5) {
-                ctx.imageSmoothingEnabled = false;
+            // For stages with low quality, apply multiple compression passes to show visible degradation
+            if (quality < 0.95) {
+                // Create temporary canvas for compression
+                const tempCanvas = document.createElement('canvas');
+                const tempCtx = tempCanvas.getContext('2d');
+                tempCanvas.width = targetWidth;
+                tempCanvas.height = targetHeight;
+                
+                // Disable smoothing for lower quality
+                if (quality < 0.5) {
+                    ctx.imageSmoothingEnabled = false;
+                    tempCtx.imageSmoothingEnabled = false;
+                }
+                
+                // Draw to temp canvas
+                tempCtx.drawImage(sourceImg, 0, 0, targetWidth, targetHeight);
+                
+                // Convert to compressed blob and back to create visible artifacts
+                tempCanvas.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    const compressedImg = new Image();
+                    compressedImg.onload = function() {
+                        ctx.drawImage(compressedImg, 0, 0);
+                        URL.revokeObjectURL(url);
+                        updateStatus(`✓ Generated ${canvasId}: ${targetWidth}×${targetHeight}px @ ${Math.round(quality * 100)}% quality`);
+                    };
+                    compressedImg.src = url;
+                }, 'image/jpeg', quality);
+            } else {
+                // Original - just draw directly
+                ctx.drawImage(sourceImg, 0, 0, targetWidth, targetHeight);
+                updateStatus(`✓ Generated ${canvasId}: ${targetWidth}×${targetHeight}px (original quality)`);
             }
-            
-            updateStatus(`✓ Generated ${canvasId}: ${targetWidth}×${targetHeight}px`);
         }
         
         function downloadImage(canvasId, filename) {
@@ -266,21 +316,39 @@
         // Console instructions
         console.log('='.repeat(60));
         console.log('POOR IMAGE DEGRADATION GENERATOR');
+        console.log('SYMPATHETIC MAGIC PROJECT - ETH-REP-2025');
         console.log('='.repeat(60));
-        console.log('\nInstructions:');
-        console.log('OPTION A: Use Migrant Mother');
-        console.log('  1. Click "DOWNLOAD MIGRANT MOTHER FROM LOC" button');
+        console.log('\n⚠️ PROVOCATION:');
+        console.log('Why does a blurry, compressed image circulate faster than the pristine original?');
+        console.log('');
+        console.log('\nHOW IT WORKS:');
+        console.log('✓ Actual JPEG compression applied (not just resizing)');
+        console.log('✓ Multiple quality levels: 95% → 60% → 30% → 15%');
+        console.log('✓ Visible artifacts appear in stages 3 & 4');
+        console.log('✓ Each stage demonstrates progressive loss of control');
+        console.log('');
+        console.log('\nINSTRUCTIONS:');
+        console.log('OPTION A: Use Migrant Mother (Dorothea Lange, 1936)');
+        console.log('  1. Click "DOWNLOAD MIGRANT MOTHER FROM LOC"');
         console.log('  2. Wait for automatic generation of all 4 stages');
-        console.log('  3. Click download button for each stage');
-        console.log('\nOPTION B: Use Your Own Image');
-        console.log('  1. Click "CHOOSE FILE" button');
-        console.log('  2. Select any JPG, PNG, or image file');
-        console.log('  3. Wait for automatic generation');
-        console.log('  4. Click download button for each stage');
-        console.log('\n4. Save files to /Users/gaia/SYMPATHETIC MAGIC/images/');
-        console.log('\nTheoretical framework: Hito Steyerl (2009)');
-        console.log('Each stage demonstrates circulation vs. quality trade-off');
-        console.log('As quality degrades, circulation power often increases');
+        console.log('  3. Compare visible quality degradation across stages');
+        console.log('  4. Download any/all stages');
+        console.log('');
+        console.log('OPTION B: Use Your Own Image');
+        console.log('  1. Click "CHOOSE FILE"');
+        console.log('  2. Select JPG, PNG, or other image');
+        console.log('  3. Observe automatic degradation generation');
+        console.log('');
+        console.log('\nSYMPATHETIC MAGIC CONNECTION:');
+        console.log('[CONTAGION] → Contact leaves permanent trace');
+        console.log('  Once shared, the image\'s connection to its subject persists');
+        console.log('[SIMILARITY] → Degraded copy still resembles original');
+        console.log('  Retains emotional weight despite quality loss');
+        console.log('');
+        console.log('\nTHEORETICAL FRAMEWORK:');
+        console.log('Hito Steyerl (2009): "The poor image is a copy in motion"');
+        console.log('THE PARADOX: Quality ↓ Circulation ↑ Power ↑');
+        console.log('ETHICAL ISSUE: Subject loses control with each generation');
     </script>
 </body>
 </html>

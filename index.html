@@ -497,14 +497,22 @@
                     <li>Created: 2025-11-06</li>
                 </ul>
             </div>
-            <div class="footer-section" style="grid-column: 1 / -1; margin-top: calc(var(--spacing) * 4); padding-top: calc(var(--spacing) * 4); border-top: 1px solid var(--color-grid);">
-                <h3>Image Generators</h3>
-                <ul style="display: flex; gap: calc(var(--spacing) * 3);">
-                    <li><a href="generate-images-browser.html" style="color: var(--color-accent); text-decoration: underline;">Poor Image Degradation Generator →</a></li>
-                    <li><a href="generate-digital-avatar.html" style="color: var(--color-accent); text-decoration: underline;">Digital Avatar Mockup Generator →</a></li>
-                </ul>
-            </div>
         </footer>
+
+        <!-- IMAGE GENERATORS -->
+        <div style="margin-top: calc(var(--spacing) * 8); padding: calc(var(--spacing) * 4) 0; border-top: 2px solid var(--color-text);">
+            <h3 style="font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px; margin-bottom: calc(var(--spacing) * 2); color: var(--color-gray-mid);">Image Generation Tools</h3>
+            <div style="display: flex; gap: calc(var(--spacing) * 4);">
+                <a href="generate-images-browser.html" style="flex: 1; padding: calc(var(--spacing) * 3); background: var(--color-bg); border: 1px solid var(--color-grid); text-decoration: none; color: var(--color-text); transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--color-text)'" onmouseout="this.style.borderColor='var(--color-grid)'">
+                    <div style="font-weight: bold; margin-bottom: calc(var(--spacing));">Poor Image Degradation Generator →</div>
+                    <div style="font-size: 0.85em; color: var(--color-gray-mid);">Generate 4 compression stages (Hito Steyerl concept)</div>
+                </a>
+                <a href="generate-digital-avatar.html" style="flex: 1; padding: calc(var(--spacing) * 3); background: var(--color-bg); border: 1px solid var(--color-grid); text-decoration: none; color: var(--color-text); transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--color-text)'" onmouseout="this.style.borderColor='var(--color-grid)'">
+                    <div style="font-weight: bold; margin-bottom: calc(var(--spacing));">Digital Avatar Mockup Generator →</div>
+                    <div style="font-size: 0.85em; color: var(--color-gray-mid);">Create sympathetic magic object visualization</div>
+                </a>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -539,7 +547,7 @@
         console.log('- Minimal but functional interaction');
         console.log('- Transparent about construction');
         console.log('---');
-        console.log('Image Generators Available:');
+        console.log('Image Generation Tools (linked at bottom after footer):');
         console.log('- generate-images-browser.html (Poor Image Degradation)');
         console.log('- generate-digital-avatar.html (Digital Avatar Mockup)');
     </script>
