@@ -4,7 +4,7 @@ Poor Image Degradation Generator
 Creates 3 stages of progressive image compression to demonstrate Hito Steyerl's "poor image" concept
 """
 
-import requests
+import urllib.request
 from PIL import Image
 from io import BytesIO
 import os
@@ -38,9 +38,9 @@ STAGES = [
 def download_source_image(url):
     """Download the source image from URL"""
     print(f"Downloading source image from Library of Congress...")
-    response = requests.get(url)
-    response.raise_for_status()
-    img = Image.open(BytesIO(response.content))
+    with urllib.request.urlopen(url) as response:
+        data = response.read()
+    img = Image.open(BytesIO(data))
     print(f"✓ Downloaded: {img.size[0]}×{img.size[1]}px, mode: {img.mode}")
     return img
 

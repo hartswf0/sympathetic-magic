@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poor Image Generator - Browser Version</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border: 3px solid #000;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #000;
+            padding-bottom: 10px;
+        }
+        .stage {
+            margin: 30px 0;
+            border: 2px solid #666;
+            padding: 20px;
+            background: #fafafa;
+        }
+        .stage h2 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            background: #000;
+            color: #fff;
+            padding: 8px;
+        }
+        canvas {
+            border: 1px solid #000;
+            max-width: 100%;
+            display: block;
+            margin: 10px 0;
+            filter: grayscale(100%);
+        }
+        button {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            font-family: monospace;
+            font-size: 14px;
+            cursor: pointer;
+            margin: 5px;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #333;
+        }
+        .info {
+            font-size: 12px;
+            color: #666;
+            margin: 10px 0;
+        }
+        .controls {
+            margin: 20px 0;
+            padding: 20px;
+            background: #000;
+            color: #fff;
+        }
+        .status {
+            font-size: 14px;
+            margin: 10px 0;
+            padding: 10px;
+            background: #ffe;
+            border-left: 4px solid #fa0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>POOR IMAGE DEGRADATION GENERATOR</h1>
+        <p class="info">Based on Hito Steyerl's "In Defense of the Poor Image" (2009)</p>
+        
+        <div class="controls">
+            <h2 style="color: #fff; font-size: 18px; margin-bottom: 10px;">STEP 1: LOAD SOURCE IMAGE</h2>
+            <button onclick="loadMigrantMother()">↓ DOWNLOAD MIGRANT MOTHER FROM LOC</button>
+            <p class="info" style="color: #ccc; margin: 10px 0;">This will load the Dorothea Lange photograph and generate all degradation stages automatically.</p>
+            
+            <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #444;">
+                <h3 style="color: #fff; font-size: 16px; margin-bottom: 10px;">OR: UPLOAD YOUR OWN IMAGE</h3>
+                <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="handleFileUpload(event)">
+                <button onclick="document.getElementById('fileInput').click()">📁 CHOOSE FILE</button>
+                <p class="info" style="color: #ccc; margin-top: 10px;">Upload any JPG, PNG, or other image file to create degradation series.</p>
+            </div>
+        </div>
+        
+        <div class="status" id="status">Ready to generate images...</div>
+        
+        <!-- Original -->
+        <div class="stage">
+            <h2>STAGE 1: ORIGINAL (High Resolution)</h2>
+            <canvas id="canvas-original"></canvas>
+            <div class="info" id="info-original">Dimensions: - | File size: -</div>
+            <button onclick="downloadImage('canvas-original', 'migrant-mother-original.jpg')">💾 DOWNLOAD ORIGINAL</button>
+        </div>
+        
+        <!-- Stage 2 -->
+        <div class="stage">
+            <h2>STAGE 2: FIRST COMPRESSION (Social Media)</h2>
+            <canvas id="canvas-stage2"></canvas>
+            <div class="info" id="info-stage2">Dimensions: 1080px width | Quality: 60% | Context: Platform compression begins</div>
+            <button onclick="downloadImage('canvas-stage2', 'poor-image-stage-2-compression.jpg')">💾 DOWNLOAD STAGE 2</button>
+        </div>
+        
+        <!-- Stage 3 -->
+        <div class="stage">
+            <h2>STAGE 3: SCREENSHOT & REMIX (Heavy Compression)</h2>
+            <canvas id="canvas-stage3"></canvas>
+            <div class="info" id="info-stage3">Dimensions: 720px width | Quality: 30% | Context: Decontextualized, artifacts visible</div>
+            <button onclick="downloadImage('canvas-stage3', 'poor-image-stage-3-remix.jpg')">💾 DOWNLOAD STAGE 3</button>
+        </div>
+        
+        <!-- Stage 4 -->
+        <div class="stage">
+            <h2>STAGE 4: INFINITE CIRCULATION (Extreme Degradation)</h2>
+            <canvas id="canvas-stage4"></canvas>
+            <div class="info" id="info-stage4">Dimensions: 480px width | Quality: 15% | Context: Pure circulation, author unknown</div>
+            <button onclick="downloadImage('canvas-stage4', 'poor-image-stage-4-circulation.jpg')">💾 DOWNLOAD STAGE 4</button>
+        </div>
+        
+        <div style="margin-top: 40px; padding: 20px; border: 2px dashed #000; background: #f9f9f9;">
+            <h3>THEORETICAL FRAMEWORK:</h3>
+            <ul style="margin: 10px 0; padding-left: 20px; line-height: 1.8;">
+                <li><strong>Hito Steyerl:</strong> "The poor image is a copy in motion... distributed for free... compressed... ripped... remixed"</li>
+                <li><strong>Paradox:</strong> As quality degrades, circulation increases</li>
+                <li><strong>Power dynamics:</strong> Who benefits from spread? Who loses control?</li>
+                <li><strong>Sympathetic magic connection:</strong> Each copy retains trace of original, but degradation shows the violence of circulation</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const SOURCE_URL = 'https://tile.loc.gov/storage-services/service/pnp/fsa/8b29000/8b29500/8b29516v.jpg';
+        
+        // CORS proxy (if needed - try direct first)
+        const PROXY_URL = 'https://corsproxy.io/?';
+        
+        function updateStatus(message) {
+            document.getElementById('status').textContent = message;
+            console.log(message);
+        }
+        
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            updateStatus(`⏳ Loading ${file.name}...`);
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    updateStatus(`✓ ${file.name} loaded successfully! Generating degradation series...`);
+                    generateAllStages(img);
+                };
+                img.onerror = function() {
+                    updateStatus('✗ Failed to load image. Please try a different file.');
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        function loadMigrantMother() {
+            updateStatus('⏳ Downloading Migrant Mother from Library of Congress...');
+            
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            
+            img.onload = function() {
+                updateStatus('✓ Image loaded successfully! Generating degradation series...');
+                generateAllStages(img);
+            };
+            
+            img.onerror = function() {
+                updateStatus('⚠ Direct download failed. Trying CORS proxy...');
+                // Try with proxy
+                const imgProxy = new Image();
+                imgProxy.crossOrigin = 'anonymous';
+                imgProxy.onload = function() {
+                    updateStatus('✓ Image loaded via proxy! Generating degradation series...');
+                    generateAllStages(imgProxy);
+                };
+                imgProxy.onerror = function() {
+                    updateStatus('✗ Failed to load image. Please use the file upload option instead.');
+                };
+                imgProxy.src = PROXY_URL + SOURCE_URL;
+            };
+            
+            img.src = SOURCE_URL;
+        }
+        
+        function generateAllStages(sourceImg) {
+            // Original
+            generateStage(sourceImg, 'canvas-original', sourceImg.width, 0.95);
+            
+            // Stage 2: First compression
+            generateStage(sourceImg, 'canvas-stage2', 1080, 0.60);
+            
+            // Stage 3: Screenshot & remix  
+            generateStage(sourceImg, 'canvas-stage3', 720, 0.30);
+            
+            // Stage 4: Infinite circulation
+            generateStage(sourceImg, 'canvas-stage4', 480, 0.15);
+            
+            updateStatus('✓ All stages generated! Click download buttons to save images.');
+        }
+        
+        function generateStage(sourceImg, canvasId, targetWidth, quality) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            // Calculate height maintaining aspect ratio
+            const aspectRatio = sourceImg.height / sourceImg.width;
+            const targetHeight = Math.round(targetWidth * aspectRatio);
+            
+            canvas.width = targetWidth;
+            canvas.height = targetHeight;
+            
+            // Draw image
+            ctx.drawImage(sourceImg, 0, 0, targetWidth, targetHeight);
+            
+            // Add slight pixelation for lower quality stages
+            if (quality < 0.5) {
+                ctx.imageSmoothingEnabled = false;
+            }
+            
+            updateStatus(`✓ Generated ${canvasId}: ${targetWidth}×${targetHeight}px`);
+        }
+        
+        function downloadImage(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            
+            // Determine quality from filename
+            let quality = 0.95;
+            if (filename.includes('stage-2')) quality = 0.60;
+            if (filename.includes('stage-3')) quality = 0.30;
+            if (filename.includes('stage-4')) quality = 0.15;
+            
+            // Convert to blob with quality setting
+            canvas.toBlob(function(blob) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                updateStatus(`✓ Downloaded: ${filename} (${(blob.size / 1024).toFixed(1)} KB)`);
+            }, 'image/jpeg', quality);
+        }
+        
+        // Console instructions
+        console.log('='.repeat(60));
+        console.log('POOR IMAGE DEGRADATION GENERATOR');
+        console.log('='.repeat(60));
+        console.log('\nInstructions:');
+        console.log('OPTION A: Use Migrant Mother');
+        console.log('  1. Click "DOWNLOAD MIGRANT MOTHER FROM LOC" button');
+        console.log('  2. Wait for automatic generation of all 4 stages');
+        console.log('  3. Click download button for each stage');
+        console.log('\nOPTION B: Use Your Own Image');
+        console.log('  1. Click "CHOOSE FILE" button');
+        console.log('  2. Select any JPG, PNG, or image file');
+        console.log('  3. Wait for automatic generation');
+        console.log('  4. Click download button for each stage');
+        console.log('\n4. Save files to /Users/gaia/SYMPATHETIC MAGIC/images/');
+        console.log('\nTheoretical framework: Hito Steyerl (2009)');
+        console.log('Each stage demonstrates circulation vs. quality trade-off');
+        console.log('As quality degrades, circulation power often increases');
+    </script>
+</body>
+</html>

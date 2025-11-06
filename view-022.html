@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sympathetic Media Protocol: Frazer - NO EXTERNAL IMAGES</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: #FFF;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: #222;
+            border: 3px solid #00FF00;
+            box-shadow: 0 0 20px rgba(0,255,0,0.3);
+            padding: 30px;
+            margin-bottom: 80px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #00FF00;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #00FF00;
+            font-size: 2em;
+            text-shadow: 0 0 10px #00FF00;
+            margin-bottom: 10px;
+        }
+
+        .header h2 {
+            color: #FFFF00;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: #AAA;
+            font-size: 0.9em;
+        }
+
+        .panel {
+            display: none;
+            border: 2px solid #00FF00;
+            padding: 25px;
+            margin-bottom: 20px;
+            background: #1a1a1a;
+            min-height: 500px;
+            position: relative;
+        }
+
+        .panel:first-of-type {
+            display: block;
+        }
+
+        .panel.active {
+            display: block;
+        }
+
+        .panel h3 {
+            color: #00FF00;
+            font-size: 1.4em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #00FF00;
+            border-bottom: 1px solid #00FF00;
+            padding-bottom: 10px;
+        }
+
+        .panel p {
+            color: #CCC;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+        }
+
+        .panel strong {
+            color: #FF6600;
+        }
+
+        .code {
+            background: #0a0a0a;
+            border-left: 3px solid #00FF00;
+            padding: 10px 15px;
+            margin: 15px 0;
+            font-size: 0.9em;
+            color: #00FF00;
+        }
+
+        .visual-block {
+            background: #0a0a0a;
+            border: 2px dashed #00FF00;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: center;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            font-size: 0.9em;
+            color: #FFFF00;
+        }
+
+        .ascii-art {
+            font-size: 0.8em;
+            color: #00FF00;
+            line-height: 1;
+            white-space: pre;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: space-between;
+        }
+
+        button {
+            background: #00FF00;
+            color: #000;
+            border: 2px solid #00FF00;
+            padding: 12px 25px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.2s;
+        }
+
+        button:hover:not(:disabled) {
+            background: #00AA00;
+            box-shadow: 0 0 10px #00FF00;
+        }
+
+        button:disabled {
+            background: #444;
+            color: #666;
+            border-color: #666;
+            cursor: not-allowed;
+        }
+
+        .status-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #000;
+            border-top: 2px solid #00FF00;
+            color: #00FF00;
+            padding: 10px 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            display: flex;
+            justify-content: space-between;
+            z-index: 1000;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #00FF00;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .citation {
+            color: #888;
+            font-size: 0.8em;
+            margin-top: 15px;
+            border-top: 1px solid #444;
+            padding-top: 10px;
+        }
+
+        .warning {
+            background: #1a0a0a;
+            border-left: 3px solid #FF0000;
+            color: #FF6666;
+            padding: 10px 15px;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SYMPATHETIC MEDIA PROTOCOL</h1>
+            <h2>FRAZER'S GOLDEN BOUGH - DECONSTRUCTED</h2>
+            <p>Mission: Understand ancient magic for digital ethics</p>
+            <p style="color: #FF6666; margin-top: 10px;">⚠ NO EXTERNAL IMAGES - Self-contained presentation</p>
+        </div>
+
+        <!-- PANEL 0 -->
+        <div class="panel">
+            <h3>◈ INITIATION SEQUENCE: KEY QUESTION ◈</h3>
+            <p><strong>THE QUESTION:</strong></p>
+            <p>How do sympathetic magic's principles shape the ethics of representing memory, identity, and community in media?</p>
+            
+            <div class="visual-block">
+                <div class="ascii-art">
+   ┌─────────────────┐
+   │  J.G. FRAZER    │
+   │  1854-1941      │
+   │  THEORIST OF    │
+   │  SYMPATHETIC    │
+   │  MAGIC          │
+   └─────────────────┘
+                </div>
+            </div>
+
+            <p>This module deconstructs J.G. Frazer's foundational text <strong>"The Golden Bough"</strong> (1922) to understand how symbolic systems generate belief and action.</p>
+            
+            <p><strong style="color: #FF6666;">UNDERSTANDING THIS PROTOCOL IS CRITICAL TO DIGITAL ETHICS.</strong></p>
+
+            <div class="citation">SOURCE: Frazer, J.G. (1922). The Golden Bough. 3rd Edition. Macmillan.</div>
+        </div>
+
+        <!-- PANEL 1 -->
+        <div class="panel">
+            <h3>◈ PROTOCOL 01: SYMPATHETIC MAGIC - OVERVIEW ◈</h3>
+            
+            <p>Frazer identifies magic principles that resolve into TWO fundamental laws:</p>
+            
+            <div class="code">
+1. LAW OF SIMILARITY
+   "Like produces like"
+   Effect resembles cause
+
+2. LAW OF CONTACT
+   "Things once in contact act at a distance"
+   Physical severing does not end influence
+            </div>
+
+            <div class="visual-block">
+                <div class="ascii-art">
+    EFFECT ────→ CAUSE
+      ↑            ↑
+      │            │
+  SYMBOLIC    MATERIAL
+  REALM       REALM
+      │            │
+      └────────────┘
+   SYMPATHETIC LINK
+                </div>
+            </div>
+
+            <p>These are the foundational principles of all sympathetic magic systems across cultures.</p>
+
+            <div class="citation">SOURCE: Frazer, J.G. (1922). The Golden Bough, p. 20a.</div>
+        </div>
+
+        <!-- PANEL 2 -->
+        <div class="panel">
+            <h3>◈ SUB-PROTOCOL 01.1: LAW OF SIMILARITY ◈</h3>
+
+            <p>The magician infers that any effect can be produced by <strong>IMITATING IT</strong>.</p>
+
+            <p>This is called <strong>Homoeopathic Magic</strong> or <strong>Imitative Magic</strong>.</p>
+
+            <div class="visual-block">
+                <div class="ascii-art">
+    REFLECTION ═══ ORIGINAL
+    
+    What happens to
+    the reflection
+    
+    ↓
+    
+    Happens to
+    the original
+                </div>
+            </div>
+
+            <p>The principle: <strong>Mimicry becomes causality.</strong> The similarity between symbol and thing makes the symbol functionally equivalent to the thing.</p>
+
+            <p>Example logic: "I can burn this drawing of my enemy → His body burns."</p>
+
+            <div class="citation">SOURCE: Frazer, J.G. (1922). The Golden Bough, p. 20a.</div>
+        </div>
+
+        <!-- PANEL 3 -->
+        <div class="panel">
+            <h3>◈ CASE STUDY: HOSTILE IMITATION - OJIBWAY ◈</h3>
+
+            <p><strong>ACTION:</strong> Destroy enemy by injuring its image.</p>
+
+            <p><strong>METHOD:</strong> Ojibway make wooden image of foe → insert needle in head/heart → foe feels pain/dies.</p>
+
+            <div class="visual-block">
+                <div class="ascii-art">
+    WOODEN IMAGE
+    ┌─────────────┐
+    │     ●●      │ ← Eyes
+    │      ▼      │ ← Needle inserted
+    │   ▪ ▪ ▪ ▪   │
+    └─────────────┘
+          ↓
+    ORIGINAL PERSON
+    FEELS PAIN AT
+    SAME LOCATION
+                </div>
+            </div>
+
+            <p>The <strong>sympathetic link</strong> is based on similarity: the wooden figure resembles the person enough to be functionally identical for magical purposes.</p>
+
+            <div class="citation">SOURCE: Frazer, J.G. (1922). The Golden Bough, p. 22a.</div>
+        </div>
+
+        <!-- PANEL 4 -->
+        <div class="panel">
+            <h3>◈ SUB-PROTOCOL 01.2: LAW OF CONTACT ◈</h3>
+
+            <p>Whatever is done to a material object affects the <strong>PERSON ONCE IN CONTACT WITH IT</strong>.</p>
+
+            <p>This is called <strong>Contagious Magic</strong>.</p>
+
+            <div class="visual-block">
+                <div class="ascii-art">
+    PERSON ════════ OBJECT
+      │ hair           │
+      │ nails          │
+      │ blood          │
+      │ spittle        │
+      └─────CUT────────┘
+      
+    CONTACT SEVERED
+    BUT LINK PERSISTS
+    
+    Act on object → affects person
+                </div>
+            </div>
+
+            <p>The principle: Physical contact creates a permanent sympathetic link. Distance and time cannot break it.</p>
+
+            <p>Example logic: "I have your hair → I can curse you from 100 miles away."</p>
+
+            <div class="citation">SOURCE: Frazer, J.G. (1922). The Golden Bough, p. 20a.</div>
+        </div>
+
+        <!-- PANEL 5 -->
+        <div class="panel">
+            <h3>◈ CASE STUDY: COMBINED MALAY CHARM ◈</h3>
+
+            <p><strong>HYBRID PROTOCOL:</strong> Combine BOTH similarity AND contact magic for maximum effect.</p>
+
+            <div class="code">
+INGREDIENTS:
+- Wax effigy (SIMILARITY)
+- Victim's hair (CONTACT)
+- Victim's nails (CONTACT)
+- Victim's spittle (CONTACT)
+
+PROCEDURE:
+Insert materials into wax figure
+Scorch over lamp
+
+INCANTATION:
+"It is not wax...
+ It is liver, heart, spleen..."
+            </div>
+
+            <div class="visual-block">
+                <div class="ascii-art">
+    ┌──────────────────┐
+    │   WAX FIGURE     │
+    │   + HAIR         │
+    │   + NAILS        │ ← HOMOEOPATHIC
+    │   + SPITTLE      │ ← CONTAGIOUS
+    │                  │
+    └─────────┬────────┘
+              │
+           SCORCH
+              │
+              ↓
+         VICTIM BURNS
+              (at a distance)
+                </div>
+            </div>
+
+            <p>The combination of both principles maximizes magical effect: the figure LOOKS like the person (similarity) AND contains their biological material (contact).</p>
+
+            <div class="citation">SOURCE: Frazer, J.G. (1922). The Golden Bough, p. 22a-22b.</div>
+        </div>
+
+        <!-- PANEL 6 -->
+        <div class="panel">
+            <h3>◈ PROTOCOL 02: THEORETICAL vs. PRACTICAL MAGIC ◈</h3>
+
+            <p>Frazer distinguishes between two ways of approaching magic:</p>
+
+            <div class="code">
+THEORETICAL MAGIC:
+- Magic as "spurious system of natural law"
+- Magic as pseudo-science
+- Magic as flawed explanation of causality
+
+PRACTICAL MAGIC:
+- Magic as "set of precepts"
+- Magic as ritual procedures
+- Magic as technique for achieving ends
+            </div>
+
+            <p><strong>Key insight:</strong> Primitive practitioners know magic ONLY on its practical side. They perform rituals that "work" (produce desired outcomes) without understanding the theoretical mechanism.</p>
+
+            <p>Magic is <strong>ART, NEVER SCIENCE</strong> - effective practice based on false theory.</p>
+
+            <div class="citation">SOURCE: Frazer, J.G. (1922). The Golden Bough, p. 20a-20b.</div>
+        </div>
+
+        <!-- PANEL 7 -->
+        <div class="panel">
+            <h3>◈ PROTOCOL 02.1: THE FUNDAMENTAL FALLACY ◈</h3>
+
+            <p>Frazer identifies magic as a "misapplication of the association of ideas."</p>
+
+            <div class="code">
+HOMOEOPATHIC FALLACY:
+Assuming things which RESEMBLE each other
+ARE FUNCTIONALLY THE SAME
+
+CONTAGIOUS FALLACY:
+Assuming things once in CONTACT
+ARE ALWAYS IN CONTACT
+(even after physical separation)
+            </div>
+
+            <div class="visual-block">
+                <div class="ascii-art">
+    COGNITIVE ERROR:
+
+    Look similar?
+         ↓
+    → MUST be identical
+    → Acting on symbol = acting on thing
+    
+    This is WRONG
+    (but feels inevitable)
+                </div>
+            </div>
+
+            <p>Magic works because humans are pattern-recognition machines prone to specific cognitive errors. We conflate similarity with identity, and assume contact creates permanent bonds.</p>
+
+            <div class="citation">SOURCE: Frazer, J.G. (1922). The Golden Bough, p. 21b.</div>
+        </div>
+
+        <!-- PANEL 8 -->
+        <div class="panel">
+            <h3>◈ PROTOCOL 03: BENEVOLENT IMITATION - FERTILITY ◈</h3>
+
+            <p>Sympathetic magic is not always hostile. Positive applications use the same principles to CREATE rather than DESTROY.</p>
+
+            <div class="code">
+BATAKS (Sumatra):
+Barren woman holds WOODEN IMAGE OF CHILD
+to conceive
+
+DYAKS (Borneo):
+Wizard mimics childbirth movements
+with stone representing baby
+            </code>
+
+            <div class="visual-block">
+                <div class="ascii-art">
+    IMITATE DESIRED STATE
+    
+    Want: Child
+         ↓
+    Action: Hold wooden child image
+         ↓
+    Theory: Similarity causes reality
+         ↓
+    Result: (desired) Pregnancy
+                </div>
+            </div>
+
+            <p>The same principle of sympathetic magic: make the desired outcome REAL through imitation. If you mime childbirth, birth will follow.</p>
+
+            <div class="citation">SOURCE: Frazer, J.G. (1922). The Golden Bough, p. 23a.</div>
+        </div>
+
+        <!-- PANEL 9 -->
+        <div class="panel">
+            <h3>◈ PROTOCOL 03.1: BENEVOLENT IMITATION - HEALING ◈</h3>
+
+            <p>Color-based healing uses sympathetic magic to transfer properties.</p>
+
+            <div class="code">
+HINDUS (jaundice cure):
+- Banish yellow (jaundice) to yellow BIRDS
+- Infuse red (health) from RED BULL
+- Transfer color-property via similarity
+
+STONECURLEW CURE:
+- Bird has LARGE GOLDEN EYES
+- Golden property draws out yellow jaundice
+- Visual similarity = functional equivalence
+            </div>
+
+            <div class="visual-block">
+                <div class="ascii-art">
+    PATIENT with jaundice (yellow)
+           ↓
+    YELLOW BIRD (similar property)
+           ↓
+    Jaundice transfers to bird
+           ↓
+    PATIENT healed (red/healthy)
+                </div>
+            </div>
+
+            <p>The principle: properties are transferable through sympathetic correspondence. Red transfers health, yellow transfers disease, etc.</p>
+
+            <div class="citation">SOURCE: Frazer, J.G. (1922). The Golden Bough, p. 24a-24b.</div>
+        </div>
+
+        <!-- PANEL 10 -->
+        <div class="panel">
+            <h3>◈ PROTOCOL 03.2: PROXY HEALING - DOCTOR AS MIRROR ◈</h3>
+
+            <p>The healer mimics the patient's condition to transfer illness OUT of patient.</p>
+
+            <div class="code">
+PERCHE (France):
+Doctor contorts own stomach
+Patient's stomach pain ceases
+
+DYAK SHAMAN:
+Medicine-man pretends to DIE
+Sick person recovers
+
+MECHANISM:
+Doctor becomes sympathetic COPY of patient
+Illness transfers to copy
+Original patient heals
+            </code>
+
+            <div class="visual-block">
+                <div class="ascii-art">
+    PATIENT (sick)
+         ↓
+    DOCTOR (mimics symptoms)
+         ↓
+    Sympathetic similarity
+    created
+         ↓
+    ILLNESS TRANSFERS
+    to doctor (as sympathetic copy)
+         ↓
+    PATIENT HEALS
+                </div>
+            </div>
+
+            <p>The doctor functions as a sympathetic substitute through imitation of symptoms.</p>
+
+            <div class="citation">SOURCE: Frazer, J.G. (1922). The Golden Bough, p. 25a.</div>
+        </div>
+
+        <!-- PANEL 11 -->
+        <div class="panel">
+            <h3>◈ PROTOCOL 04: RESOURCE GENERATION - TOTEMS ◈</h3>
+
+            <p>Aboriginal Australian peoples use sympathetic magic to multiply food resources.</p>
+
+            <div class="code">
+CENTRAL AUSTRALIA:
+Each totem clan responsible for multiplying
+their totem animal/plant (e.g., witchetty grubs)
+
+ARUNTA PRACTICE:
+Clan performs ceremonial pantomime
+of grubs emerging from ground
+Grubs increase in number in region
+            </code>
+
+            <div class="visual-block">
+                <div class="ascii-art">
+    WANT: More grubs
+         ↓
+    MIME: Grubs emerging
+         ↓
+    PERFORM: Ritual repetition
+         ↓
+    RESULT: Grubs multiply
+              (sympathetic imitation
+               causes reality)
+                </div>
+            </div>
+
+            <p>Ceremonial imitation of desired abundance creates actual abundance through sympathetic correspondence.</p>
+
+            <div class="citation">SOURCE: Frazer, J.G. (1922). The Golden Bough, p. 26a.</div>
+        </div>
+
+        <!-- PANEL 12 -->
+        <div class="panel">
+            <h3>◈ PROTOCOL 04.1: SYMPATHETIC HUNTING MAGIC ◈</h3>
+
+            <p>Hunters use sympathetic magic to guarantee successful catch.</p>
+
+            <div class="code">
+NOOTKA (British Columbia):
+Wizard makes FISH IMAGE
+Places it in water
+Real fish attracted to image
+Catch guaranteed
+
+CAMBODIAN HUNTER:
+Simulates being CAUGHT IN NET
+before actual hunting
+Real catch follows
+            </code>
+
+            <div class="visual-block">
+                <div class="ascii-art">
+    METHOD 1: SIMILARITY
+    Fish image in water
+         ↓
+    Attracts real fish
+    (image is sympathetic lure)
+    
+    METHOD 2: IMITATION
+    Hunter caught in net (mimics)
+         ↓
+    Real fish caught in net
+    (imitation precedes reality)
+                </div>
+            </div>
+
+            <p>Both methods: use sympathetic correspondence to guarantee desired outcome (catch) by preceding it with image/imitation.</p>
+
+            <div class="citation">SOURCE: Frazer, J.G. (1922). The Golden Bough, p. 26b.</div>
+        </div>
+
+        <!-- PANEL 13 -->
+        <div class="panel">
+            <h3>◈ PROTOCOL 05: NEGATIVE MAGIC - TABOO ◈</h3>
+
+            <p>Taboos are the NEGATIVE pole of sympathetic magic.</p>
+
+            <p><strong>Magic:</strong> "DO THIS" (sorcery - positive imitation)</p>
+            <p><strong>Taboo:</strong> "DO NOT DO THIS, lest [bad outcome] occur"</p>
+
+            <div class="code">
+TABOO is PREVENTIVE magic
+based on same principles of similarity
+and contact
+
+If you want to PREVENT an outcome,
+avoid actions that RESEMBLE it
+            </code>
+
+            <div class="visual-block">
+                <div class="ascii-art">
+    TABOO LOGIC:
+
+    Want to prevent: Entanglement
+         ↓
+    Avoid: Actions that resemble entanglement
+         ↓
+    Therefore: Don't play Cat's Cradle
+              (fingers tangling in string
+               resembles harpoon line entanglement)
+                </div>
+            </div>
+
+            <p>Taboos prevent undesired outcomes through NEGATIVE imitation - avoiding actions that resemble bad results.</p>
+
+            <div class="citation">SOURCE: Frazer, J.G. (1922). The Golden Bough, p. 27a-27b.</div>
+        </div>
+
+        <!-- PANEL 14 -->
+        <div class="panel">
+            <h3>◈ CASE STUDY: TABOO - CAT'S CRADLE ◈</h3>
+
+            <p><strong>THE RULE:</strong> Esquimaux boys forbidden to play Cat's Cradle.</p>
+
+            <p><strong>THE RATIONALE:</strong> Fingers might later become entangled in harpoon line during hunting.</p>
+
+            <div class="visual-block">
+                <div class="ascii-art">
+    STRING GAME
+    (Cat's Cradle)
+         ↓
+    Fingers tangled
+    in string
+         ↓
+    SIMILARITY
+         ↓
+    Must avoid, or:
+         ↓
+    Fingers WILL tangle
+    in harpoon line
+    (during hunting)
+         ↓
+    Death
+                </div>
+            </div>
+
+            <p><strong>MECHANISM:</strong> Similarity-based avoidance. Fingers tangled in play = fingers tangled in real hunting = failure and death.</p>
+
+            <p>Prevent the imitation, prevent the reality.</p>
+
+            <div class="citation">SOURCE: Frazer, J.G. (1922). The Golden Bough, p. 27b.</div>
+        </div>
+
+        <!-- PANEL 15 -->
+        <div class="panel">
+            <h3>◈ CASE STUDY: TABOO - SPINNING ◈</h3>
+
+            <p><strong>THE RULE:</strong> Huzul (Carpathians) wives may NOT SPIN while husband eats.</p>
+
+            <p><strong>THE RATIONALE:</strong> Game will "turn and wind like the spindle" - hunter will miss.</p>
+
+            <div class="visual-block">
+                <div class="ascii-art">
+    WIFE SPINS
+    (spindle rotating)
+         ↓
+    SIMILARITY
+         ↓
+    GAME TWISTS
+    (spins like spindle)
+         ↓
+    HUNTER MISSES
+              (can't catch spinning prey)
+         ↓
+    STARVATION
+                </div>
+            </div>
+
+            <p><strong>MECHANISM:</strong> Similarity-based prevention. Spinning motion in home CAUSES spinning motion in game CAUSES hunting failure.</p>
+
+            <p>The wife's action is a sympathetic simulation that produces real hunting consequences.</p>
+
+            <div class="citation">SOURCE: Frazer, J.G. (1922). The Golden Bough, p. 27b.</div>
+        </div>
+
+        <!-- PANEL 16 -->
+        <div class="panel">
+            <h3>◈ FRAZER'S CONCLUSION ◈</h3>
+
+            <p>Magic is:</p>
+
+            <div class="code">
+"One great disastrous fallacy,
+ a mistaken conception of
+ the ASSOCIATION OF IDEAS"
+            </code>
+
+            <p>Magic divides into two opposed poles:</p>
+
+            <div class="visual-block">
+                <div class="ascii-art">
+    SORCERY (positive)         TABOO (negative)
+    "Do this"                  "Don't do this"
+         ↓                           ↓
+    Imitate desired outcome    Avoid resembling bad outcome
+         ↓                           ↓
+    Force reality              Prevent reality
+         
+    BOTH BASED ON SAME FALLACY:
+    Similarity creates causality
+    Contact creates permanent bonds
+                </div>
+            </div>
+
+            <p>Both magic and taboo are "vain and futile" - they work psychologically (placebo/nocebo) but not actually.</p>
+
+            <p>Yet they <strong>generate observable behavior</strong> and structure entire societies.</p>
+
+            <div class="citation">SOURCE: Frazer, J.G. (1922). The Golden Bough, p. 27b.</div>
+        </div>
+
+        <!-- PANEL 17 -->
+        <div class="panel">
+            <h3>◈ MISSION BRIEF: APPLYING FRAZER TO DIGITAL MEDIA ◈</h3>
+
+            <p>You now understand sympathetic magic. Apply this framework to digital systems:</p>
+
+            <div class="code">
+DIGITAL AVATAR = SYMPATHETIC IMAGE
+- Avatar resembles person (similarity)
+- Data from person embedded in avatar (contact)
+- Acting on avatar affects person
+
+DEEPFAKE = HOSTILE SYMPATHETIC MAGIC
+- Image resembles target (similarity)
+- Behavioral imitation (contact/contagion)
+- False image causes real harm
+
+DATA PROFILE = CONTAGIOUS CONTACT
+- Aggregated from your traces (hair, nails)
+- Continues to affect you at distance
+- "Acting on profile" = real consequences
+
+SOCIAL MEDIA = SYMPATHETIC RESONANCE
+- Profile must resemble "real you" (similarity)
+- Engagement creates sympathetic bond (contact)
+- What you simulate becomes real (Frazer's principle)
+            </code>
+
+            <p><strong style="color: #FF6666;">ETHICAL QUESTION:</strong></p>
+            <p>If Frazer's principles are "fallacies," why do they generate such real consequences in digital systems?</p>
+
+            <p><strong>ANSWER:</strong> Because belief structures reality. Sympathetic magic "works" not as physics but as cultural technology that makes people ACT as if it works.</p>
+
+            <div class="warning">
+⚠ CRITICAL IMPLICATION:
+Digital systems encode sympathetic magic principles.
+They DEPEND on false associations (similarity/contact)
+to function. Understanding this is prerequisite to
+ethical design and media literacy.
+            </div>
+
+            <div class="citation">ANALYSIS: Application of Frazer's framework to contemporary digital ethics</div>
+        </div>
+
+        <div class="nav-buttons">
+            <button id="prevBtn">← PREVIOUS</button>
+            <span id="pageNum" style="color: #00FF00; padding: 12px;">PAGE 1 / 18</span>
+            <button id="nextBtn">NEXT →</button>
+        </div>
+    </div>
+
+    <div class="status-bar">
+        <span>
+            <span class="status-indicator"></span>
+            SYSTEM: OPERATIONAL
+        </span>
+        <span>NO EXTERNAL IMAGES - SELF-CONTAINED</span>
+        <span id="debug">DEBUG: ALL_LOCAL</span>
+    </div>
+
+    <script>
+        let currentPanel = 0;
+        const panels = document.querySelectorAll('.panel');
+        const totalPanels = panels.length;
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const pageNum = document.getElementById('pageNum');
+
+        function showPanel(n) {
+            panels.forEach(p => p.classList.remove('active'));
+            panels[n].classList.add('active');
+            pageNum.textContent = `PAGE ${n + 1} / ${totalPanels}`;
+            
+            prevBtn.disabled = (n === 0);
+            nextBtn.disabled = (n === totalPanels - 1);
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentPanel > 0) {
+                currentPanel--;
+                showPanel(currentPanel);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentPanel < totalPanels - 1) {
+                currentPanel++;
+                showPanel(currentPanel);
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentPanel > 0) {
+                currentPanel--;
+                showPanel(currentPanel);
+            }
+            if (e.key === 'ArrowRight' && currentPanel < totalPanels - 1) {
+                currentPanel++;
+                showPanel(currentPanel);
+            }
+        });
+
+        showPanel(0);
+    </script>
+</body>
+</html>
