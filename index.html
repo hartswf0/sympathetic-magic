@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYMPATHETIC MAGIC — INDEX</title>
+    <style>
+        /* RESET & BASE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-bg: #F7F7F5;
+            --color-text: #1A1A1A;
+            --color-accent: #FF3B30;
+            --color-grid: #D0D0D0;
+            --color-gray-mid: #666666;
+            --spacing: 8px;
+            --font-mono: 'Courier New', Courier, monospace;
+            --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: var(--color-bg);
+            color: var(--color-text);
+            font-family: var(--font-sans);
+            font-size: 14px;
+            line-height: 1.6;
+            padding: calc(var(--spacing) * 6);
+            min-height: 100vh;
+        }
+
+        /* GRID SYSTEM */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: calc(var(--spacing) * 3);
+            position: relative;
+        }
+
+        /* VISIBLE GRID LINES */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent calc(var(--spacing) - 1px), var(--color-grid) calc(var(--spacing) - 1px), var(--color-grid) var(--spacing)),
+                repeating-linear-gradient(90deg, transparent, transparent calc(var(--spacing) - 1px), var(--color-grid) calc(var(--spacing) - 1px), var(--color-grid) var(--spacing));
+            pointer-events: none;
+            opacity: 0.15;
+            z-index: -1;
+        }
+
+        /* HEADER */
+        header {
+            grid-column: 1 / -1;
+            border-bottom: 2px solid var(--color-text);
+            padding-bottom: calc(var(--spacing) * 3);
+            margin-bottom: calc(var(--spacing) * 6);
+        }
+
+        h1 {
+            font-family: var(--font-sans);
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: calc(var(--spacing) * 2);
+        }
+
+        .project-code {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--color-gray-mid);
+            letter-spacing: 0.05em;
+        }
+
+        /* METADATA BAR */
+        .metadata {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: calc(var(--spacing) * 3);
+            margin-bottom: calc(var(--spacing) * 8);
+            padding: calc(var(--spacing) * 3);
+            background: rgba(0, 0, 0, 0.02);
+            border: 1px solid var(--color-grid);
+        }
+
+        .metadata-item {
+            font-family: var(--font-mono);
+            font-size: 10px;
+        }
+
+        .metadata-label {
+            color: var(--color-gray-mid);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .metadata-value {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* PRESENTATION LIST */
+        .presentations {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            gap: calc(var(--spacing) * 6);
+        }
+
+        .presentation-card {
+            display: grid;
+            grid-template-columns: 80px 1fr 200px;
+            gap: calc(var(--spacing) * 4);
+            padding: calc(var(--spacing) * 4);
+            border: 2px solid var(--color-text);
+            background: white;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .presentation-card:hover {
+            background: var(--color-accent);
+            color: white;
+            transform: translateX(4px);
+        }
+
+        .presentation-card:hover .presentation-number {
+            color: white;
+        }
+
+        .presentation-card:hover .presentation-meta {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .presentation-number {
+            font-family: var(--font-mono);
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--color-accent);
+            line-height: 1;
+            padding-top: 4px;
+        }
+
+        .presentation-content h2 {
+            font-family: var(--font-sans);
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: calc(var(--spacing) * 1);
+            letter-spacing: -0.01em;
+        }
+
+        .presentation-description {
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: calc(var(--spacing) * 2);
+        }
+
+        .presentation-tags {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--color-gray-mid);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .presentation-meta {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--color-gray-mid);
+        }
+
+        .presentation-meta-item {
+            margin-bottom: 4px;
+        }
+
+        .presentation-meta-label {
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .presentation-meta-value {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .presentation-card:hover .presentation-meta-value {
+            color: white;
+        }
+
+        /* FOOTER */
+        footer {
+            grid-column: 1 / -1;
+            margin-top: calc(var(--spacing) * 12);
+            padding-top: calc(var(--spacing) * 4);
+            border-top: 1px solid var(--color-grid);
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--color-gray-mid);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: calc(var(--spacing) * 3);
+        }
+
+        .footer-section h3 {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: calc(var(--spacing) * 2);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 4px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            body {
+                padding: calc(var(--spacing) * 3);
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .metadata {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .presentation-card {
+                grid-template-columns: 1fr;
+                gap: calc(var(--spacing) * 2);
+            }
+
+            .presentation-number {
+                font-size: 32px;
+            }
+
+            footer {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ACCESSIBILITY */
+        .presentation-card:focus {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 4px;
+        }
+
+        /* STAMP EFFECT */
+        .stamp {
+            display: inline-block;
+            padding: 4px 12px;
+            border: 2px solid var(--color-accent);
+            color: var(--color-accent);
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transform: rotate(-2deg);
+            margin-left: calc(var(--spacing) * 2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <header>
+            <h1>SYMPATHETIC MAGIC <span class="stamp">INDEX</span></h1>
+            <div class="project-code">
+                PROJECT: SYMPATHEIA PROTOCOL — ETHICS OF REPRESENTATION UNDER SYMPATHETIC PRINCIPLES
+            </div>
+        </header>
+
+        <!-- METADATA -->
+        <div class="metadata">
+            <div class="metadata-item">
+                <div class="metadata-label">Project Code</div>
+                <div class="metadata-value">ETH-REP-2025</div>
+            </div>
+            <div class="metadata-item">
+                <div class="metadata-label">Total Presentations</div>
+                <div class="metadata-value">5 Documents</div>
+            </div>
+            <div class="metadata-item">
+                <div class="metadata-label">Mission</div>
+                <div class="metadata-value">SYMPATHEIA</div>
+            </div>
+            <div class="metadata-item">
+                <div class="metadata-label">Status</div>
+                <div class="metadata-value">ACTIVE</div>
+            </div>
+        </div>
+
+        <!-- PRESENTATIONS -->
+        <div class="presentations">
+            <!-- VIEW 01 -->
+            <a href="view-01.html" class="presentation-card">
+                <div class="presentation-number">01</div>
+                <div class="presentation-content">
+                    <h2>Sympathetic Media Protocol: Mission Briefing</h2>
+                    <p class="presentation-description">
+                        Mission-oriented briefing introducing sympathetic magic principles applied to media ethics. Slide-based navigation with control panel, protocol labels, and ethical hazard warnings in Tom Sachs workshop aesthetic.
+                    </p>
+                    <div class="presentation-tags">
+                        [protocol] · [briefing] · [mission-critical] · slide-navigation · control-panel
+                    </div>
+                </div>
+                <div class="presentation-meta">
+                    <div class="presentation-meta-item">
+                        <div class="presentation-meta-label">File</div>
+                        <div class="presentation-meta-value">view-01.html</div>
+                    </div>
+                    <div class="presentation-meta-item">
+                        <div class="presentation-meta-label">Type</div>
+                        <div class="presentation-meta-value">Slide-based</div>
+                    </div>
+                    <div class="presentation-meta-item">
+                        <div class="presentation-meta-label">Style</div>
+                        <div class="presentation-meta-value">Mission Briefing</div>
+                    </div>
+                    <div class="presentation-meta-item">
+                        <div class="presentation-meta-label">Features</div>
+                        <div class="presentation-meta-value">Tailwind CSS · Fixed Controls</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- VIEW 02 -->
+            <a href="view-02.html" class="presentation-card">
+                <div class="presentation-number">02</div>
+                <div class="presentation-content">
+                    <h2>Frazer's Golden Bough: Deconstructed Ethics Briefing</h2>
+                    <p class="presentation-description">
+                        Extreme conciseness briefing on Frazer's principles. Industrial palette with visible construction, strong borders, offset shadows, and tape details. Direct, blunt, mission-oriented tone with panel-based navigation.
+                    </p>
+                    <div class="presentation-tags">
+                        [frazer] · [golden-bough] · [industrial] · panel-based · extreme-concise
+                    </div>
+                </div>
+                <div class="presentation-meta">
+                    <div class="presentation-meta-item">
+                        <div class="presentation-meta-label">File</div>
+                        <div class="presentation-meta-value">view-02.html</div>
+                    </div>
+                    <div class="presentation-meta-item">
+                        <div class="presentation-meta-label">Type</div>
+                        <div class="presentation-meta-value">Panel-based</div>
+                    </div>
+                    <div class="presentation-meta-item">
+                        <div class="presentation-meta-label">Style</div>
+                        <div class="presentation-meta-value">Briefing Dossier</div>
+                    </div>
+                    <div class="presentation-meta-item">
+                        <div class="presentation-meta-label">Features</div>
+                        <div class="presentation-meta-value">Offset Shadow · Tape Effect</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- VIEW 03 -->
+            <a href="view-03.html" class="presentation-card">
+                <div class="presentation-number">03</div>
+                <div class="presentation-content">
+                    <h2>Ethics of Representation Under Sympathetic Principles</h2>
+                    <p class="presentation-description">
+                        Comprehensive framework applying Frazer's sympathetic magic principles to media representation ethics. Covers memory, identity, and community domains with operational checklists and case studies.
+                    </p>
+                    <div class="presentation-tags">
+                        [similarity] · [association] · [transfer] · [trace] · interactive · checklist-generator
+                    </div>
+                </div>
+                <div class="presentation-meta">
+                    <div class="presentation-meta-item">
+                        <div class="presentation-meta-label">File</div>
+                        <div class="presentation-meta-value">view-03.html</div>
+                    </div>
+                    <div class="presentation-meta-item">
+                        <div class="presentation-meta-label">Type</div>
+                        <div class="presentation-meta-value">Interactive</div>
+                    </div>
+                    <div class="presentation-meta-item">
+                        <div class="presentation-meta-label">Slides</div>
+                        <div class="presentation-meta-value">11 Sections</div>
+                    </div>
+                    <div class="presentation-meta-item">
+                        <div class="presentation-meta-label">Features</div>
+                        <div class="presentation-meta-value">Grid Toggle · Sitemap · Ops Bench</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- VIEW 04 -->
+            <a href="view-04.html" class="presentation-card">
+                <div class="presentation-number">04</div>
+                <div class="presentation-content">
+                    <h2>Sympathetic Magic &amp; Media Representation</h2>
+                    <p class="presentation-description">
+                        Theoretical exploration from Frazer's foundational concepts through photography, digital identity, poor images, appropriation, documentary ethics, and algorithmic memory. Includes live bibliography and 40+ scholarly sources.
+                    </p>
+                    <div class="presentation-tags">
+                        [contagion] · [photography] · [algorithms] · [poor-image] · bibliography · scroll-reactive
+                    </div>
+                </div>
+                <div class="presentation-meta">
+                    <div class="presentation-meta-item">
+                        <div class="presentation-meta-label">File</div>
+                        <div class="presentation-meta-value">view-04.html</div>
+                    </div>
+                    <div class="presentation-meta-item">
+                        <div class="presentation-meta-label">Type</div>
+                        <div class="presentation-meta-value">Scroll-based</div>
+                    </div>
+                    <div class="presentation-meta-item">
+                        <div class="presentation-meta-label">Sections</div>
+                        <div class="presentation-meta-value">8 + Colophon</div>
+                    </div>
+                    <div class="presentation-meta-item">
+                        <div class="presentation-meta-label">Features</div>
+                        <div class="presentation-meta-value">Live Bibliography · Grid View</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- SYMPATHEIA PROTOCOL -->
+            <a href="sympatheia_protocol.html" class="presentation-card">
+                <div class="presentation-number">05</div>
+                <div class="presentation-content">
+                    <h2>Sympatheia Protocol</h2>
+                    <p class="presentation-description">
+                        Protocol documentation and operational framework for applying sympathetic magic principles to media ethics. Companion document with technical specifications and implementation guidelines.
+                    </p>
+                    <div class="presentation-tags">
+                        [protocol] · [operational] · [framework] · [implementation]
+                    </div>
+                </div>
+                <div class="presentation-meta">
+                    <div class="presentation-meta-item">
+                        <div class="presentation-meta-label">File</div>
+                        <div class="presentation-meta-value">sympatheia_protocol.html</div>
+                    </div>
+                    <div class="presentation-meta-item">
+                        <div class="presentation-meta-label">Type</div>
+                        <div class="presentation-meta-value">Reference</div>
+                    </div>
+                    <div class="presentation-meta-item">
+                        <div class="presentation-meta-label">Format</div>
+                        <div class="presentation-meta-value">Documentation</div>
+                    </div>
+                    <div class="presentation-meta-item">
+                        <div class="presentation-meta-label">Features</div>
+                        <div class="presentation-meta-value">Technical Specs</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="footer-section">
+                <h3>Construction</h3>
+                <ul>
+                    <li>HTML5 · CSS3 Grid · Vanilla JavaScript</li>
+                    <li>Self-contained · No external dependencies</li>
+                    <li>Responsive · Accessible · Keyboard navigable</li>
+                    <li>File size: ~4KB (minimized)</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Methodology</h3>
+                <ul>
+                    <li>Tom Sachs aesthetic principles applied</li>
+                    <li>Swiss Grid system · Brutalist typography</li>
+                    <li>Visible construction · Radical transparency</li>
+                    <li>Created: 2025-11-06</li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // KEYBOARD NAVIGATION
+        document.addEventListener('keydown', (e) => {
+            const cards = Array.from(document.querySelectorAll('.presentation-card'));
+            const focused = document.activeElement;
+            const currentIndex = cards.indexOf(focused);
+
+            if (e.key === 'ArrowDown' && currentIndex < cards.length - 1) {
+                e.preventDefault();
+                cards[currentIndex + 1].focus();
+            } else if (e.key === 'ArrowUp' && currentIndex > 0) {
+                e.preventDefault();
+                cards[currentIndex - 1].focus();
+            } else if (e.key === 'Enter' && focused.classList.contains('presentation-card')) {
+                window.location.href = focused.href;
+            }
+        });
+
+        // CONSOLE LOG (VISIBLE CONSTRUCTION)
+        console.log('%c[SYMPATHETIC MAGIC INDEX]', 'font-weight: bold; font-size: 14px;');
+        console.log('Project: ETH-REP-2025 — SYMPATHEIA PROTOCOL');
+        console.log('Total presentations: 5');
+        console.log('Files: view-01.html, view-02.html, view-03.html, view-04.html, sympatheia_protocol.html');
+        console.log('Construction: Tom Sachs aesthetic principles');
+        console.log('Navigation: Click cards or use Arrow keys + Enter');
+        console.log('---');
+        console.log('This index practices what the presentations preach:');
+        console.log('- Visible grid system (8px base)');
+        console.log('- Metadata as design element');
+        console.log('- Minimal but functional interaction');
+        console.log('- Transparent about construction');
+    </script>
+</body>
+</html>

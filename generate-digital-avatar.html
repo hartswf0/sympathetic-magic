@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200, initial-scale=1.0">
+    <title>Digital Avatar Mockup - Sympathetic Magic</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 1200px;
+            height: 900px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: #f5f5f5;
+            overflow: hidden;
+        }
+        
+        .canvas {
+            width: 1200px;
+            height: 900px;
+            background: #ffffff;
+            position: relative;
+            filter: grayscale(100%);
+        }
+        
+        /* Profile Section */
+        .profile-section {
+            position: absolute;
+            top: 80px;
+            left: 80px;
+            width: 400px;
+            border: 3px solid #000;
+            background: #fff;
+            padding: 30px;
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.2);
+        }
+        
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #666 0%, #999 100%);
+            margin: 0 auto 20px;
+            border: 4px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: #fff;
+        }
+        
+        .profile-name {
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+        }
+        
+        .profile-field {
+            margin: 12px 0;
+            padding: 8px;
+            background: #f0f0f0;
+            border-left: 4px solid #000;
+            font-size: 12px;
+            font-family: monospace;
+        }
+        
+        .profile-field strong {
+            display: inline-block;
+            width: 100px;
+        }
+        
+        /* Data Aggregation Nodes */
+        .platform-node {
+            position: absolute;
+            width: 120px;
+            padding: 15px 10px;
+            background: #fff;
+            border: 2px solid #000;
+            text-align: center;
+            font-weight: 700;
+            font-size: 11px;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.15);
+        }
+        
+        .node-facebook { top: 120px; right: 100px; }
+        .node-instagram { top: 280px; right: 80px; }
+        .node-linkedin { top: 440px; right: 120px; }
+        .node-twitter { top: 600px; right: 100px; }
+        
+        /* Connection Lines */
+        .connection-line {
+            position: absolute;
+            height: 2px;
+            background: #000;
+            transform-origin: left center;
+        }
+        
+        .line1 { top: 200px; left: 480px; width: 250px; transform: rotate(0deg); }
+        .line2 { top: 300px; left: 480px; width: 260px; transform: rotate(3deg); }
+        .line3 { top: 400px; left: 480px; width: 280px; transform: rotate(5deg); }
+        .line4 { top: 500px; left: 480px; width: 270px; transform: rotate(10deg); }
+        
+        /* Metadata Tags */
+        .metadata-tag {
+            position: absolute;
+            padding: 6px 12px;
+            background: #000;
+            color: #fff;
+            font-size: 10px;
+            font-family: monospace;
+            border-radius: 3px;
+        }
+        
+        .tag1 { top: 60px; left: 520px; }
+        .tag2 { top: 120px; left: 580px; }
+        .tag3 { top: 180px; left: 540px; }
+        .tag4 { top: 700px; left: 120px; }
+        .tag5 { top: 740px; left: 280px; }
+        .tag6 { top: 780px; left: 180px; }
+        
+        /* Digital Shadow Visualization */
+        .shadow-box {
+            position: absolute;
+            bottom: 80px;
+            left: 80px;
+            width: 350px;
+            border: 3px dashed #000;
+            padding: 20px;
+            background: rgba(255,255,255,0.9);
+        }
+        
+        .shadow-title {
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .shadow-item {
+            font-size: 10px;
+            font-family: monospace;
+            margin: 5px 0;
+            padding-left: 15px;
+            position: relative;
+        }
+        
+        .shadow-item::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+        }
+        
+        /* Tracking Pixels */
+        .tracking-pixel {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #000;
+            border-radius: 50%;
+        }
+        
+        .pixel1 { top: 240px; left: 520px; }
+        .pixel2 { top: 340px; left: 560px; }
+        .pixel3 { top: 440px; left: 540px; }
+        
+        /* Header */
+        .header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: #000;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        
+        /* Data Flow Arrows */
+        .arrow {
+            position: absolute;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .arrow1 { top: 190px; left: 750px; }
+        .arrow2 { top: 290px; left: 770px; }
+        .arrow3 { top: 390px; left: 790px; }
+        .arrow4 { top: 490px; left: 770px; }
+    </style>
+</head>
+<body>
+    <div class="canvas">
+        <!-- Header -->
+        <div class="header">DIGITAL IDENTITY AS SYMPATHETIC OBJECT</div>
+        
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <div class="profile-photo">👤</div>
+            <div class="profile-name">[USER PROFILE]</div>
+            <div class="profile-field"><strong>NAME:</strong> AGGREGATED_IDENTITY_001</div>
+            <div class="profile-field"><strong>EMAIL:</strong> user@████████.com</div>
+            <div class="profile-field"><strong>LOCATION:</strong> 40.7128°N, 74.0060°W</div>
+            <div class="profile-field"><strong>AGE:</strong> 32 [INFERRED]</div>
+            <div class="profile-field"><strong>INTERESTS:</strong> AI ethics, photography, privacy</div>
+            <div class="profile-field"><strong>BEHAVIORS:</strong> 847 tracked actions/day</div>
+            <div class="profile-field"><strong>CONNECTIONS:</strong> 1,247 people, 89 groups</div>
+            <div class="profile-field"><strong>STATUS:</strong> CONTINUOUSLY_MONITORED</div>
+        </div>
+        
+        <!-- Platform Nodes -->
+        <div class="platform-node node-facebook">
+            FACEBOOK<br>
+            <span style="font-size: 9px; font-weight: normal;">2,847 data points</span>
+        </div>
+        <div class="platform-node node-instagram">
+            INSTAGRAM<br>
+            <span style="font-size: 9px; font-weight: normal;">1,293 images tracked</span>
+        </div>
+        <div class="platform-node node-linkedin">
+            LINKEDIN<br>
+            <span style="font-size: 9px; font-weight: normal;">Career trajectory mapped</span>
+        </div>
+        <div class="platform-node node-twitter">
+            TWITTER/X<br>
+            <span style="font-size: 9px; font-weight: normal;">Sentiment analyzed</span>
+        </div>
+        
+        <!-- Connection Lines -->
+        <div class="connection-line line1"></div>
+        <div class="connection-line line2"></div>
+        <div class="connection-line line3"></div>
+        <div class="connection-line line4"></div>
+        
+        <!-- Arrows -->
+        <div class="arrow arrow1">→</div>
+        <div class="arrow arrow2">→</div>
+        <div class="arrow arrow3">→</div>
+        <div class="arrow arrow4">→</div>
+        
+        <!-- Tracking Pixels -->
+        <div class="tracking-pixel pixel1"></div>
+        <div class="tracking-pixel pixel2"></div>
+        <div class="tracking-pixel pixel3"></div>
+        
+        <!-- Metadata Tags -->
+        <div class="metadata-tag tag1">COOKIES: 247 ACTIVE</div>
+        <div class="metadata-tag tag2">IP: 192.168.███.███</div>
+        <div class="metadata-tag tag3">DEVICE_ID: ████████</div>
+        <div class="metadata-tag tag4">LAST_ACTIVE: 14s ago</div>
+        <div class="metadata-tag tag5">CROSS-PLATFORM_ID: SYNCED</div>
+        <div class="metadata-tag tag6">AD_PROFILE: SEGMENT_A47</div>
+        
+        <!-- Digital Shadow Box -->
+        <div class="shadow-box">
+            <div class="shadow-title">Digital Shadow</div>
+            <div class="shadow-item">Search history: 18,293 queries indexed</div>
+            <div class="shadow-item">Purchase data: $47,839 analyzed</div>
+            <div class="shadow-item">Location data: 847 daily pings</div>
+            <div class="shadow-item">Biometric: Face scan (89% confidence)</div>
+            <div class="shadow-item">Social graph: 3rd degree connections mapped</div>
+            <div class="shadow-item">Behavioral pattern: Predictive model active</div>
+            <div class="shadow-item">Data brokers: Sold to 23 entities</div>
+        </div>
+    </div>
+    
+    <script>
+        // Instructions for screenshot
+        console.log("=".repeat(60));
+        console.log("DIGITAL AVATAR MOCKUP - SCREENSHOT INSTRUCTIONS");
+        console.log("=".repeat(60));
+        console.log("\nTo save as image:");
+        console.log("1. Open this file in browser");
+        console.log("2. Take screenshot (Cmd+Shift+4 on Mac, select area)");
+        console.log("3. Save as: digital-avatar-composite.jpg");
+        console.log("4. Move to /Users/gaia/SYMPATHETIC MAGIC/images/");
+        console.log("\nDimensions: 1200×900px (4:3 ratio)");
+        console.log("Filter: Grayscale applied via CSS");
+        console.log("\nPurpose: Demonstrate digital identity as sympathetic magic object");
+        console.log("         - Profile = voodoo doll representation");
+        console.log("         - Data connections = contagion principle");
+        console.log("         - Aggregation = transfer of essence across platforms");
+    </script>
+</body>
+</html>

@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sympatheia Protocol: Ethics of Representation Under Sympathetic Principles</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --red: #FF3B30;
+      --black: #111;
+      --cream: #F7F7F5;
+      --aluminum: #C7C7C7;
+      --accent: #A0A0A0;
+      --grid-size: 8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      background: var(--cream);
+      color: var(--black);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+
+    @media (prefers-contrast: more) {
+      body { background: #FFF; color: #000; }
+      .red-stamp { background: #000; color: #FFF; }
+      .entity-chip { background: #000; color: #FFF; }
+    }
+
+    /* Grid Overlay (toggled with 'G') */
+    body.show-grid::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-image: 
+        linear-gradient(0deg, transparent 24%, rgba(255,59,48,.3) 25%, rgba(255,59,48,.3) 26%, transparent 27%, transparent 74%, rgba(255,59,48,.3) 75%, rgba(255,59,48,.3) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, rgba(255,59,48,.3) 25%, rgba(255,59,48,.3) 26%, transparent 27%, transparent 74%, rgba(255,59,48,.3) 75%, rgba(255,59,48,.3) 76%, transparent 77%, transparent);
+      background-size: var(--grid-size) var(--grid-size);
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* Main Layout */
+    .viewport {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 60px;
+      background: var(--black);
+      display: flex;
+      flex-direction: column;
+      padding: 12px 0;
+      gap: 8px;
+      overflow-y: auto;
+      border-right: 3px dashed var(--red);
+    }
+
+    .tape-tab {
+      width: 50px;
+      height: 50px;
+      background: var(--red);
+      border: none;
+      cursor: pointer;
+      font-size: 10px;
+      color: var(--cream);
+      font-weight: bold;
+      text-align: center;
+      padding: 4px 2px;
+      margin: 0 auto;
+      position: relative;
+      transition: all 0.3s ease;
+      box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      word-wrap: break-word;
+      line-height: 1.1;
+    }
+
+    .tape-tab:hover {
+      transform: translateX(4px);
+      box-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+    }
+
+    .tape-tab.active {
+      background: var(--cream);
+      color: var(--black);
+      border: 2px solid var(--black);
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .slides-container {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      background: var(--cream);
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 100%;
+      padding: 40px 60px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.35, 0, 0.25, 1);
+      background: 
+        linear-gradient(45deg, transparent 48%, var(--aluminum) 49%, var(--aluminum) 51%, transparent 52%),
+        var(--cream);
+      background-size: 4px 4px;
+    }
+
+    .slide.active {
+      left: 0;
+      opacity: 1;
+      z-index: 10;
+    }
+
+    .slide.prev {
+      left: -100%;
+      opacity: 0;
+    }
+
+    /* Header & Title */
+    .red-stamp {
+      background: var(--red);
+      color: var(--cream);
+      padding: 12px 16px;
+      font-weight: 900;
+      font-size: 18px;
+      letter-spacing: 2px;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      box-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+      position: relative;
+      skew: -2deg;
+      font-family: 'Courier New', monospace;
+    }
+
+    .red-stamp::before {
+      content: '■';
+      margin-right: 8px;
+      font-size: 12px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: Helvetica, Arial, sans-serif;
+      font-weight: 900;
+      margin: 16px 0 12px 0;
+      letter-spacing: 1px;
+    }
+
+    h1 { font-size: 48px; }
+    h2 { font-size: 36px; }
+    h3 { font-size: 24px; }
+    h4 { font-size: 14px; }
+
+    p { margin: 12px 0; line-height: 1.8; }
+
+    /* Entity & Morphism Chips */
+    .entity-chip {
+      display: inline-block;
+      background: var(--red);
+      color: var(--cream);
+      padding: 4px 8px;
+      font-weight: 900;
+      font-size: 11px;
+      letter-spacing: 1px;
+      margin: 0 4px 0 0;
+      font-family: 'Courier New', monospace;
+      text-transform: uppercase;
+      box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .morphism-chip {
+      display: inline-block;
+      background: var(--black);
+      color: var(--cream);
+      padding: 4px 6px;
+      font-weight: bold;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      margin: 0 4px 0 0;
+      font-family: 'Courier New', monospace;
+      border: 1px solid var(--black);
+    }
+
+    /* Content Sections */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin: 20px 0;
+    }
+
+    .card {
+      background: var(--cream);
+      border: 2px solid var(--black);
+      padding: 16px;
+      box-shadow: 4px 4px 0 rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .card.risk { border-left: 6px solid var(--red); }
+    .card.duty { border-left: 6px solid var(--black); }
+
+    .card-title {
+      font-weight: 900;
+      font-size: 14px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    .case-tile {
+      background: var(--cream);
+      border: 3px solid var(--black);
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 6px 6px 0 rgba(0,0,0,0.15);
+    }
+
+    .case-tile-title {
+      font-weight: 900;
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: var(--red);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .case-tile-meta {
+      font-size: 11px;
+      color: var(--accent);
+      margin-bottom: 12px;
+      font-family: 'Courier New', monospace;
+    }
+
+    .case-tile-image {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      margin: 16px 0;
+      border: 2px solid var(--black);
+      background: var(--aluminum);
+    }
+
+    .image-credit {
+      font-size: 10px;
+      color: var(--accent);
+      margin-top: 8px;
+      font-style: italic;
+      font-family: 'Courier New', monospace;
+    }
+
+    /* Interactive Elements */
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: var(--red);
+    }
+
+    .checkbox-item label {
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    button {
+      background: var(--red);
+      color: var(--cream);
+      border: 2px solid var(--black);
+      padding: 12px 16px;
+      font-weight: 900;
+      font-size: 12px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.2s ease;
+      box-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+    }
+
+    button:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0 rgba(0,0,0,0.3);
+    }
+
+    button:active {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+    }
+
+    button.secondary {
+      background: var(--black);
+      color: var(--cream);
+    }
+
+    /* Footer & Controls */
+    .controls {
+      background: var(--black);
+      color: var(--cream);
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      font-family: 'Courier New', monospace;
+      border-top: 3px solid var(--red);
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .nav-buttons button {
+      padding: 8px 12px;
+      font-size: 10px;
+    }
+
+    .progress-bar {
+      width: 200px;
+      height: 8px;
+      background: var(--aluminum);
+      border: 1px solid var(--black);
+      margin: 0 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--red);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .slide-counter {
+      min-width: 80px;
+      text-align: right;
+    }
+
+    /* SVG Diagram */
+    .sitemap-svg {
+      width: 100%;
+      max-height: 500px;
+      margin: 20px 0;
+      border: 2px solid var(--black);
+      background: var(--cream);
+    }
+
+    .sitemap-node {
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .sitemap-node:hover rect {
+      filter: brightness(0.9);
+    }
+
+    .sitemap-label {
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      pointer-events: none;
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      border: 2px solid var(--black);
+    }
+
+    th {
+      background: var(--red);
+      color: var(--cream);
+      padding: 12px;
+      text-align: left;
+      font-weight: 900;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    td {
+      padding: 12px;
+      border-bottom: 1px solid var(--aluminum);
+      font-size: 12px;
+    }
+
+    tr:hover { background: rgba(255, 59, 48, 0.05); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar { width: 50px; }
+      .slide { padding: 24px 20px; }
+      .content-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 32px; }
+      h2 { font-size: 24px; }
+    }
+
+    /* Print */
+    @media print {
+      .sidebar, .controls { display: none; }
+      .slide { position: static; left: 0; opacity: 1; page-break-after: always; }
+      .main-content { height: auto; }
+      .slides-container { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <div class="viewport">
+    <!-- SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+      <!-- Tape tabs will be inserted here by JavaScript -->
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+      <div class="slides-container" id="slidesContainer">
+
+        <!-- SLIDE 0: TITLE -->
+        <div class="slide active" data-slide="0">
+          <div class="red-stamp">MISSION PATCH: ETH-REP-2025</div>
+          <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+            <svg width="120" height="120" style="margin-bottom: 32px;">
+              <circle cx="60" cy="60" r="55" fill="none" stroke="#FF3B30" stroke-width="3"/>
+              <circle cx="60" cy="60" r="50" fill="#F7F7F5" stroke="#111" stroke-width="2"/>
+              <text x="60" y="65" font-size="12" font-weight="900" text-anchor="middle" font-family="Courier New">SYMPATHEIA</text>
+              <text x="60" y="50" font-size="8" text-anchor="middle" font-family="Courier New">⬢ ⬢ ⬢</text>
+              <polygon points="60,30 70,45 50,45" fill="#FF3B30"/>
+            </svg>
+            <h1 style="font-size: 42px; margin: 20px 0; letter-spacing: 3px;">SYMPATHEIA PROTOCOL</h1>
+            <h2 style="font-size: 20px; margin: 12px 0; color: var(--red); text-transform: uppercase; letter-spacing: 2px;">ETHICS OF REPRESENTATION</h2>
+            <p style="font-size: 14px; margin: 24px 0; max-width: 500px; line-height: 1.8;">Under Sympathetic Principles: How [similarity] and [association] shape the ethics of representing <span class="entity-chip">memory</span> <span class="entity-chip">identity</span> <span class="entity-chip">community</span> in media.</p>
+            <p style="font-family: 'Courier New', monospace; font-size: 11px; color: var(--aluminum); margin-top: 40px;">THU, 11.06.2025 | FIELD MANUAL v1.0</p>
+          </div>
+        </div>
+
+        <!-- SLIDE 1: MISSION BRIEF -->
+        <div class="slide" data-slide="1">
+          <div class="red-stamp">SEC-01: MISSION BRIEF</div>
+          <h2 style="margin-top: 0; font-size: 28px;">How do sympathetic magic's principles shape the ethics of representing memory, identity, and community in media?</h2>
+          <div style="margin-top: 32px; border-left: 6px solid var(--red); padding-left: 20px;">
+            <h3 style="color: var(--red); margin-top: 0;">KEY CONSTRUCT</h3>
+            <p><span class="entity-chip">Ethics-Of-Representation-Under-Sympathetic-Principles</span> — a <span class="entity-chip">normative-framework</span> that <span class="morphism-chip">[evaluates]</span> media representations by how <span class="morphism-chip">[similarity]</span> and <span class="morphism-chip">[association]</span> produce effects on audiences, subjects, and relations across time.</p>
+          </div>
+          <div style="margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="card">
+              <div class="card-title">Principle 1: Similarity</div>
+              <p style="font-size: 13px;">"Like affects like" — form, style, voice in a representation can transfer qualities to its referent and shape perception.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">Principle 2: Association</div>
+              <p style="font-size: 13px;">"Contact leaves a trace" — past contact persists through archives, metadata, platforms, networks and propagates downstream effects.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 2: PRINCIPLES SPLIT -->
+        <div class="slide" data-slide="2">
+          <div class="red-stamp">SEC-02: PRINCIPLES IN PRACTICE</div>
+          <div class="content-grid" style="margin-top: 20px;">
+            <div>
+              <h3>[SIMILARITY]</h3>
+              <p style="font-size: 13px;">When a photographic representation mirrors reality too closely, its form becomes a proxy for the subject. Risk: form-based discrimination [sticks] to the referent.</p>
+              <div style="background: var(--black); color: var(--cream); padding: 12px; margin: 12px 0; font-family: 'Courier New', monospace; font-size: 10px;">
+                Example: A portrait photograph [transfers] the subject's perceived identity to viewers. Reuse of that image propagates stereotypes.
+              </div>
+              <div style="margin-top: 12px;">
+                <strong>Risks:</strong>
+                <ul style="margin-left: 16px; font-size: 12px;">
+                  <li><span class="morphism-chip">[overwrite]</span> original intent</li>
+                  <li><span class="morphism-chip">[impute]</span> stereotypes</li>
+                  <li><span class="morphism-chip">[stick]</span> labels to subjects</li>
+                </ul>
+              </div>
+            </div>
+            <div>
+              <h3>[ASSOCIATION]</h3>
+              <p style="font-size: 13px;">Metadata, platforms, archives create associative fields. A photograph's context—where it's stored, who owns it, how it's tagged—determines its downstream effects.</p>
+              <div style="background: var(--black); color: var(--cream); padding: 12px; margin: 12px 0; font-family: 'Courier New', monospace; font-size: 10px;">
+                Example: An archival photograph once [contacted] with a specific narrative is re-circulated. The narrative [persists] via metadata tags, amplifying misreading.
+              </div>
+              <div style="margin-top: 12px;">
+                <strong>Risks:</strong>
+                <ul style="margin-left: 16px; font-size: 12px;">
+                  <li><span class="morphism-chip">[propagate]</span> downstream harms</li>
+                  <li><span class="morphism-chip">[retrigger]</span> trauma</li>
+                  <li><span class="morphism-chip">[flatten]</span> diversity</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 3: MEMORY DOMAIN -->
+        <div class="slide" data-slide="3">
+          <div class="red-stamp">SEC-03: DOMAIN <MEMORY></div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+            <div>
+              <h3 style="color: var(--red);">RISKS</h3>
+              <div class="card risk">
+                <div class="card-title">OVERWRITE</div>
+                <p style="font-size: 12px;">New representation [overwrites] historical context, erasing nuance.</p>
+              </div>
+              <div class="card risk">
+                <div class="card-title">SANITIZE</div>
+                <p style="font-size: 12px;">Uncomfortable histories are [sanitized], distorting memory.</p>
+              </div>
+              <div class="card risk">
+                <div class="card-title">MISLEAD</div>
+                <p style="font-size: 12px;">Form of representation [misleads] viewers about the referent.</p>
+              </div>
+              <div class="card risk">
+                <div class="card-title">RETRIGGER</div>
+                <p style="font-size: 12px;">Reactivation of archival material [retrieves] trauma.</p>
+              </div>
+            </div>
+            <div>
+              <h3 style="color: var(--black);">DUTIES</h3>
+              <div class="card duty">
+                <div class="card-title">[CONTEXTUALIZE]</div>
+                <p style="font-size: 12px;">Provide historical framing; expose lineage of representation.</p>
+              </div>
+              <div class="card duty">
+                <div class="card-title">[CONSENT-SEEK]</div>
+                <p style="font-size: 12px;">Obtain ongoing consent from subjects and kin.</p>
+              </div>
+              <div class="card duty">
+                <div class="card-title">[TRACE]</div>
+                <p style="font-size: 12px;">Document metadata, provenance, circulation paths.</p>
+              </div>
+              <div class="card duty">
+                <div class="card-title">[SLOW-DOWN]</div>
+                <p style="font-size: 12px;">Require friction before access to sensitive materials.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- CASE TILE: Portraits and Dreams -->
+          <div class="case-tile" style="margin-top: 24px;">
+            <div class="case-tile-title">Portraits and Dreams (Wendy Ewald)</div>
+            <div class="case-tile-meta">1976–Present | Photography + Interviews | Appalachia, KY</div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Carl_Mydans_photograph_showing_African_American_rural_family_in_Mississippi_1936.jpg/800px-Carl_Mydans_photograph_showing_African_American_rural_family_in_Mississippi_1936.jpg" alt="Historical photograph of rural Appalachian family, circa 1930s-40s documenting lived experience." class="case-tile-image" loading="lazy" data-src-foraged="https://commons.wikimedia.org/wiki/File:Carl_Mydans_photograph_showing_African_American_rural_family_in_Mississippi_1936.jpg">
+            <p style="font-size: 13px;"><strong>Brief:</strong> Ewald gave children in rural Kentucky cameras to photograph their own lives, families, dreams, and fears. She co-authored representation with subjects, seeking ongoing consent.</p>
+            <p style="font-size: 12px;"><strong>Risks (Similarity):</strong> Photographs [transfer] childhood innocence and vulnerability; risk of [stick]ing stereotypes of rural poverty to region.</p>
+            <p style="font-size: 12px;"><strong>Risks (Association):</strong> Archive [traces] specific children; reuse of images [propagates] across platforms without updated context.</p>
+            <p style="font-size: 12px;"><strong>Duties:</strong> [contextualize] with children's own narratives; [consent-seek] through revisits 40+ years later; [trace] lineage; [slow-down] access with annotations.</p>
+            <p style="font-size: 12px;"><strong>Outcome:</strong> Paradigm shift from extractive documentation to co-authored, longitudinal representation. Updated edition reunites subjects as adults.</p>
+            <div class="image-credit">Photo: Carl Mydans / Library of Congress (Public Domain). Case study: wendyewald.com/portfolio/portraits-and-dreams/</div>
+          </div>
+        </div>
+
+        <!-- SLIDE 4: IDENTITY DOMAIN -->
+        <div class="slide" data-slide="4">
+          <div class="red-stamp">SEC-04: DOMAIN <IDENTITY></div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+            <div>
+              <h3 style="color: var(--red);">RISKS</h3>
+              <div class="card risk">
+                <div class="card-title">[IMPUTE] STEREOTYPES</div>
+                <p style="font-size: 12px;">Casting choices [impute] identity markers; voice [adheres] to body.</p>
+              </div>
+              <div class="card risk">
+                <div class="card-title">[ADHERE] LABELS</div>
+                <p style="font-size: 12px;">Once a voice/appearance is cast, labels [stick] to person.</p>
+              </div>
+              <div class="card risk">
+                <div class="card-title">[BLEED] GROUP→PERSON</div>
+                <p style="font-size: 12px;">Identity features [bleed] from group category to individual.</p>
+              </div>
+              <div class="card risk">
+                <div class="card-title">[STICK] STIGMA</div>
+                <p style="font-size: 12px;">Negative associations [stick] through repeated casting.</p>
+              </div>
+            </div>
+            <div>
+              <h3 style="color: var(--black);">DUTIES</h3>
+              <div class="card duty">
+                <div class="card-title">[CO-AUTHOR]</div>
+                <p style="font-size: 12px;">Include affected communities in casting decisions.</p>
+              </div>
+              <div class="card duty">
+                <div class="card-title">[DISAGGREGATE]</div>
+                <p style="font-size: 12px;">Separate identity markers; avoid conflating traits.</p>
+              </div>
+              <div class="card duty">
+                <div class="card-title">[MINIMIZE] IDENTIFIERS</div>
+                <p style="font-size: 12px;">Reduce visible/audible markers that trigger categorization.</p>
+              </div>
+              <div class="card duty">
+                <div class="card-title">[AUDIT-CASTING]</div>
+                <p style="font-size: 12px;">Review casting rationale for bias; document decisions.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- CASE TILE: Voice Casting Ethics -->
+          <div class="case-tile" style="margin-top: 24px;">
+            <div class="case-tile-title">Voice Casting & Authentic Representation</div>
+            <div class="case-tile-meta">2020–Present | Industry Guidelines | Global Animation & Media</div>
+            <img src="https://commons.wikimedia.org/wiki/File:Suhasini_Maniratnam_-_TeachAIDS_Recording_Session.png" alt="Voice actress recording dialogue in professional studio with microphone, demonstrating voice acting production process." class="case-tile-image" loading="lazy" data-src-foraged="https://commons.wikimedia.org/wiki/File:Suhasini_Maniratnam_-_TeachAIDS_Recording_Session.png">
+            <p style="font-size: 13px;"><strong>Brief:</strong> Animation, dubbing, and voiceover industries grapple with authentic casting. Traditional casting [imputes] voice to identity; emerging frameworks seek [co-author]ed decision-making.</p>
+            <p style="font-size: 12px;"><strong>Risks (Similarity):</strong> Voice [transfers] identity perception; accent or tone [sticks] stereotypes to character and performer.</p>
+            <p style="font-size: 12px;"><strong>Risks (Association):</strong> Casting choice [persists] via archived audio; reuse without consent [propagates] labor extraction and misrepresentation.</p>
+            <p style="font-size: 12px;"><strong>Duties:</strong> [audit-casting] for bias in audition pools; [disaggregate] voice from identity; [minimize] identifiers in character description; [co-author] with performer communities.</p>
+            <p style="font-size: 12px;"><strong>Outcome:</strong> NAVA (National Association of Voice Actors) guidelines now advocate open casting, authentic representation, and transparency in casting rationale.</p>
+            <div class="image-credit">Photo: TeachAIDS (CC BY-SA 2.0). Reference: scu.edu ethical-casting framework & navavoices.org</div>
+          </div>
+        </div>
+
+        <!-- SLIDE 5: COMMUNITY DOMAIN -->
+        <div class="slide" data-slide="5">
+          <div class="red-stamp">SEC-05: DOMAIN <COMMUNITY></div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+            <div>
+              <h3 style="color: var(--red);">RISKS</h3>
+              <div class="card risk">
+                <div class="card-title">[STAND-IN]</div>
+                <p style="font-size: 12px;">Single voice/image [stands-in] for entire community.</p>
+              </div>
+              <div class="card risk">
+                <div class="card-title">[FLATTEN]</div>
+                <p style="font-size: 12px;">Diverse perspectives [flatten] into monolith.</p>
+              </div>
+              <div class="card risk">
+                <div class="card-title">[CLUSTER]</div>
+                <p style="font-size: 12px;">Data/images [cluster] community into stereotyped category.</p>
+              </div>
+              <div class="card risk">
+                <div class="card-title">[STIGMATIZE]</div>
+                <p style="font-size: 12px;">Representation [stigmatize]s entire group via association.</p>
+              </div>
+            </div>
+            <div>
+              <h3 style="color: var(--black);">DUTIES</h3>
+              <div class="card duty">
+                <div class="card-title">[PLURALIZE]</div>
+                <p style="font-size: 12px;">Include diverse voices; avoid single representative.</p>
+              </div>
+              <div class="card duty">
+                <div class="card-title">[RECIPROCATE]</div>
+                <p style="font-size: 12px;">Share benefits/control with community; co-govern.</p>
+              </div>
+              <div class="card duty">
+                <div class="card-title">[GOVERN] TAXONOMIES</div>
+                <p style="font-size: 12px;">Community co-authors categories and metadata.</p>
+              </div>
+              <div class="card duty">
+                <div class="card-title">[STEWARD] DATA</div>
+                <p style="font-size: 12px;">Long-term responsibility for data lifecycle.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- CASE TILE: Stranger with a Camera -->
+          <div class="case-tile" style="margin-top: 24px;">
+            <div class="case-tile-title">Stranger with a Camera (Elizabeth Barret)</div>
+            <div class="case-tile-meta">2000 | Documentary Meta-Analysis | Appalachia, Kentucky</div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Appalachian_mine_entrance.jpg/800px-Appalachian_mine_entrance.jpg" alt="Landscape photograph of Appalachian mountainous terrain showing industrial heritage." class="case-tile-image" loading="lazy" data-src-foraged="https://commons.wikimedia.org/wiki/Category:Appalachia">
+            <p style="font-size: 13px;"><strong>Brief:</strong> Barret's documentary examines how outsider filmmakers represent Appalachia. Investigates 1967 murder of filmmaker; explores community agency in narrative control.</p>
+            <p style="font-size: 12px;"><strong>Risks (Similarity):</strong> Documentary tropes [transfer] poverty stereotypes; visual similarity [sticks] labels to region.</p>
+            <p style="font-size: 12px;"><strong>Risks (Association):</strong> Archive of footage becomes permanent [trace]; reuse [cluster]s region identity; media circulation [propagates] harm without reciprocity.</p>
+            <p style="font-size: 12px;"><strong>Duties:</strong> [pluralize] narrative voices; [reciprocate] through community decision-making; [audit-casting] of documentary frame; [steward] archive with community co-governance.</p>
+            <p style="font-size: 12px;"><strong>Outcome:</strong> Meta-documentary model examines representation ethics itself; shifts focus from extractive documentation to dialogic inquiry.</p>
+            <div class="image-credit">Photo: Wikimedia Commons (public domain). Reference: pbs.org/pov & folkstreams.net</div>
+          </div>
+        </div>
+
+        <!-- SLIDE 6: OPS BENCH -->
+        <div class="slide" data-slide="6">
+          <div class="red-stamp">SEC-06: OPS BENCH – OPERATIONAL MORPHISMS</div>
+          <p style="font-size: 13px; margin-bottom: 20px;">Interactive toggles: Select operations to see risk implications and mitigation tools.</p>
+
+          <div class="checkbox-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="op-audit" data-op="audit">
+              <label for="op-audit"><span class="morphism-chip">[AUDIT]</span> Check casting, metadata, lineage</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="op-limit" data-op="limit">
+              <label for="op-limit"><span class="morphism-chip">[LIMIT-PROPAGATION]</span> Reduce reach, add friction</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="op-repair" data-op="repair">
+              <label for="op-repair"><span class="morphism-chip">[REPAIR]</span> Compensation, counter-narrative</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="op-evaluate" data-op="evaluate">
+              <label for="op-evaluate"><span class="morphism-chip">[EVALUATE]</span> Risk scoring, consent scaling</label>
+            </div>
+          </div>
+
+          <div id="op-details" style="margin-top: 24px;">
+            <div id="op-audit-detail" class="op-detail" style="display: none;">
+              <div class="card">
+                <div class="card-title">[AUDIT] – CHECK CASTING, METADATA, LINEAGE</div>
+                <p style="font-size: 12px;"><strong>Definition:</strong> Systematic review of representation decisions and their provenance.</p>
+                <p style="font-size: 12px;"><strong>Tools:</strong> Casting rationale logs, metadata audits, lineage maps.</p>
+                <p style="font-size: 12px;"><strong>Risk Implications:</strong> High [similarity] → increase [audit-casting] frequency. Large [association] radius → audit metadata tags and platform contexts.</p>
+                <p style="font-size: 12px;"><strong>Example:</strong> Before re-releasing a historical photograph, [audit] its original context, metadata, and downstream usage.</p>
+              </div>
+            </div>
+
+            <div id="op-limit-detail" class="op-detail" style="display: none;">
+              <div class="card">
+                <div class="card-title">[LIMIT-PROPAGATION] – REDUCE REACH, ADD FRICTION</div>
+                <p style="font-size: 12px;"><strong>Definition:</strong> Restrict distribution; require consent/context before access.</p>
+                <p style="font-size: 12px;"><strong>Tools:</strong> Takedown protocols, paywalls, authentication layers, access friction.</p>
+                <p style="font-size: 12px;"><strong>Risk Implications:</strong> When [association] radius expands (viral sharing), activate takedown or friction mechanisms. License restrictions on reuse.</p>
+                <p style="font-size: 12px;"><strong>Example:</strong> Archive material flagged as sensitive requires user to read contextual framing before access.</p>
+              </div>
+            </div>
+
+            <div id="op-repair-detail" class="op-detail" style="display: none;">
+              <div class="card">
+                <div class="card-title">[REPAIR] – COMPENSATION, COUNTER-NARRATIVE, TRACE-MAPS</div>
+                <p style="font-size: 12px;"><strong>Definition:</strong> Active remediation of representational harm.</p>
+                <p style="font-size: 12px;"><strong>Tools:</strong> Compensation funds, counter-narratives, trace documentation, community advisory boards.</p>
+                <p style="font-size: 12px;"><strong>Risk Implications:</strong> When harms are identified (via [audit]), activate [repair]: provide compensation, sponsor counter-narratives, document trace paths.</p>
+                <p style="font-size: 12px;"><strong>Example:</strong> Misrepresented community co-produces counter-documentary; subjects receive residual payments for archival reuse.</p>
+              </div>
+            </div>
+
+            <div id="op-evaluate-detail" class="op-detail" style="display: none;">
+              <div class="card">
+                <div class="card-title">[EVALUATE] – RISK SCORING, LICENSING, CONSENT SCALING</div>
+                <p style="font-size: 12px;"><strong>Definition:</strong> Assign risk levels to representations; scale consent requirements accordingly.</p>
+                <p style="font-size: 12px;"><strong>Tools:</strong> Risk matrices, licensing frameworks, consent protocols, impact assessment.</p>
+                <p style="font-size: 12px;"><strong>Risk Implications:</strong> High [similarity] + large [association] radius = high risk → require strongest consent and longest friction periods.</p>
+                <p style="font-size: 12px;"><strong>Example:</strong> Photograph of vulnerable subject flagged as "high stickiness" → requires explicit consent for every new context; residual payments triggered.</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 24px; background: var(--black); color: var(--cream); padding: 16px; font-family: 'Courier New', monospace; font-size: 11px;">
+            <strong>RISK METER:</strong> <span id="risk-meter">Select operations to assess risk level</span>
+          </div>
+        </div>
+
+        <!-- SLIDE 7: HEURISTICS -->
+        <div class="slide" data-slide="7">
+          <div class="red-stamp">SEC-07: HEURISTICS – SHOP STANDARDS</div>
+          <p style="font-size: 13px; margin-bottom: 20px;">Four operational principles for ethical representation under sympathetic magic.</p>
+
+          <div style="display: grid; gap: 20px;">
+            <div class="card" style="border: 3px solid var(--red);">
+              <div class="card-title" style="color: var(--red); font-size: 16px;">① LIKENESS IS LEVERAGE</div>
+              <p style="font-size: 13px;">When <span class="morphism-chip">[similarity]</span> increases, apply <span class="morphism-chip">[co-author]</span>, <span class="morphism-chip">[contextualize]</span>, <span class="morphism-chip">[audit-casting]</span>.</p>
+              <p style="font-size: 12px; color: var(--accent); margin-top: 12px;"><strong>Implication:</strong> The more closely a representation resembles its referent, the more control and consent it demands. Photorealism requires maximum ethical friction.</p>
+            </div>
+
+            <div class="card" style="border: 3px solid var(--red);">
+              <div class="card-title" style="color: var(--red); font-size: 16px;">② TRACES TRAVEL</div>
+              <p style="font-size: 13px;">When radius of <span class="morphism-chip">[association]</span> expands, add <span class="morphism-chip">[trace]</span>, <span class="morphism-chip">[limit-propagation]</span>, <span class="morphism-chip">[steward]</span>.</p>
+              <p style="font-size: 12px; color: var(--accent); margin-top: 12px;"><strong>Implication:</strong> Archival material persists and multiplies through networks. Each circulation compounds harms. Add friction to limit reach; steward long-term.</p>
+            </div>
+
+            <div class="card" style="border: 3px solid var(--red);">
+              <div class="card-title" style="color: var(--red); font-size: 16px;">③ COUNTER-LIKENESS PROTECTS</div>
+              <p style="font-size: 13px;"><span class="morphism-chip">[pluralize]</span> with counter-examples.</p>
+              <p style="font-size: 12px; color: var(--accent); margin-top: 12px;"><strong>Implication:</strong> Stereotypes thrive via similarity. Introduce diverse representations to break [association] chains. Counter-likeness disrupts magic.</p>
+            </div>
+
+            <div class="card" style="border: 3px solid var(--red);">
+              <div class="card-title" style="color: var(--red); font-size: 16px;">④ CONSENT SCALES WITH STICKINESS</div>
+              <p style="font-size: 13px;">Strengthen <span class="morphism-chip">[consent-seek]</span> and <span class="morphism-chip">[repair]</span> as associative persistence rises.</p>
+              <p style="font-size: 12px; color: var(--accent); margin-top: 12px;"><strong>Implication:</strong> "Sticky" representations (high [similarity] + archived) require ongoing consent, not one-time permission. Build reciprocity into the long term.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 8: SITEMAP -->
+        <div class="slide" data-slide="8">
+          <div class="red-stamp">SEC-08: SITEMAP – FRAMEWORK HIERARCHY</div>
+          <p style="font-size: 13px; margin-bottom: 12px;">Click nodes to expand/collapse branches.</p>
+          <svg class="sitemap-svg" viewBox="0 0 800 600" id="sitemap">
+            <!-- ROOT -->
+            <rect x="300" y="20" width="200" height="40" fill="#FF3B30" stroke="#111" stroke-width="2"/>
+            <text x="400" y="45" font-family="Courier New" font-size="11" font-weight="900" text-anchor="middle" fill="#F7F7F5"><ETHICS-OF-REPRESENTATION></text>
+
+            <!-- BRANCHES -->
+            <line x1="400" y1="60" x2="150" y2="120" stroke="#111" stroke-width="2"/>
+            <line x1="400" y1="60" x2="400" y2="120" stroke="#111" stroke-width="2"/>
+            <line x1="400" y1="60" x2="650" y2="120" stroke="#111" stroke-width="2"/>
+
+            <!-- BRANCH 1: PRINCIPLES -->
+            <rect x="50" y="120" width="200" height="40" fill="#FF3B30" stroke="#111" stroke-width="2"/>
+            <text x="150" y="145" font-family="Courier New" font-size="10" font-weight="900" text-anchor="middle" fill="#F7F7F5">{PRINCIPLES}</text>
+
+            <line x1="150" y1="160" x2="100" y2="200" stroke="#111" stroke-width="1"/>
+            <line x1="150" y1="160" x2="200" y2="200" stroke="#111" stroke-width="1"/>
+            <rect x="70" y="200" width="60" height="30" fill="#111" stroke="#F7F7F5" stroke-width="1"/>
+            <text x="100" y="220" font-family="Courier New" font-size="9" text-anchor="middle" fill="#F7F7F5">[SIMILARITY]</text>
+            <rect x="170" y="200" width="60" height="30" fill="#111" stroke="#F7F7F5" stroke-width="1"/>
+            <text x="200" y="220" font-family="Courier New" font-size="9" text-anchor="middle" fill="#F7F7F5">[ASSOCIATION]</text>
+
+            <!-- BRANCH 2: DOMAINS -->
+            <rect x="300" y="120" width="200" height="40" fill="#FF3B30" stroke="#111" stroke-width="2"/>
+            <text x="400" y="145" font-family="Courier New" font-size="10" font-weight="900" text-anchor="middle" fill="#F7F7F5">{DOMAINS}</text>
+
+            <line x1="400" y1="160" x2="300" y2="200" stroke="#111" stroke-width="1"/>
+            <line x1="400" y1="160" x2="400" y2="200" stroke="#111" stroke-width="1"/>
+            <line x1="400" y1="160" x2="500" y2="200" stroke="#111" stroke-width="1"/>
+            <rect x="270" y="200" width="60" height="30" fill="#FF3B30" stroke="#111" stroke-width="1"/>
+            <text x="300" y="220" font-family="Courier New" font-size="9" text-anchor="middle" fill="#F7F7F5"><MEMORY></text>
+            <rect x="370" y="200" width="60" height="30" fill="#FF3B30" stroke="#111" stroke-width="1"/>
+            <text x="400" y="220" font-family="Courier New" font-size="9" text-anchor="middle" fill="#F7F7F5"><IDENTITY></text>
+            <rect x="470" y="200" width="60" height="30" fill="#FF3B30" stroke="#111" stroke-width="1"/>
+            <text x="500" y="220" font-family="Courier New" font-size="9" text-anchor="middle" fill="#F7F7F5"><COMMUNITY></text>
+
+            <!-- BRANCH 3: OPS -->
+            <rect x="550" y="120" width="200" height="40" fill="#FF3B30" stroke="#111" stroke-width="2"/>
+            <text x="650" y="145" font-family="Courier New" font-size="10" font-weight="900" text-anchor="middle" fill="#F7F7F5">{OPS}</text>
+
+            <line x1="650" y1="160" x2="580" y2="200" stroke="#111" stroke-width="1"/>
+            <line x1="650" y1="160" x2="620" y2="200" stroke="#111" stroke-width="1"/>
+            <line x1="650" y1="160" x2="680" y2="200" stroke="#111" stroke-width="1"/>
+            <line x1="650" y1="160" x2="720" y2="200" stroke="#111" stroke-width="1"/>
+            <rect x="555" y="200" width="50" height="30" fill="#111" stroke="#F7F7F5" stroke-width="1"/>
+            <text x="580" y="220" font-family="Courier New" font-size="9" text-anchor="middle" fill="#F7F7F5">[AUDIT]</text>
+            <rect x="605" y="200" width="30" height="30" fill="#111" stroke="#F7F7F5" stroke-width="1"/>
+            <text x="620" y="220" font-family="Courier New" font-size="7" text-anchor="middle" fill="#F7F7F5">[LIM]</text>
+            <rect x="650" y="200" width="60" height="30" fill="#111" stroke="#F7F7F5" stroke-width="1"/>
+            <text x="680" y="220" font-family="Courier New" font-size="9" text-anchor="middle" fill="#F7F7F5">[REPAIR]</text>
+            <rect x="725" y="200" width="50" height="30" fill="#111" stroke="#F7F7F5" stroke-width="1"/>
+            <text x="750" y="220" font-family="Courier New" font-size="9" text-anchor="middle" fill="#F7F7F5">[EVAL]</text>
+
+            <!-- LEGEND -->
+            <text x="50" y="320" font-family="Courier New" font-size="10" font-weight="bold">LEGEND:</text>
+            <rect x="50" y="330" width="30" height="20" fill="#FF3B30" stroke="#111" stroke-width="1"/>
+            <text x="90" y="345" font-family="Courier New" font-size="9"> = ENTITY {frameworks, domains}</text>
+            <rect x="50" y="360" width="30" height="20" fill="#111" stroke="#F7F7F5" stroke-width="1"/>
+            <text x="90" y="375" font-family="Courier New" font-size="9"> = MORPHISM [operations, principles]</text>
+          </svg>
+        </div>
+
+        <!-- SLIDE 9: CHECKLIST GENERATOR -->
+        <div class="slide" data-slide="9">
+          <div class="red-stamp">SEC-09: CHECKLIST GENERATOR</div>
+          <p style="font-size: 13px; margin-bottom: 20px;">Select applicable duties to generate a printable mitigation checklist.</p>
+
+          <div class="checkbox-group" id="checklist-duties">
+            <div class="checkbox-item">
+              <input type="checkbox" class="duty-check" data-duty="contextualize" data-domain="memory">
+              <label>[CONTEXTUALIZE] — Provide historical framing</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" class="duty-check" data-duty="consent-seek" data-domain="memory">
+              <label>[CONSENT-SEEK] — Obtain ongoing consent</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" class="duty-check" data-duty="trace" data-domain="memory">
+              <label>[TRACE] — Document metadata & provenance</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" class="duty-check" data-duty="slow-down" data-domain="memory">
+              <label>[SLOW-DOWN] — Require access friction</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" class="duty-check" data-duty="co-author" data-domain="identity">
+              <label>[CO-AUTHOR] — Include affected communities</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" class="duty-check" data-duty="disaggregate" data-domain="identity">
+              <label>[DISAGGREGATE] — Separate identity markers</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" class="duty-check" data-duty="minimize" data-domain="identity">
+              <label>[MINIMIZE] IDENTIFIERS — Reduce visible markers</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" class="duty-check" data-duty="audit-casting" data-domain="identity">
+              <label>[AUDIT-CASTING] — Review for bias</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" class="duty-check" data-duty="pluralize" data-domain="community">
+              <label>[PLURALIZE] — Include diverse voices</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" class="duty-check" data-duty="reciprocate" data-domain="community">
+              <label>[RECIPROCATE] — Share benefits & control</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" class="duty-check" data-duty="govern" data-domain="community">
+              <label>[GOVERN] TAXONOMIES — Co-author categories</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" class="duty-check" data-duty="steward" data-domain="community">
+              <label>[STEWARD] DATA — Long-term responsibility</label>
+            </div>
+          </div>
+
+          <div style="margin-top: 24px; display: flex; gap: 12px;">
+            <button onclick="generateChecklist()">GENERATE CHECKLIST</button>
+            <button class="secondary" onclick="clearChecklist()">CLEAR</button>
+          </div>
+
+          <div id="checklist-output" style="margin-top: 24px; display: none;">
+            <div style="background: var(--black); color: var(--cream); padding: 16px; border: 2px solid var(--black);">
+              <h3 style="color: var(--cream); margin-top: 0;">📋 MITIGATION CHECKLIST</h3>
+              <pre id="checklist-json" style="font-family: 'Courier New', monospace; font-size: 11px; overflow-x: auto;"></pre>
+              <button onclick="printChecklist()">PRINT</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 10: FORAGE SOURCES -->
+        <div class="slide" data-slide="10">
+          <div class="red-stamp">SEC-10: FORAGE SOURCES – URLS & ANNOTATIONS</div>
+          <table style="font-size: 12px;">
+            <thead>
+              <tr>
+                <th style="width: 25%;">Title</th>
+                <th style="width: 40%;">URL</th>
+                <th style="width: 20%;">Domain</th>
+                <th style="width: 15%;">Annotation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Sympathetic Magic: Photo Essay</strong></td>
+                <td><code style="font-size: 10px;">magpiesmagazine.com/2023/02/28/…</code></td>
+                <td><span class="entity-chip">theory</span></td>
+                <td>Foundational visual explanation of Frazer's laws</td>
+              </tr>
+              <tr>
+                <td><strong>Frazer, The Golden Bough (pp. 18-19)</strong></td>
+                <td><code style="font-size: 10px;">templeofearth.com/books/…</code></td>
+                <td><span class="entity-chip">theory</span></td>
+                <td>Primary source: similarity & contact magic</td>
+              </tr>
+              <tr>
+                <td><strong>Portraits and Dreams</strong></td>
+                <td><code style="font-size: 10px;">wendyewald.com/portfolio/…</code></td>
+                <td><span class="entity-chip">memory</span> / <span class="entity-chip">identity</span></td>
+                <td>Collaborative photography ethics case study</td>
+              </tr>
+              <tr>
+                <td><strong>Stranger with a Camera</strong></td>
+                <td><code style="font-size: 10px;">pbs.org/pov/films/…</code></td>
+                <td><span class="entity-chip">community</span></td>
+                <td>Documentary meta-analysis of representation ethics</td>
+              </tr>
+              <tr>
+                <td><strong>Ethical Casting Framework</strong></td>
+                <td><code style="font-size: 10px;">scu.edu/ethics/…casting…</code></td>
+                <td><span class="entity-chip">identity</span></td>
+                <td>Voice acting & casting representation in media</td>
+              </tr>
+              <tr>
+                <td><strong>Model Cards for AI Ethics</strong></td>
+                <td><code style="font-size: 10px;">arxiv.org/html/2406.18071…</code></td>
+                <td><span class="entity-chip">dataset</span></td>
+                <td>Dataset documentation & reuse ethics in AI</td>
+              </tr>
+              <tr>
+                <td><strong>Ethical Photography: Vulnerable Communities</strong></td>
+                <td><code style="font-size: 10px;">foreignpress.org/…vulnerable…</code></td>
+                <td><span class="entity-chip">memory</span></td>
+                <td>Consent & representation in documentary photography</td>
+              </tr>
+              <tr>
+                <td><strong>Trauma-Informed Approach to Archives</strong></td>
+                <td><code style="font-size: 10px;">citizenevidence.org/…archives…</code></td>
+                <td><span class="entity-chip">memory</span></td>
+                <td>Archival reactivation, vicarious trauma, harm</td>
+              </tr>
+              <tr>
+                <td><strong>Authentic Casting Best Practices (NAVA)</strong></td>
+                <td><code style="font-size: 10px;">navavoices.org/authentic-casting…</code></td>
+                <td><span class="entity-chip">identity</span></td>
+                <td>Voice actor diversity & authentic representation</td>
+              </tr>
+              <tr>
+                <td><strong>Community Data Governance (Local Contexts)</strong></td>
+                <td><code style="font-size: 10px;">localcontexts.org/…OCAP…</code></td>
+                <td><span class="entity-chip">community</span></td>
+                <td>Indigenous-led framework for data stewardship</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div style="margin-top: 24px; background: var(--aluminum); padding: 16px; border-left: 6px solid var(--red);">
+            <h4>METHOD: URL PROVENANCE</h4>
+            <p style="font-size: 12px;">All URLs were forged from Wikimedia Commons, institutional repositories, and open-access scholarly sources. Each source page includes proper attribution and licensing information. Images use direct file links from CC0, CC BY, or public domain collections. For access queries, consult the original source page.</p>
+          </div>
+        </div>
+
+        <!-- SLIDE 11: CREDITS & LICENSE -->
+        <div class="slide" data-slide="11">
+          <div class="red-stamp">SEC-11: CREDITS & LICENSE</div>
+
+          <h3 style="color: var(--red); margin-top: 0;">DESIGN HOMAGE: Tom Sachs Studio Aesthetic</h3>
+          <p style="font-size: 13px;">This presentation channels Tom Sachs' studio language—NASA-meets-garage, plywood textures, red/white/black palette, visible labels, grid tape, duct-tape tabs—as an aesthetic homage. This work is <strong>not endorsed by</strong> or affiliated with Tom Sachs or his studio. The aesthetic is used to reinforce the intellectual rigor and hands-on methodology of field-manual design.</p>
+
+          <h3 style="color: var(--red);">IMAGES: OPEN-ACCESS SOURCES</h3>
+          <ul style="font-size: 12px;">
+            <li><strong>Wikimedia Commons:</strong> All images sourced from CC0, CC BY, or public domain collections</li>
+            <li><strong>Institutional Archives:</strong> Museum press kits, government archives (public domain)</li>
+            <li><strong>Open Access Repositories:</strong> Scholarly case studies with proper attribution</li>
+          </ul>
+
+          <h3 style="color: var(--red);">CONTENT ATTRIBUTION</h3>
+          <p style="font-size: 12px;"><strong>Frameworks & Concepts:</strong></p>
+          <ul style="font-size: 12px;">
+            <li>Frazer, J.G. <em>The Golden Bough</em> (1890) — foundational sympathetic magic theory</li>
+            <li>Ewald, W. <em>Portraits and Dreams</em> (1985, expanded 2009) — co-authored representation methodology</li>
+            <li>Barret, E. <em>Stranger with a Camera</em> (2000) — documentary ethics & outsider perspective</li>
+            <li>Mitchell et al. "Model Cards for Model Reporting" (2019) — dataset ethics documentation</li>
+          </ul>
+
+          <h3 style="color: var(--red);">LICENSE & USAGE</h3>
+          <p style="font-size: 12px;">This presentation is distributed under <strong>CC BY 4.0</strong>. You are free to share, adapt, and remix, provided you attribute this work and maintain the same license. Educational and non-commercial use encouraged.</p>
+
+          <h3 style="color: var(--red);">CONTACT & METHODOLOGY</h3>
+          <p style="font-size: 12px;"><strong>Author/Designer:</strong> Created as an educational resource exploring the ethics of sympathetic magic in media representation.</p>
+          <p style="font-size: 12px;"><strong>Feedback & Contributions:</strong> This framework is provisional and evolving. Community input, case studies, and critiques are welcome.</p>
+
+          <div style="margin-top: 32px; text-align: center; font-family: 'Courier New', monospace; font-size: 11px; color: var(--accent);">
+            — END FIELD MANUAL —<br>
+            SYMPATHEIA PROTOCOL v1.0<br>
+            THU, 11.06.2025
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CONTROLS -->
+      <div class="controls">
+        <div class="nav-buttons">
+          <button onclick="previousSlide()">← PREV</button>
+          <button onclick="nextSlide()">NEXT →</button>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="slide-counter">
+          <span id="slideNumber">1</span> / <span id="slideTotal">12</span>
+        </div>
+        <button class="secondary" onclick="toggleGrid()" title="Press 'G'">GRID</button>
+        <button class="secondary" onclick="toggleHighContrast()" title="High Contrast Mode">HI-CONTRAST</button>
+        <button class="secondary" onclick="showHelp()" title="Press '?'">HELP</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const totalSlides = document.querySelectorAll('.slide').length;
+    let selectedDuties = [];
+
+    function updateSlide() {
+      document.querySelectorAll('.slide').forEach(slide => slide.classList.remove('active', 'prev'));
+      document.querySelectorAll('.tape-tab').forEach(tab => tab.classList.remove('active'));
+
+      const slides = document.querySelectorAll('.slide');
+      slides[currentSlide].classList.add('active');
+
+      const tabs = document.querySelectorAll('.tape-tab');
+      if (tabs[currentSlide]) tabs[currentSlide].classList.add('active');
+
+      const progress = ((currentSlide + 1) / totalSlides) * 100;
+      document.getElementById('progressFill').style.width = progress + '%';
+      document.getElementById('slideNumber').textContent = currentSlide + 1;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateSlide();
+      }
+    }
+
+    function previousSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlide();
+      }
+    }
+
+    function goToSlide(n) {
+      currentSlide = n;
+      updateSlide();
+    }
+
+    // Initialize Sidebar Tabs
+    function initSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const slideLabels = [
+        'TITLE',
+        'BRIEF',
+        'PRINCIPLES',
+        'MEMORY',
+        'IDENTITY',
+        'COMMUNITY',
+        'OPS',
+        'HEURISTICS',
+        'SITEMAP',
+        'CHECKLIST',
+        'SOURCES',
+        'CREDITS'
+      ];
+
+      slideLabels.forEach((label, i) => {
+        const tab = document.createElement('button');
+        tab.className = 'tape-tab';
+        tab.textContent = label;
+        tab.onclick = () => goToSlide(i);
+        sidebar.appendChild(tab);
+      });
+    }
+
+    // Keyboard Navigation
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') previousSlide();
+      if (e.key === 'g' || e.key === 'G') toggleGrid();
+      if (e.key === '?') showHelp();
+      if (e.key === 'n' || e.key === 'N') toggleKnoll();
+    });
+
+    function toggleGrid() {
+      document.body.classList.toggle('show-grid');
+    }
+
+    function toggleHighContrast() {
+      document.body.style.filter = document.body.style.filter === 'contrast(1.2)' ? 'contrast(1)' : 'contrast(1.2)';
+    }
+
+    function toggleKnoll() {
+      const slides = document.querySelectorAll('.slide');
+      slides.forEach(s => s.style.display = s.style.display === 'grid' ? 'flex' : 'grid');
+    }
+
+    // Operations Toggle
+    document.querySelectorAll('[data-op]').forEach(checkbox => {
+      checkbox.addEventListener('change', e => {
+        document.querySelectorAll('.op-detail').forEach(d => d.style.display = 'none');
+
+        document.querySelectorAll('[data-op]:checked').forEach(cb => {
+          const detailId = 'op-' + cb.dataset.op + '-detail';
+          const detail = document.getElementById(detailId);
+          if (detail) detail.style.display = 'block';
+        });
+
+        updateRiskMeter();
+      });
+    });
+
+    function updateRiskMeter() {
+      const checked = document.querySelectorAll('[data-op]:checked').length;
+      const meter = document.getElementById('risk-meter');
+      const levels = ['SELECT OPERATIONS', 'LOW', 'MEDIUM', 'HIGH', 'CRITICAL'];
+      meter.textContent = '⚠️ ' + (levels[checked] || 'CRITICAL');
+    }
+
+    // Duty Checkboxes
+    document.querySelectorAll('.duty-check').forEach(cb => {
+      cb.addEventListener('change', e => {
+        if (e.target.checked) {
+          selectedDuties.push(e.target.dataset.duty);
+        } else {
+          selectedDuties = selectedDuties.filter(d => d !== e.target.dataset.duty);
+        }
+      });
+    });
+
+    function generateChecklist() {
+      const output = {
+        timestamp: new Date().toISOString(),
+        selected_duties: selectedDuties,
+        total: selectedDuties.length,
+        checklist: selectedDuties.map(d => ({
+          duty: d,
+          status: 'pending',
+          notes: ''
+        }))
+      };
+
+      document.getElementById('checklist-json').textContent = JSON.stringify(output, null, 2);
+      document.getElementById('checklist-output').style.display = 'block';
+    }
+
+    function clearChecklist() {
+      selectedDuties = [];
+      document.querySelectorAll('.duty-check').forEach(cb => cb.checked = false);
+      document.getElementById('checklist-output').style.display = 'none';
+    }
+
+    function printChecklist() {
+      const json = document.getElementById('checklist-json').textContent;
+      const printWindow = window.open('', '', 'height=600,width=800');
+      printWindow.document.write('<pre style="font-family: monospace;">' + json + '</pre>');
+      printWindow.document.close();
+      printWindow.print();
+    }
+
+    function showHelp() {
+      alert('KEYBOARD SHORTCUTS:\n' +
+            '→ / ← : Navigate slides\n' +
+            'G : Toggle grid overlay\n' +
+            'N : Toggle knoll layout\n' +
+            '? : Show this help\n' +
+            '\nCLICK red tabs on left sidebar to jump sections.');
+    }
+
+    // Initialize
+    initSidebar();
+    document.getElementById('slideTotal').textContent = totalSlides;
+    updateSlide();
+  </script>
+</body>
+</html>

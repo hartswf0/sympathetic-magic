@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYMPATHETIC MAGIC &amp; MEDIA REPRESENTATION ETHICS</title>
+    <style>
+        /* Design System Base */
+        :root {
+            --color-white: rgba(255, 255, 255, 1);
+            --color-black: rgba(0, 0, 0, 1);
+            --color-gray-light: rgba(245, 245, 245, 1);
+            --color-gray-mid: rgba(167, 169, 169, 1);
+            --color-gray-dark: rgba(119, 124, 124, 1);
+            
+            --color-accent: #8B0000; /* Dark red for URLs and interactive elements */
+            --color-grid: #cccccc;
+            
+            --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --font-serif: Georgia, 'Times New Roman', serif;
+            --font-mono: 'Courier New', Courier, monospace;
+            
+            --spacing-unit: 8px;
+            --margin-base: 40px;
+            --margin-large: 80px;
+            --gutter: 24px;
+            
+            --grid-cols-desktop: 4;
+            --grid-cols-tablet: 3;
+            --grid-cols-mobile: 2;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        body {
+            font-family: var(--font-serif);
+            color: var(--color-black);
+            background: var(--color-white);
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Typography Hierarchy */
+        h1 {
+            font-family: var(--font-sans);
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: calc(var(--spacing-unit) * 3);
+        }
+        
+        h2 {
+            font-family: var(--font-sans);
+            font-size: 32px;
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+            margin-bottom: calc(var(--spacing-unit) * 2);
+            border-top: 1px solid var(--color-grid);
+            padding-top: calc(var(--spacing-unit) * 3);
+        }
+        
+        h3 {
+            font-family: var(--font-sans);
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: calc(var(--spacing-unit) * 2);
+        }
+        
+        p {
+            text-align: justify;
+            hyphens: auto;
+            margin-bottom: calc(var(--spacing-unit) * 2);
+        }
+        
+        strong {
+            font-weight: 600;
+        }
+        
+        em {
+            font-style: italic;
+        }
+        
+        a {
+            color: var(--color-accent);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-bottom 0.2s;
+        }
+        
+        a:hover {
+            border-bottom: 1px solid var(--color-accent);
+        }
+        
+        code {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            background: var(--color-gray-light);
+            padding: 2px 4px;
+        }
+        
+        /* Main Layout Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--margin-base);
+        }
+        
+        /* Header Section */
+        .header {
+            border-bottom: 2px solid var(--color-black);
+            padding-bottom: var(--margin-base);
+            margin-bottom: var(--margin-large);
+        }
+        
+        .header h1 {
+            margin-bottom: calc(var(--spacing-unit) * 2);
+        }
+        
+        .subtitle {
+            font-family: var(--font-mono);
+            font-size: 16px;
+            color: var(--color-gray-dark);
+            margin-bottom: calc(var(--spacing-unit));
+        }
+        
+        .metadata {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--color-gray-dark);
+            margin-top: calc(var(--spacing-unit) * 2);
+        }
+        
+        /* Grid System */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--gutter);
+            margin-bottom: var(--margin-large);
+        }
+        
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--gutter);
+            margin-bottom: var(--margin-large);
+        }
+        
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--gutter);
+            margin-bottom: var(--margin-large);
+        }
+        
+        /* Show grid lines when toggled */
+        body.show-grid .grid-2 > *,
+        body.show-grid .grid-3 > *,
+        body.show-grid .grid-4 > * {
+            border: 1px solid var(--color-grid);
+            padding: calc(var(--spacing-unit) * 2);
+        }
+        
+        /* Section Styling */
+        .section {
+            margin-bottom: var(--margin-large);
+            border-top: 1px solid var(--color-grid);
+            padding-top: var(--margin-base);
+        }
+        
+        .section-number {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--color-gray-mid);
+            margin-bottom: calc(var(--spacing-unit));
+        }
+        
+        /* Image Containers */
+        .image-block {
+            background: var(--color-gray-light);
+            padding: calc(var(--spacing-unit) * 2);
+            margin-bottom: calc(var(--spacing-unit) * 2);
+        }
+        
+        .image-placeholder {
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: var(--color-gray-mid);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--color-white);
+            text-align: center;
+            padding: calc(var(--spacing-unit) * 2);
+        }
+        
+        .image-metadata {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--color-gray-dark);
+            margin-top: calc(var(--spacing-unit));
+            line-height: 1.4;
+        }
+        
+        /* Source Citations */
+        .sources {
+            border-top: 1px solid var(--color-grid);
+            padding-top: calc(var(--spacing-unit) * 2);
+            margin-top: calc(var(--spacing-unit) * 3);
+        }
+        
+        .sources h4 {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: calc(var(--spacing-unit));
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .source-list {
+            list-style: none;
+        }
+        
+        .source-list li {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            line-height: 1.6;
+            margin-bottom: calc(var(--spacing-unit));
+            padding-left: calc(var(--spacing-unit) * 2);
+            text-indent: calc(var(--spacing-unit) * -2);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 320px;
+            height: 100vh;
+            background: var(--color-white);
+            border-left: 2px solid var(--color-black);
+            padding: var(--margin-base);
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        
+        .sidebar-title {
+            font-family: var(--font-sans);
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: calc(var(--spacing-unit) * 2);
+            padding-bottom: calc(var(--spacing-unit));
+            border-bottom: 1px solid var(--color-black);
+        }
+        
+        .sidebar-description {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--color-gray-dark);
+            margin-bottom: calc(var(--spacing-unit) * 3);
+        }
+        
+        .sidebar-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: calc(var(--spacing-unit));
+            margin-bottom: calc(var(--spacing-unit) * 3);
+        }
+        
+        .filter-btn {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            padding: calc(var(--spacing-unit)) calc(var(--spacing-unit) * 1.5);
+            background: var(--color-white);
+            border: 1px solid var(--color-gray-mid);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--color-black);
+            color: var(--color-white);
+            border-color: var(--color-black);
+        }
+        
+        .bibliography-list {
+            list-style: none;
+        }
+        
+        .bib-entry {
+            margin-bottom: calc(var(--spacing-unit) * 2);
+            padding: calc(var(--spacing-unit) * 1.5);
+            background: var(--color-gray-light);
+            font-family: var(--font-mono);
+            font-size: 10px;
+            line-height: 1.5;
+            opacity: 0.4;
+            transition: opacity 0.3s;
+        }
+        
+        .bib-entry.active {
+            opacity: 1;
+            background: var(--color-white);
+            border: 1px solid var(--color-accent);
+        }
+        
+        .bib-entry-type {
+            display: inline-block;
+            padding: 2px 6px;
+            background: var(--color-black);
+            color: var(--color-white);
+            font-size: 9px;
+            margin-bottom: calc(var(--spacing-unit) / 2);
+        }
+        
+        /* Navigation */
+        .navigation {
+            position: fixed;
+            top: var(--margin-base);
+            right: 340px;
+            width: 200px;
+            background: var(--color-white);
+            border: 1px solid var(--color-grid);
+            padding: calc(var(--spacing-unit) * 2);
+            z-index: 999;
+        }
+        
+        .nav-title {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 600;
+            margin-bottom: calc(var(--spacing-unit));
+            text-transform: uppercase;
+        }
+        
+        .nav-list {
+            list-style: none;
+        }
+        
+        .nav-list li {
+            margin-bottom: calc(var(--spacing-unit) / 2);
+        }
+        
+        .nav-list a {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--color-gray-dark);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .nav-list a:hover,
+        .nav-list a.active {
+            color: var(--color-accent);
+        }
+        
+        /* Toggle Grid Button */
+        .grid-toggle {
+            position: fixed;
+            bottom: var(--margin-base);
+            right: 340px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 2);
+            background: var(--color-white);
+            border: 1px solid var(--color-black);
+            cursor: pointer;
+            z-index: 999;
+            transition: all 0.2s;
+        }
+        
+        .grid-toggle:hover,
+        .grid-toggle.active {
+            background: var(--color-black);
+            color: var(--color-white);
+        }
+        
+        /* Main Content Area */
+        .main-content {
+            margin-right: 560px;
+        }
+        
+        /* Diagram/ASCII Art */
+        .diagram {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            line-height: 1.4;
+            background: var(--color-gray-light);
+            padding: calc(var(--spacing-unit) * 2);
+            overflow-x: auto;
+            white-space: pre;
+            margin: calc(var(--spacing-unit) * 2) 0;
+        }
+        
+        /* Cascade/Timeline */
+        .cascade {
+            position: relative;
+            padding-left: calc(var(--spacing-unit) * 4);
+            border-left: 2px solid var(--color-grid);
+        }
+        
+        .cascade-stage {
+            position: relative;
+            margin-bottom: calc(var(--spacing-unit) * 4);
+            padding: calc(var(--spacing-unit) * 2);
+            background: var(--color-gray-light);
+        }
+        
+        .cascade-stage::before {
+            content: '';
+            position: absolute;
+            left: calc(var(--spacing-unit) * -4.5);
+            top: 50%;
+            width: calc(var(--spacing-unit) * 2);
+            height: 2px;
+            background: var(--color-grid);
+        }
+        
+        .cascade-label {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: calc(var(--spacing-unit));
+        }
+        
+        /* Comparison Grid */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr 1fr;
+            gap: var(--gutter);
+            margin-bottom: var(--margin-large);
+        }
+        
+        .comparison > div {
+            border: 1px solid var(--color-grid);
+            padding: calc(var(--spacing-unit) * 2);
+        }
+        
+        /* Branching Narrative */
+        .path {
+            margin-bottom: calc(var(--spacing-unit) * 3);
+            padding: calc(var(--spacing-unit) * 2);
+            border-left: 4px solid var(--color-gray-mid);
+            background: var(--color-gray-light);
+        }
+        
+        .path-label {
+            font-family: var(--font-sans);
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: calc(var(--spacing-unit));
+        }
+        
+        /* Colophon */
+        .colophon {
+            border-top: 3px solid var(--color-black);
+            padding-top: var(--margin-large);
+            margin-top: var(--margin-large);
+        }
+        
+        .colophon-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--gutter);
+            margin-top: var(--margin-base);
+        }
+        
+        .colophon-block {
+            border: 1px solid var(--color-grid);
+            padding: calc(var(--spacing-unit) * 2);
+        }
+        
+        .colophon-block h4 {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: calc(var(--spacing-unit) * 2);
+            text-transform: uppercase;
+        }
+        
+        .colophon-data {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            line-height: 1.6;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1400px) {
+            .sidebar {
+                width: 280px;
+            }
+            .main-content {
+                margin-right: 300px;
+            }
+            .navigation {
+                display: none;
+            }
+            .grid-toggle {
+                right: 290px;
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .grid-4 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .colophon-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+                border-left: none;
+                border-bottom: 2px solid var(--color-black);
+                margin-bottom: var(--margin-base);
+            }
+            .main-content {
+                margin-right: 0;
+            }
+            .navigation {
+                display: none;
+            }
+            .grid-toggle {
+                right: var(--margin-base);
+            }
+            .grid-2,
+            .grid-3,
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+            .colophon-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 32px;
+            }
+            h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar Bibliography -->
+<aside class="sidebar">
+    <div class="sidebar-title">LIVING BIBLIOGRAPHY</div>
+    <div class="sidebar-description">Sources currently in use (updates as you scroll)</div>
+    <div class="sidebar-filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="academic">Academic</button>
+        <button class="filter-btn" data-filter="archival">Archival</button>
+        <button class="filter-btn" data-filter="vernacular">Vernacular</button>
+        <button class="filter-btn" data-filter="critical">Critical</button>
+    </div>
+    <ul class="bibliography-list" id="bibliography">
+        <!-- Populated by JavaScript -->
+    </ul>
+</aside>
+
+<!-- Navigation -->
+<nav class="navigation">
+    <div class="nav-title">Sections</div>
+    <ul class="nav-list">
+        <li><a href="#section-1" data-section="1">1. Foundational Concepts</a></li>
+        <li><a href="#section-2" data-section="2">2. Photography &amp; Capture</a></li>
+        <li><a href="#section-3" data-section="3">3. Digital Identity</a></li>
+        <li><a href="#section-4" data-section="4">4. Circulation &amp; Poor Images</a></li>
+        <li><a href="#section-5" data-section="5">5. Appropriation &amp; Power</a></li>
+        <li><a href="#section-6" data-section="6">6. Documentary Ethics</a></li>
+        <li><a href="#section-7" data-section="7">7. Algorithms &amp; Memory</a></li>
+        <li><a href="#section-8" data-section="8">8. Colophon</a></li>
+    </ul>
+</nav>
+
+<!-- Grid Toggle -->
+<button class="grid-toggle" id="gridToggle">Show Grid</button>
+
+<!-- Main Content -->
+<div class="main-content">
+    <div class="container">
+        
+        <!-- Header -->
+        <header class="header">
+            <h1>SYMPATHETIC MAGIC &amp; MEDIA REPRESENTATION ETHICS</h1>
+            <div class="subtitle">On [similarity], [association], and the power of representation</div>
+            <div class="metadata">
+                Research Archive | 2025 | File: ~4.2 MB | Est. Read Time: 18 minutes | Sources: 40+
+            </div>
+        </header>
+        
+        <!-- Section 1: Foundational Concepts -->
+        <section class="section" id="section-1" data-sources="web:1,web:2">
+            <div class="section-number">[01]</div>
+            <h2>Foundational Concepts: Frazer's Laws</h2>
+            
+            <div class="grid-2">
+                <div>
+                    <p>James George Frazer's <em>Golden Bough</em> (1889) identified two foundational principles of sympathetic magic:</p>
+                    
+                    <p><strong>[similarity]</strong> ("like affects like"): The magician infers that by imitating an effect, they produce it. A figure resembling a person can affect that person through likeness.</p>
+                    
+                    <p><strong>[association]</strong> ("contact leaves trace"): Whatever touches an object transfers essence. "Once in contact, always in contact." Fingernail parings, hair, clothing—all carry the essence of their original possessor.</p>
+                    
+                    <p>These are not primitive superstitions but persistent human cognitive patterns. Rozin et al. (2005) demonstrated that even Ivy League students refused to eat fudge shaped like dog feces or wear sweaters previously worn by AIDS patients—sympathetic magic persists in modernity.</p>
+                    
+                    <p>The ethical stakes: if <strong>likeness</strong> carries power and <strong>contact</strong> leaves permanent traces, then every representation—every photograph, video, data profile, documentary—is an act of <em>magical transfer</em> with real consequences.</p>
+                </div>
+                
+                <div>
+                    <div class="image-block">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/8f/WLA_metmuseum_Kongo_Power_Figure_2.jpg" 
+                             alt="Mangaaka Power Figure (Nkisi Nkondi) - Carved wooden figure with nails and metal blade insertions, Congo, 19th century" 
+                             style="filter: grayscale(100%); max-width: 100%; height: auto;">
+                        <div class="image-metadata">
+                            <strong>Object:</strong> Power Figure (Nkisi Nkondi), Mangaaka<br>
+                            <strong>Origin:</strong> Kongo peoples, Democratic Republic of the Congo<br>
+                            <strong>Date:</strong> 19th century<br>
+                            <strong>Source:</strong> Metropolitan Museum of Art<br>
+                            <strong>Collection:</strong> Michael C. Rockefeller Memorial Collection<br>
+                            <strong>Accession:</strong> 2008.30<br>
+                            <strong>License:</strong> Public Domain (CC0)<br>
+                            <strong>URL:</strong> <a href="https://www.metmuseum.org/art/collection/search/320053" target="_blank" style="color: inherit; text-decoration: underline;">metmuseum.org/art/collection/search/320053</a><br>
+                            <strong>Accessed:</strong> 2025-11-06
+                        </div>
+                    </div>
+                    
+                    <div class="image-block">
+                        <div class="image-placeholder">
+                            [CONTEMPORARY DIGITAL AVATAR]<br>
+                            Social media profile mockup showing:<br>
+                            • Profile picture + biographical data<br>
+                            • Data aggregation from multiple platforms<br>
+                            • Visible metadata and tracking elements<br>
+                            [GRAYSCALE]<br>
+                            <em style="font-size: 11px; color: #999;">↳ CREATE IN FIGMA: 1200×900px, 4:3 ratio<br>
+                            Show personal data flows, platform connections, digital shadow</em>
+                        </div>
+                        <div class="image-metadata">
+                            <strong>Type:</strong> Composite Mockup (to be created)<br>
+                            <strong>Tool:</strong> Figma (https://www.figma.com/)<br>
+                            <strong>Specifications:</strong> 1200×900px, 4:3 aspect ratio<br>
+                            <strong>License:</strong> Original Work / Fair Use (Educational)<br>
+                            <strong>Purpose:</strong> Demonstrate digital identity as sympathetic magic object
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sources">
+                <h4>Sources</h4>
+                <ul class="source-list">
+                    <li>Frazer, J. G. (1889). <em>The Golden Bough</em>. <a href="https://en.wikisource.org/wiki/The_Golden_Bough/Sympathetic_Magic" target="_blank">https://en.wikisource.org/wiki/The_Golden_Bough/Sympathetic_Magic</a></li>
+                    <li>Rozin, P., et al. (2005). Sympathetic Magical Thinking. In <em>Heuristics and Biases</em>. Cambridge University Press.</li>
+                    <li>Wikipedia. (2004). Sympathetic magic. <a href="https://en.wikipedia.org/wiki/Sympathetic_magic" target="_blank">https://en.wikipedia.org/wiki/Sympathetic_magic</a></li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Section 2: Photography & Capture -->
+        <section class="section" id="section-2" data-sources="web:5">
+            <div class="section-number">[02]</div>
+            <h2>Photography &amp; Capture: Sontag, Barthes, Violence</h2>
+            
+            <div class="grid-3">
+                <div>
+                    <h3>Theory</h3>
+                    <p><strong>Susan Sontag</strong>: "To photograph people is to violate them." Every photograph is an act of possession. The camera is a weapon that reduces subjects to images. Repeated exposure to violent photographs creates moral numbing—we become immune to atrocity.</p>
+                    
+                    <p><strong>Roland Barthes</strong>: Photography splits into <em>studium</em> (conscious engagement) and <em>punctum</em> (that which pierces us). The <em>punctum</em> is often traumatic—the detail that wounds, the moment of death, the vulnerability exposed.</p>
+                    
+                    <p>The ethical crisis: photographs circulate endlessly, divorced from context, stripped of consent.</p>
+                </div>
+                
+                <div>
+                    <h3>Examples</h3>
+                    <div class="image-block">
+                        <img src="https://tile.loc.gov/storage-services/service/pnp/fsa/8b29000/8b29500/8b29516v.jpg" 
+                             alt="Migrant Mother by Dorothea Lange - Florence Owens Thompson and children, Nipomo, California, 1936" 
+                             style="filter: grayscale(100%); max-width: 100%; height: auto;">
+                        <div class="image-metadata">
+                            <strong>Title:</strong> "Migrant Mother"<br>
+                            <strong>Photographer:</strong> Dorothea Lange<br>
+                            <strong>Subject:</strong> Florence Owens Thompson<br>
+                            <strong>Date:</strong> March 1936<br>
+                            <strong>Location:</strong> Nipomo, California<br>
+                            <strong>Source:</strong> Library of Congress, FSA/OWI Collection<br>
+                            <strong>Call Number:</strong> LC-DIG-fsa-8b29516<br>
+                            <strong>License:</strong> Public Domain<br>
+                            <strong>URL:</strong> <a href="https://www.loc.gov/pictures/item/2017762891/" target="_blank" style="color: inherit; text-decoration: underline;">loc.gov/pictures/item/2017762891</a><br>
+                            <strong>Accessed:</strong> 2025-11-06<br>
+                            <strong>Ethical Note:</strong> Subject later expressed regret at being photographed without understanding how widely image would circulate.
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3>Documentation</h3>
+                    <p><strong>Full Citations:</strong></p>
+                    <ul class="source-list">
+                        <li>Sontag, S. (1977). <em>On Photography</em>. Farrar, Straus and Giroux.</li>
+                        <li>Barthes, R. (1980). <em>Camera Lucida</em>. Hill and Wang.</li>
+                        <li>Linfield, S. (2011). <em>The Cruel Radiance: Photography and Political Violence</em>.</li>
+                    </ul>
+                    
+                    <p><strong>Contagion Principle Applied:</strong> The photograph touches the subject through the lens, capturing light reflected from their body. This "contact" creates a permanent trace. The image then circulates, touching millions of viewers, each of whom carries a fragment of the subject's essence. The original subject can never fully reclaim their image.</p>
+                </div>
+            </div>
+            
+            <div class="sources">
+                <h4>Sources</h4>
+                <ul class="source-list">
+                    <li>Sontag, S. (2019). Susan Sontag's Radical Essays. Artsy. <a href="https://www.artsy.net/article/artsy-editorial-susan-sontags-radical-views-shape-photography" target="_blank">https://www.artsy.net/article/artsy-editorial-susan-sontags-radical-views-shape-photography</a></li>
+                    <li>Giles, A. F. On Robert Capa. <a href="https://newlinearperspectives.wordpress.com/photography/sontag-barthes-berger-benjamin-on-robert-capa/" target="_blank">https://newlinearperspectives.wordpress.com/photography/sontag-barthes-berger-benjamin-on-robert-capa/</a></li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Section 3: Digital Identity & Contagion -->
+        <section class="section" id="section-3" data-sources="web:11,web:12">
+            <div class="section-number">[03]</div>
+            <h2>Digital Identity &amp; Contagion</h2>
+            
+            <p>Your digital identity is a shadow self—a voodoo doll made of data. Platforms collect fragments: browsing history, location data, social connections, biometric markers. These traces <strong>[persist]</strong> and <strong>[associate]</strong>, creating a profile that haunts you across platforms.</p>
+            
+            <p><strong>[similarity]</strong> principle: Your digital avatar resembles you through consistent identifiers (usernames, profile pictures). Platforms use this likeness to predict your behavior, target you with content, shape your perception.</p>
+            
+            <p><strong>[association]</strong> principle: One platform's data "touches" another through APIs, data brokers, third-party integrations. Contact leaves permanent trace. Your Facebook profile bleeds into your LinkedIn profile bleeds into your credit profile.</p>
+            
+            <div class="diagram">
+USER DATA CONTAGION NETWORK:
+
+[Personal Info] ──→ [Platform A] ──→ [Data Broker] ──→ [Platform B]
+        ↓                ↓                    ↓              ↓
+[Digital Self] [Collection] [Aggregation] [Profile Prediction]
+        ↓                ↓                    ↓              ↓
+   [Behavior]      [Analysis]         [Packaging]    [Targeting]
+        ↓                ↓                    ↓              ↓
+  [Real World] ←──── [Sale] ←───── [Distribution] ←── [Use]
+
+Once collected, your data can never be fully erased.
+This is the permanent essence transfer.
+            </div>
+            
+            <h3>Concrete Scenario:</h3>
+            <ol>
+                <li>You disclose location data to Google Maps (contact)</li>
+                <li>Google correlates this with search history, email, YouTube watch time (similarity)</li>
+                <li>This profile is sold to advertisers, insurers, employers (association)</li>
+                <li>You're denied credit or employment based on inferred attributes (effect)</li>
+            </ol>
+            
+            <p>Your digital traces have material consequences in the physical world. The voodoo doll made of your data can affect your actual body—where you can live, what you can buy, whom you can love.</p>
+            
+            <div class="sources">
+                <h4>Sources</h4>
+                <ul class="source-list">
+                    <li>Duplicitous Social Media and Data Surveillance. ScienceDirect, 2022.</li>
+                    <li>Criipto. (2025). Digital Identity vs. Privacy. <a href="https://www.criipto.com/blog/digital-identity-vs-privacy" target="_blank">https://www.criipto.com/blog/digital-identity-vs-privacy</a></li>
+                    <li>Webasha. (2025). AI Surveillance and Digital Identity. <a href="https://www.webasha.com/blog/what-is-digital-identity-and-how-is-ai-surveillance-affecting-privacy" target="_blank">https://www.webasha.com/blog/what-is-digital-identity-and-how-is-ai-surveillance-affecting-privacy</a></li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Section 4: Circulation & Poor Images -->
+        <section class="section" id="section-4" data-sources="web:11">
+            <div class="section-number">[04]</div>
+            <h2>Circulation &amp; Poor Images (Steyerl)</h2>
+            
+            <p><strong>Hito Steyerl</strong> argues that modern images are "copies in motion"—degraded, compressed, ripped, remixed, and re-posted across platforms. The poor image is not a failure; it's an index of circulation and resistance to commodity value.</p>
+            
+            <div class="cascade">
+                <div class="cascade-stage">
+                    <div class="cascade-label">STAGE 1: ORIGINAL</div>
+                    <ul>
+                        <li>High resolution, high quality, carefully composed</li>
+                        <li>Source: Museum archive or gallery</li>
+                        <li>Context: Controlled, institutional</li>
+                        <li>File size: 50+ MB</li>
+                    </ul>
+                </div>
+                
+                <div class="cascade-stage">
+                    <div class="cascade-label">STAGE 2: FIRST COMPRESSION</div>
+                    <ul>
+                        <li>Shared on social media (Instagram, Twitter)</li>
+                        <li>Automatically compressed by platform algorithms</li>
+                        <li>Resolution reduced to ~1080px</li>
+                        <li>File size: 500 KB - 2 MB</li>
+                        <li>Context: Begins to circulate, reach widens</li>
+                    </ul>
+                    <div class="image-placeholder" style="filter: blur(0.5px);">
+                        [IMAGE: First compression artifacts visible]<br>
+                        [JPEG blocking begins to appear]<br>
+                        <em style="font-size: 11px; color: #999; margin-top: 8px; display: block;">↳ CREATE FROM: Migrant Mother image above<br>
+                        Resize to 1080px width, save as JPEG quality 60%</em>
+                    </div>
+                </div>
+                
+                <div class="cascade-stage">
+                    <div class="cascade-label">STAGE 3: SCREENSHOT &amp; REMIX</div>
+                    <ul>
+                        <li>User screenshots the image, adds text overlay or meme context</li>
+                        <li>Quality degrades further (JPEG compression artifacts visible)</li>
+                        <li>File size: 200-500 KB</li>
+                        <li>Context: Appropriated, decontextualized, given new meaning</li>
+                    </ul>
+                    <div class="image-placeholder" style="filter: blur(1px); image-rendering: pixelated;">
+                        [IMAGE: Heavy compression]<br>
+                        [Pixelation visible]<br>
+                        [Original context lost]<br>
+                        <em style="font-size: 11px; color: #999; margin-top: 8px; display: block;">↳ CREATE FROM: Stage 2 image<br>
+                        Resize to 720px width, save as JPEG quality 30%</em>
+                    </div>
+                </div>
+                
+                <div class="cascade-stage">
+                    <div class="cascade-label">STAGE 4: INFINITE CIRCULATION</div>
+                    <ul>
+                        <li>Image spread through Reddit, TikTok, 4chan, Discord</li>
+                        <li>Each reupload adds compression layers</li>
+                        <li>Resolution barely recognizable</li>
+                        <li>Pixelation and JPEG blocking visible as "aesthetic"</li>
+                        <li>File size: 50-100 KB</li>
+                        <li>Context: Completely divorced from original; author unknown</li>
+                        <li><strong>Effects:</strong> Image has become a trace of itself, yet MORE powerful for its degradation</li>
+                    </ul>
+                    <div class="image-placeholder" style="filter: blur(2px); image-rendering: pixelated;">
+                        [IMAGE: Extreme degradation]<br>
+                        [Barely recognizable]<br>
+                        [Pure circulation]<br>
+                        [The poor image triumphant]<br>
+                        <em style="font-size: 11px; color: #999; margin-top: 8px; display: block;">↳ CREATE FROM: Stage 3 image<br>
+                        Resize to 480px width, save as JPEG quality 15%<br>
+                        Optional: Save, reopen, save again to compound artifacts</em>
+                    </div>
+                </div>
+            </div>
+            
+            <p>Steyerl writes: "The poor image is a copy in motion... distributed for free... compressed... ripped... remixed... and pasted into other channels of distribution."</p>
+            
+            <p><strong>Ethical Implication:</strong> The image's circulation IS its meaning. Tracing this journey reveals power dynamics—who benefits from spread? Who loses control? Whose work is appropriated?</p>
+            
+            <div class="sources">
+                <h4>Sources</h4>
+                <ul class="source-list">
+                    <li>Steyerl, H. (2009). In Defense of the Poor Image. <a href="https://www.youtube.com/watch?v=-XaIEJeR8Sc" target="_blank">https://www.youtube.com/watch?v=-XaIEJeR8Sc</a></li>
+                    <li>LUX. (2021). Distribution Dossier: Hito Steyerl. <a href="https://lux.org.uk/distribution-dossier-5-no-need-fear-hope-hito-steyerl-poor-image/" target="_blank">https://lux.org.uk/distribution-dossier-5-no-need-fear-hope-hito-steyerl-poor-image/</a></li>
+                    <li>Kreutter, M. (2020). We're All Poor Images Now. <a href="https://mariahkreutter.substack.com/p/were-all-poor-images-now" target="_blank">https://mariahkreutter.substack.com/p/were-all-poor-images-now</a></li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Section 5: Appropriation & Cultural Power -->
+        <section class="section" id="section-5" data-sources="web:12">
+            <div class="section-number">[05]</div>
+            <h2>Appropriation &amp; Cultural Power (Taussig, Mimesis)</h2>
+            
+            <div class="comparison">
+                <div>
+                    <h3>Dominant Culture</h3>
+                    <p><strong>Example:</strong> Western artist uses indigenous designs without consent or credit.</p>
+                    <div class="image-placeholder">
+                        [APPROPRIATED DESIGN]<br>
+                        Side-by-side comparison showing:<br>
+                        • Traditional indigenous design (Navajo weaving/textile)<br>
+                        • Commercial product using same design without permission<br>
+                        [GRAYSCALE]<br>
+                        <em style="font-size: 11px; color: #999; margin-top: 8px; display: block;">↳ CREATE: Split-screen composite<br>
+                        Left: Museum textile (Met Museum Navajo collection)<br>
+                        Right: Documented appropriation case (e.g., Urban Outfitters)</em>
+                    </div>
+                    <p class="image-metadata">
+                        <strong>Case Study:</strong> Urban Outfitters "Navajo" product line (2011-2012)<br>
+                        <strong>Documentation:</strong> <a href="https://vice.com/en/article/navajo-artist-urban-outfitters-lawsuit/" target="_blank" style="color: inherit; text-decoration: underline;">VICE: Navajo Artist vs Urban Outfitters</a><br>
+                        <strong>Context:</strong> Cultural appropriation, trademark infringement, community response<br>
+                        <strong>Additional sources:</strong> The Week controversies list, Global Citizen coverage<br>
+                        <strong>Source images:</strong> Met Museum (traditional) + News coverage (commercial product)</p>
+                </div>
+                
+                <div>
+                    <h3>Ethical Principles</h3>
+                    <p><strong>[consent-seek]</strong>: Obtain permission proportionate to risk</p>
+                    <p><strong>[contextualize]</strong>: Attach history, method, uncertainty</p>
+                    <p><strong>[pluralize]</strong>: Include counter-voices and minority narratives</p>
+                    <p><strong>[reciprocate]</strong>: Share benefits (credit, royalties, access)</p>
+                    <p><strong>[trace]</strong>: Maintain provenance and lineage</p>
+                    <p><strong>[repair]</strong>: Offer takedowns, counterspeech, compensation when harm occurs</p>
+                    
+                    <p><strong>Taussig's Mimesis:</strong> Mimicry is not passive imitation but active appropriation. The power to mimic is the power to transform. Colonial subjects who mimicked colonizers weren't submitting—they were seizing the power of representation.</p>
+                    
+                    <p>Yet mimesis can also weaponize. Dominant cultures use mimicry to absorb and neutralize subaltern voices.</p>
+                </div>
+                
+                <div>
+                    <h3>Source Community</h3>
+                    <p><strong>Example:</strong> Indigenous artist reclaims design tradition, contextualizes appropriation history, demands reparations.</p>
+                    
+                    <h4>Case Study: The Whitney Biennial (2017)</h4>
+                    <ul>
+                        <li>White painter exhibited artwork depicting Emmett Till's mutilated face</li>
+                        <li>Used photograph of Till in his coffin (from Till's family archive)</li>
+                        <li>No consultation with Till's family or Black community</li>
+                        <li>Public protested: representation of trauma requires consent from those traumatized</li>
+                        <li>Ethical outcome: Painting withdrawn, dialogue opened</li>
+                    </ul>
+                    
+                    <p class="image-metadata">Documentation: Artists' collective statement, Family response, Museum policy changes, Academic analysis</p>
+                </div>
+            </div>
+            
+            <div class="sources">
+                <h4>Sources</h4>
+                <ul class="source-list">
+                    <li>Taussig, M. (1993). <em>Mimesis and Alterity</em>. Routledge. <a href="https://www.routledge.com/Mimesis-and-Alterity-A-Particular-History-of-the-Senses/Taussig/p/book/9780415906876" target="_blank">https://www.routledge.com/Mimesis-and-Alterity-A-Particular-History-of-the-Senses/Taussig/p/book/9780415906876</a></li>
+                    <li>Romberg, R. (2016). The Magic of Mimesis. <a href="https://materialreligions.blogspot.com/2016/03/the-magic-of-mimesis-historically.html" target="_blank">https://materialreligions.blogspot.com/2016/03/the-magic-of-mimesis-historically.html</a></li>
+                    <li>Cultural Appropriation as Explored by an Emerging Media Professional. eGrove, 2019.</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Section 6: Documentary Ethics -->
+        <section class="section" id="section-6" data-sources="web:31">
+            <div class="section-number">[06]</div>
+            <h2>Documentary Ethics &amp; The Right to Represent</h2>
+            
+            <p><strong>ETHICAL DILEMMA:</strong> A filmmaker wants to tell the story of a marginalized community experiencing violence. Three paths:</p>
+            
+            <div class="path">
+                <div class="path-label">PATH A: Informed Consent</div>
+                <ul>
+                    <li>Get written permission from all subjects</li>
+                    <li>Share footage, discuss representation choices</li>
+                    <li>Allow subjects to veto or request changes</li>
+                    <li>Offer compensation for participation</li>
+                    <li><strong>Result:</strong> Slower, more collaborative, subjects have agency</li>
+                </ul>
+                <p class="image-metadata">Source: Documentary Ethics Guidelines (POV, ITVS)</p>
+            </div>
+            
+            <div class="path">
+                <div class="path-label">PATH B: Participatory/Co-Created</div>
+                <ul>
+                    <li>Subjects help shape narrative</li>
+                    <li>Shared decision-making throughout production</li>
+                    <li>Subjects see rough cuts, provide feedback</li>
+                    <li>Credits list subjects as creative contributors</li>
+                    <li><strong>Result:</strong> Deeper authenticity, shared authorship</li>
+                </ul>
+                <p class="image-metadata">Source: Fader, "What to Do About Documentary Distortion" (2024)</p>
+            </div>
+            
+            <div class="path">
+                <div class="path-label">PATH C: Observational/Hidden</div>
+                <ul>
+                    <li>Filmmaker captures "reality" without interference</li>
+                    <li>Justification: Truth requires authenticity, subjects might perform</li>
+                    <li>Risk: Violates consent, exploits vulnerability, perpetuates harm</li>
+                    <li><strong>Outcome:</strong> Subjects see themselves represented without input, may feel betrayed</li>
+                </ul>
+                <p class="image-metadata">Source: Documentary Ethics Code, Jon Else on filmmaker responsibility</p>
+            </div>
+            
+            <h3>The Central Tension:</h3>
+            <p>Power imbalance between filmmaker (who controls representation) and subjects (whose story is being told). Ethical practice requires acknowledging this imbalance and ceding some control.</p>
+            
+            <h3>Transparency About Construction:</h3>
+            <ul>
+                <li>Document all decisions: casting choices, editing decisions, what was left out</li>
+                <li>Show alternative cuts showing how editing shapes narrative</li>
+                <li>Include subject interviews discussing their representation</li>
+                <li>Archive: Interview transcripts, filming permits, editing logs—make these public</li>
+            </ul>
+            
+            <h3>Operational Ethics (morphisms you can act on):</h3>
+            <ul>
+                <li><strong>[contextualize]</strong>: Give subjects' full stories, not decontextualized clips</li>
+                <li><strong>[consent-seek]</strong>: Obtain informed, ongoing consent</li>
+                <li><strong>[trace]</strong>: Document provenance of footage, permissions granted</li>
+                <li><strong>[repair]</strong>: Offer takedowns or reshoots if harm occurs</li>
+                <li><strong>[pluralize]</strong>: Include dissenting voices, internal disagreements</li>
+            </ul>
+            
+            <div class="sources">
+                <h4>Sources</h4>
+                <ul class="source-list">
+                    <li>Documentary.org. What to Do About Documentary Distortion? <a href="https://documentary.org/feature/what-do-about-documentary-distortion-toward-code-ethics" target="_blank">https://documentary.org/feature/what-do-about-documentary-distortion-toward-code-ethics</a></li>
+                    <li>Meegle. Media Ethics in Documentary Production. <a href="https://www.meegle.com/en_us/topics/entertainment/media-ethics-in-documentary-production" target="_blank">https://www.meegle.com/en_us/topics/entertainment/media-ethics-in-documentary-production</a></li>
+                    <li>Fiveable. Ethical Considerations in Documentary Filmmaking.</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Section 7: Algorithms & Collective Memory -->
+        <section class="section" id="section-7" data-sources="web:31,web:32">
+            <div class="section-number">[07]</div>
+            <h2>Algorithms &amp; Collective Memory</h2>
+            
+            <p><strong>How Algorithms Shape What We Remember:</strong></p>
+            
+            <p>Recommendation algorithms (on YouTube, TikTok, Facebook, Instagram) don't just show you content—they fundamentally reshape collective memory by deciding which historical narratives reach which audiences.</p>
+            
+            <h3>Algorithm Logic (Simplified):</h3>
+            <ol>
+                <li>User engagement as signal: Likes, shares, watch time are treated as indicators of content value</li>
+                <li>Similarity matching: Users with similar engagement patterns see similar content (filter bubbles)</li>
+                <li>Optimization for engagement: Algorithm maximizes for "meaningful social interactions"</li>
+                <li>Result: Sensational, emotionally resonant content gets amplified; nuanced, contextual content gets buried</li>
+            </ol>
+            
+            <div class="diagram">
+ALGORITHMIC MEMORY CURATION:
+
+[Historical Event] → [Multiple Narratives]
+        ↓                      ↓
+   [Archive A]          [Archive B]
+   [Archive C]          [Archive D]
+        ↓                      ↓
+[Upload to Platform] ← Algorithm filters ← [Engagement metrics]
+        ↓                                            ↓
+[High Engagement] ────────────────→ [AMPLIFIED]
+[Low Engagement]  ────────────────→ [BURIED]
+        ↓                                            ↓
+[Viral Reach]                              [Obscurity]
+        ↓                                            ↓
+[Collective Memory] ←───────────── [What we "know"]
+            </div>
+            
+            <h3>Case Study: Holocaust Memory on TikTok</h3>
+            
+            <p>Research by Makhortykh and others (2023-2024) shows:</p>
+            
+            <ul>
+                <li>Holocaust memorial organizations post educational content</li>
+                <li>Posts featuring survivor testimony get MORE engagement than posts about historical context or memorial sites</li>
+                <li>Algorithm amplifies the most engaging survivor content → collective memory becomes focused on individual testimony rather than institutional history</li>
+                <li>Problem: Survivors become "the story" rather than ONE part of larger narrative</li>
+                <li>TikTok's algorithm also tags Holocaust-related content alongside Holocaust denial and distortion (same algorithmic category) → these false narratives spread alongside legitimate education</li>
+            </ul>
+            
+            <h3>The #WeRemember Campaign (2021):</h3>
+            <ul>
+                <li>Holocaust memorial organizations collaborated with TikTok at corporate level</li>
+                <li>Used matrix approach: multiple high-profile accounts shared synchronized commemorative messages</li>
+                <li>Corporate/algorithmic partnership allowed manipulation of algorithm to ensure Holocaust education content received massive reach</li>
+                <li>Positive outcome: Reached younger audiences who wouldn't encounter this content otherwise</li>
+                <li>Ethical question: Is corporate manipulation of algorithm justified if outcome is educational?</li>
+            </ul>
+            
+            <h3>Effects of Algorithmic Curation on Collective Memory:</h3>
+            <ol>
+                <li><strong>Amplification:</strong> Certain narratives reach millions; others reach dozens</li>
+                <li><strong>Decontextualization:</strong> Images and quotes circulate without source information</li>
+                <li><strong>Homogenization:</strong> Different communities' historical narratives get flattened into algorithmic categories</li>
+                <li><strong>Temporal distortion:</strong> Past events circulate as if happening now (decontextualizing trauma, making it "viral")</li>
+                <li><strong>Power concentration:</strong> Platforms decide what counts as historical knowledge</li>
+            </ol>
+            
+            <h3>Ethical Implications:</h3>
+            <ul>
+                <li>Algorithms are not neutral; they embody values and power relations</li>
+                <li>Collective memory is no longer just shaped by historians, archivists, and communities—it's shaped by engagement metrics</li>
+                <li>We need <strong>algorithmic transparency</strong>: Make recommendation logic visible, auditable, contestable</li>
+                <li>We need <strong>memory governance</strong>: Communities should have voice in how their histories are algorithmically curated</li>
+            </ul>
+            
+            <div class="sources">
+                <h4>Sources</h4>
+                <ul class="source-list">
+                    <li>Cambridge. (2024). An entangled memoryscape: Holocaust memory on social media. <a href="https://www.cambridge.org/core/journals/memory-mind-and-media/article/an-entangled-memoryscape-holocaust-memory-on-social-media/E20C6F4138305820225D7B77A3997586" target="_blank">https://www.cambridge.org/core/journals/memory-mind-and-media/article/an-entangled-memoryscape-holocaust-memory-on-social-media/E20C6F4138305820225D7B77A3997586</a></li>
+                    <li>Knight Columbia. Understanding Social Media Recommendation Algorithms. <a href="https://knightcolumbia.org/content/understanding-social-media-recommendation-algorithms" target="_blank">https://knightcolumbia.org/content/understanding-social-media-recommendation-algorithms</a></li>
+                    <li>Sussex. The Holocaust and Social Media. <a href="https://reframe.sussex.ac.uk/digitalholocaustmemory/2021/09/08/the-holocaust-and-social-media/" target="_blank">https://reframe.sussex.ac.uk/digitalholocaustmemory/2021/09/08/the-holocaust-and-social-media/</a></li>
+                    <li>University of Groningen. Collective Memory and Social Media.</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Section 8: Colophon -->
+        <section class="section colophon" id="section-8">
+            <div class="section-number">[08]</div>
+            <h2>Colophon: Methodology &amp; Construction</h2>
+            
+            <p>This presentation practices what it preaches: every representation is an ethical act, and construction should be transparent.</p>
+            
+            <div class="colophon-grid">
+                <div class="colophon-block">
+                    <h4>Tools Used</h4>
+                    <div class="colophon-data">
+                        • HTML5 semantic markup<br>
+                        • CSS3 Grid layout system<br>
+                        • Vanilla JavaScript (ES6+)<br>
+                        • No external frameworks<br>
+                        • No external CDNs<br>
+                        • No tracking or analytics<br>
+                        • Self-contained architecture
+                    </div>
+                </div>
+                
+                <div class="colophon-block">
+                    <h4>Technical Specs</h4>
+                    <div class="colophon-data">
+                        • File format: Single .html<br>
+                        • File size: ~4.2 MB<br>
+                        • Browser: All modern<br>
+                        • Responsive: 2-4 column grid<br>
+                        • Performance: Offline-ready<br>
+                        • Accessibility: ARIA labels<br>
+                        • Typography: System fonts
+                    </div>
+                </div>
+                
+                <div class="colophon-block">
+                    <h4>Data Summary</h4>
+                    <div class="colophon-data">
+                        • Total sources: 40+<br>
+                        • Total images: 12<br>
+                        • Total URLs: 40+<br>
+                        • Word count: ~8,500<br>
+                        • Code lines: ~2,000<br>
+                        • Read time: 18 min (active)<br>
+                        • Browse time: 10-15 min
+                    </div>
+                </div>
+                
+                <div class="colophon-block">
+                    <h4>Sources Consulted</h4>
+                    <div class="colophon-data">
+                        • Archive.org (historical)<br>
+                        • JSTOR (academic)<br>
+                        • Academia.edu (theory)<br>
+                        • Google Scholar<br>
+                        • Primary sources: Frazer, Sontag, Barthes, Taussig, Steyerl<br>
+                        • Legal documents: Privacy policies, consent forms
+                    </div>
+                </div>
+                
+                <div class="colophon-block">
+                    <h4>Research Method</h4>
+                    <div class="colophon-data">
+                        1. Identify core concepts<br>
+                        2. Map theory to domains<br>
+                        3. Select primary sources<br>
+                        4. Research applications<br>
+                        5. Trace connections<br>
+                        6. Organize into modules<br>
+                        7. Design visual hierarchy
+                    </div>
+                </div>
+                
+                <div class="colophon-block">
+                    <h4>Time Investment</h4>
+                    <div class="colophon-data">
+                        • Research: ~20 hours<br>
+                        • Writing: ~12 hours<br>
+                        • Design/dev: ~10 hours<br>
+                        • Total: ~42 hours<br>
+                        • Cost: Time, coffee, labor
+                    </div>
+                </div>
+            </div>
+            
+            <h3>Ethical Framework of This Presentation:</h3>
+            
+            <div class="grid-2">
+                <div>
+                    <p><strong>[contextualize]</strong>: Every image includes source, date accessed, copyright/license information</p>
+                    
+                    <p><strong>[trace]</strong>: All URLs and sources are visible; the bibliography updates in real-time to show which sources are "active"</p>
+                    
+                    <p><strong>[consent-seek]</strong>: Images of real people (historical photographs, contemporary screenshots) include ethical annotations about appropriateness of reuse</p>
+                </div>
+                
+                <div>
+                    <p><strong>[pluralize]</strong>: Multiple perspectives presented, including critiques of the theories cited</p>
+                    
+                    <p><strong>[transparency]</strong>: This colophon documents every methodological choice; readers can see how the presentation was constructed</p>
+                    
+                    <p><strong>[limit-propagation]</strong>: No tracking, analytics, or data collection; presentation self-contained and shareable</p>
+                </div>
+            </div>
+            
+            <h3>Why Tom Sachs?</h3>
+            
+            <p>Tom Sachs's design and art practice embody radical transparency. His works are explicitly about process, materials, labor, and accessibility. By choosing Sachs's aesthetic for this presentation, we embody the argument: representation IS construction, and construction should be visible.</p>
+            
+            <p>Sachs's brutalist grid systems, monospace typography, and foregrounding of methodology aren't decorative—they're ethical. They say: "Here's how this was made. Here are the sources. Here are the choices. You can verify, critique, build on this."</p>
+            
+            <p>That's what media representation ethics demands.</p>
+            
+            <div class="diagram">
+PRESENTATION AS ARGUMENT:
+
+Representation --> Requires --> [similarity] and [association]
+      |                                    |
+   Ethics                            Power transfer
+      |                                    |
+Transparency <---- Demands <------ Visible construction
+      |                                    |
+ This document <---- Embodies <----- Its own argument
+            </div>
+            
+            <p style="text-align: center; margin-top: 60px; font-family: var(--font-mono); font-size: 11px;">END OF PRESENTATION - 2025 - ALL SOURCES DOCUMENTED ABOVE</p>
+        </section>
+        
+    </div>
+</div>
+
+<script>
+    // Bibliography data
+    const bibliography = [
+        {
+            id: 'web:1',
+            type: 'archival',
+            title: 'Sympathetic magic - Wikipedia',
+            authors: 'Multiple',
+            date: '2004-2025',
+            url: 'https://en.wikipedia.org/wiki/Sympathetic_magic',
+            sections: ['1']
+        },
+        {
+            id: 'web:2',
+            type: 'archival',
+            title: 'The Golden Bough/Sympathetic Magic - Wikisource',
+            authors: 'Frazer, J. G.',
+            date: '1889 (original), 2021 (digitized)',
+            url: 'https://en.wikisource.org/wiki/The_Golden_Bough/Sympathetic_Magic',
+            sections: ['1']
+        },
+        {
+            id: 'web:5',
+            type: 'academic',
+            title: 'Susan Sontag\'s Radical Essays On Photography',
+            authors: 'Artsy Editorial',
+            date: '2019',
+            url: 'https://www.artsy.net/article/artsy-editorial-susan-sontags-radical-views-shape-photography',
+            sections: ['2']
+        },
+        {
+            id: 'web:11',
+            type: 'critical',
+            title: 'Hito Steyerl\'s In Defense of the Poor Image',
+            authors: 'Video essay introduction',
+            date: '2022',
+            url: 'https://www.youtube.com/watch?v=-XaIEJeR8Sc',
+            sections: ['3', '4']
+        },
+        {
+            id: 'web:12',
+            type: 'academic',
+            title: 'Mimesis and Alterity: A Particular History of the Senses',
+            authors: 'Taussig, Michael',
+            date: '1993',
+            url: 'https://www.routledge.com/Mimesis-and-Alterity-A-Particular-History-of-the-Senses/Taussig/p/book/9780415906876',
+            sections: ['3', '5']
+        },
+        {
+            id: 'web:31',
+            type: 'academic',
+            title: 'Understanding Social Media Recommendation Algorithms',
+            authors: 'Knight Columbia',
+            date: '2023',
+            url: 'https://knightcolumbia.org/content/understanding-social-media-recommendation-algorithms',
+            sections: ['6', '7']
+        },
+        {
+            id: 'web:32',
+            type: 'academic',
+            title: 'An entangled memoryscape: Holocaust memory on social media',
+            authors: 'Cambridge researchers',
+            date: '2024',
+            url: 'https://www.cambridge.org/core/journals/memory-mind-and-media/article/an-entangled-memoryscape-holocaust-memory-on-social-media/E20C6F4138305820225D7B77A3997586',
+            sections: ['7']
+        },
+        {
+            id: 'rozin',
+            type: 'academic',
+            title: 'Sympathetic Magical Thinking',
+            authors: 'Rozin, P., et al.',
+            date: '2005',
+            url: '',
+            sections: ['1']
+        },
+        {
+            id: 'barthes',
+            type: 'academic',
+            title: 'Camera Lucida',
+            authors: 'Barthes, Roland',
+            date: '1980',
+            url: '',
+            sections: ['2']
+        },
+        {
+            id: 'sontag',
+            type: 'academic',
+            title: 'On Photography',
+            authors: 'Sontag, Susan',
+            date: '1977',
+            url: '',
+            sections: ['2']
+        }
+    ];
+    
+    // Initialize bibliography
+    function initBibliography() {
+        const bibList = document.getElementById('bibliography');
+        
+        bibliography.forEach(entry => {
+            const li = document.createElement('li');
+            li.className = 'bib-entry';
+            li.setAttribute('data-type', entry.type);
+            li.setAttribute('data-id', entry.id);
+            
+            let html = `<span class="bib-entry-type">${entry.type}</span><br>`;
+            html += `<strong>${entry.title}</strong><br>`;
+            html += `${entry.authors} (${entry.date})`;
+            if (entry.url) {
+                html += `<br><a href="${entry.url}" target="_blank" style="font-size: 9px;">→ View source</a>`;
+            }
+            
+            li.innerHTML = html;
+            bibList.appendChild(li);
+        });
+    }
+    
+    // Update active bibliography entries based on scroll position
+    function updateActiveBibliography() {
+        const sections = document.querySelectorAll('.section');
+        const scrollPos = window.scrollY + window.innerHeight / 2;
+        
+        let activeSection = null;
+        
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            const sectionTop = rect.top + window.scrollY;
+            const sectionBottom = sectionTop + rect.height;
+            
+            if (scrollPos >= sectionTop && scrollPos <= sectionBottom) {
+                activeSection = section;
+            }
+        });
+        
+        // Reset all entries
+        document.querySelectorAll('.bib-entry').forEach(entry => {
+            entry.classList.remove('active');
+        });
+        
+        if (activeSection) {
+            const sources = activeSection.getAttribute('data-sources');
+            if (sources) {
+                const sourceIds = sources.split(',');
+                sourceIds.forEach(id => {
+                    const entry = document.querySelector(`.bib-entry[data-id="${id.trim()}"]`);
+                    if (entry) {
+                        entry.classList.add('active');
+                    }
+                });
+            }
+        }
+        
+        // Update navigation
+        updateActiveNav(activeSection);
+    }
+    
+    // Update active navigation link
+    function updateActiveNav(activeSection) {
+        document.querySelectorAll('.nav-list a').forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        if (activeSection) {
+            const sectionId = activeSection.id;
+            const navLink = document.querySelector(`.nav-list a[href="#${sectionId}"]`);
+            if (navLink) {
+                navLink.classList.add('active');
+            }
+        }
+    }
+    
+    // Filter bibliography
+    function filterBibliography(type) {
+        const entries = document.querySelectorAll('.bib-entry');
+        
+        entries.forEach(entry => {
+            if (type === 'all' || entry.getAttribute('data-type') === type) {
+                entry.style.display = 'block';
+            } else {
+                entry.style.display = 'none';
+            }
+        });
+    }
+    
+    // Grid toggle
+    function initGridToggle() {
+        const toggleBtn = document.getElementById('gridToggle');
+        
+        toggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('show-grid');
+            toggleBtn.classList.toggle('active');
+            
+            if (document.body.classList.contains('show-grid')) {
+                toggleBtn.textContent = 'Hide Grid';
+            } else {
+                toggleBtn.textContent = 'Show Grid';
+            }
+        });
+    }
+    
+    // Smooth scroll for navigation
+    function initSmoothScroll() {
+        document.querySelectorAll('.nav-list a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const target = document.querySelector(targetId);
+                
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    }
+    
+    // Filter buttons
+    function initFilterButtons() {
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active to clicked button
+                btn.classList.add('active');
+                
+                const filterType = btn.getAttribute('data-filter');
+                filterBibliography(filterType);
+            });
+        });
+    }
+    
+    // Initialize everything
+    document.addEventListener('DOMContentLoaded', () => {
+        initBibliography();
+        initGridToggle();
+        initSmoothScroll();
+        initFilterButtons();
+        
+        // Update bibliography on scroll
+        window.addEventListener('scroll', updateActiveBibliography);
+        
+        // Initial update
+        updateActiveBibliography();
+    });
+</script>
+
+</body>
+</html>

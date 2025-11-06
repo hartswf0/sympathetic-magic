@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sympathetic Media Protocol: Frazer's Golden Bough - Deconstructed Ethics Briefing</title>
+    <style>
+        /*
+            TOM SACHS AESTHETIC PROTOCOL V2.0:
+            - Extreme conciseness: 1-3 sentences/phrases per panel.
+            - Visible construction: strong borders, offset shadows, "tape" details.
+            - Industrial palette: Black (#111), White (#FFF), Grey (#DDD, #AAA), Primary accents (Red, Blue, Yellow).
+            - Typography: Bold, sans-serif for titles/labels; monospace for quotes/body. All caps for emphasis.
+            - Imagery: Foraged, unpolished, filtered (grayscale/sepia), strong captions.
+            - Tone: Direct, blunt, instructional, mission-oriented.
+            - Interactivity: Basic, functional.
+        */
+
+        /* BASE STYLES & RESETS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Impact', 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
+            color: #111; /* Default text color is dark grey/black */
+            text-rendering: optimizeLegibility; /* Better font rendering */
+        }
+
+        body {
+            background-color: #DDD; /* Industrial light grey */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to top */
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.4;
+            letter-spacing: 0.5px;
+            overflow-x: hidden;
+            scroll-behavior: smooth; /* For subtle panel transitions */
+        }
+
+        /* CONTAINER: THE BRIEFING DOSSIER */
+        .container {
+            width: 100%;
+            max-width: 800px; /* Max width for readability, slightly smaller */
+            background-color: #FFF;
+            border: 4px solid #111; /* Strong, visible border */
+            box-shadow: 10px 10px 0px 0px rgba(0,0,0,0.75); /* Sachs-style offset shadow for depth */
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 70px; /* Space for fixed status bar */
+        }
+
+        /* HEADER & TITLE BLOCK */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px dashed #AAA;
+            padding-bottom: 15px;
+            background-color: #F8F8F8; /* Slight contrast */
+            padding-top: 10px;
+        }
+        .header h1 {
+            font-size: 2.2em; /* Slightly reduced */
+            text-transform: uppercase;
+            color: #D32F2F; /* Red for mission critical */
+            margin-bottom: 5px;
+            letter-spacing: 2.5px;
+        }
+        .header h2 {
+            font-size: 1.1em;
+            text-transform: uppercase;
+            font-family: 'Courier New', monospace;
+            color: #555;
+            margin-bottom: 8px;
+        }
+        .header .subtitle {
+            font-size: 0.85em;
+            font-family: 'Courier New', monospace;
+            color: #777;
+            text-transform: uppercase;
+        }
+
+        /* PANEL STYLING (EACH "SLIDE") */
+        .panel {
+            display: none; /* JS controls visibility */
+            border: 2px solid #333; /* Inner panel border */
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #F8F8F8;
+            position: relative; /* For tape effect */
+            min-height: 350px; /* Ensure consistent panel height for less jumpiness */
+            display: flex; /* Use flexbox for content distribution */
+            flex-direction: column;
+            justify-content: center; /* Vertically center content */
+            align-items: center; /* Horizontally center content */
+            text-align: center; /* Default text align */
+        }
+        .panel:first-of-type {
+             display: block; /* First panel is visible by default */
+        }
+
+        .panel h3 {
+            font-size: 1.4em; /* Reduced size */
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #CCC;
+            color: #1A237E; /* Blue for section titles/directives */
+            letter-spacing: 1px;
+            max-width: 90%; /* Constrain title width */
+        }
+        .panel p {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            margin-bottom: 0.8em;
+            line-height: 1.5;
+            text-align: center; /* Center body text for brevity */
+            max-width: 90%; /* Constrain text width */
+        }
+        .panel strong {
+            color: #D32F2F; /* Highlight key terms with red */
+        }
+        .panel code {
+            font-family: 'Courier New', monospace;
+            background-color: #EEE;
+            padding: 2px 4px;
+            border: 1px solid #CCC;
+            color: #1A237E; /* Code in blue */
+            white-space: nowrap; /* Prevent code snippets from breaking */
+        }
+        .panel blockquote {
+            font-family: 'Times New Roman', serif; /* Frazer's original font feel for quotes */
+            font-style: italic;
+            font-size: 1.05em;
+            margin: 15px auto;
+            padding: 10px 20px;
+            border-left: 3px solid #FBC02D; /* Yellow border for quotes */
+            max-width: 80%;
+            color: #333;
+            text-align: left;
+        }
+
+        /* IMAGERY PROTOCOL */
+        .panel img {
+            max-width: 85%; /* Slightly smaller images */
+            max-height: 250px; /* Constrain image height */
+            width: auto; /* Allow width to scale with height */
+            height: auto;
+            display: block;
+            margin: 15px auto;
+            border: 1px solid #999;
+            filter: grayscale(30%) saturate(120%) contrast(110%); /* More pronounced Sachs filter */
+            box-shadow: 4px 4px 0px 0px rgba(0,0,0,0.5); /* Stronger shadow for images */
+            image-rendering: pixelated; /* Gives a retro/low-res feel */
+        }
+        .image-caption {
+            font-family: 'Courier New', monospace;
+            font-size: 0.7em;
+            text-align: center;
+            margin-top: -5px; /* Bring caption closer to image */
+            margin-bottom: 10px;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 0.2px;
+        }
+
+        /* SACHS-ESQUE "TAPE" OR "BOLTED" EFFECT */
+        .panel::before, .panel::after {
+            content: '';
+            position: absolute;
+            background-color: rgba(190, 190, 190, 0.8); /* Light grey tape */
+            border: 1px solid rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+        .panel::before {
+            width: 60px; /* Wider tape */
+            height: 18px;
+            top: -9px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-4deg);
+        }
+        .panel::after {
+            width: 50px;
+            height: 15px;
+            bottom: -8px;
+            right: 10%;
+            transform: rotate(6deg);
+        }
+
+        /* NAVIGATION BUTTONS */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            border-top: 2px dashed #AAA;
+            padding-top: 20px;
+        }
+        .nav-button {
+            background-color: #4CAF50; /* Green for "GO" */
+            color: white;
+            padding: 12px 25px; /* Larger buttons */
+            border: 3px solid #111;
+            cursor: pointer;
+            font-size: 1.1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.1s ease, transform 0.1s ease;
+            box-shadow: 4px 4px 0px 0px rgba(0,0,0,0.75);
+            border-radius: 0;
+            user-select: none; /* Prevent text selection */
+        }
+        .nav-button:hover {
+            background-color: #388E3C;
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px rgba(0,0,0,0.75);
+        }
+        .nav-button:active {
+            transform: translate(4px, 4px); /* More pronounced press */
+            box-shadow: none;
+        }
+        .nav-button:disabled {
+            background-color: #CCC;
+            color: #666;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+            border: 3px solid #666;
+        }
+        #prevButton {
+            background-color: #FBC02D; /* Yellow for "BACK" */
+        }
+        #prevButton:hover {
+            background-color: #F9A825;
+        }
+
+        /* STATUS BAR: FIXED BOTTOM */
+        .status-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #111;
+            color: #00FF00; /* Green for status lights/text */
+            padding: 10px 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 2px solid #555;
+            z-index: 100;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background-color: #D32F2F; /* Red for "OFFLINE" initially */
+            border-radius: 50%;
+            margin-right: 8px;
+            border: 1px solid #00FF00;
+        }
+        .status-indicator.online {
+            background-color: #00FF00; /* Green for "ONLINE" */
+            animation: blink 1s infinite alternate;
+        }
+        @keyframes blink {
+            from { opacity: 1; }
+            to { opacity: 0.5; }
+        }
+
+        /* CITATION/SMALL PRINT */
+        .citation {
+            font-family: 'Courier New', monospace;
+            font-size: 0.65em; /* Smaller citation */
+            color: #555;
+            text-align: right;
+            margin-top: 10px;
+            align-self: flex-end; /* Align to bottom right within flex column */
+            max-width: 90%;
+        }
+
+        /* SPECIFIC PANEL OVERRIDES IF NEEDED */
+        #panel-17 p {
+            font-size: 1.1em;
+            color: #1A237E;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SYMPATHETIC MEDIA PROTOCOL</h1>
+            <h2>FRAZER'S GOLDEN BOUGH: PRE-BRIEFING</h2>
+            <p class="subtitle">MISSION: UNDERSTAND ANCIENT MAGIC FOR DIGITAL ETHICS</p>
+            <p class="subtitle">PROJECT LEAD: TOM SACHS (HYPOTHETICAL)</p>
+        </div>
+
+        <!-- Panel 0: Introduction -->
+        <div class="panel" id="panel-0">
+            <h3>INITIATION SEQUENCE: KEY QUESTION</h3>
+            <p><strong>KEY QUESTION:</strong> How do sympathetic magic’s principles shape the ethics of representing memory, identity, community in media?</p>
+            <p>This module provides foundational knowledge from J.G. Frazer's "The Golden Bough."</p>
+            <p><strong>UNDERSTANDING THIS PROTOCOL IS CRITICAL.</strong></p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Sir_James_George_Frazer.jpg/400px-Sir_James_George_Frazer.jpg" alt="Sir James George Frazer portrait" loading="lazy">
+            <p class="image-caption">J.G. FRAZER. INTEL ARCHITECT.</p>
+            <p class="citation">SOURCE: Wikipedia Commons. Frazer, J.G. (1922). <em>The Golden Bough</em>.</p>
+        </div>
+
+        <!-- Panel 1: The Principles of Magic - Overview -->
+        <div class="panel" id="panel-1">
+            <h3>PROTOCOL 01: SYMPATHETIC MAGIC - OVERVIEW</h3>
+            <p>Frazer: Magic principles resolve into two:</p>
+            <p>1. <code>LIKE PRODUCES LIKE</code> (Effect resembles cause).</p>
+            <p>2. <code>THINGS ONCE IN CONTACT ACT AT A DISTANCE</code> (Physical contact severed, influence persists).</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Spooky_tree_120.jpg/600px-Spooky_tree_120.jpg" alt="Abstract interconnected tree roots" loading="lazy">
+            <p class="image-caption">THEORIES OF REMOTE ACTION. OBSERVE INTERCONNECTEDNESS.</p>
+            <p class="citation">SOURCE: Frazer, J.G. (1922). <em>The Golden Bough</em>, p. 20a.</p>
+        </div>
+
+        <!-- Panel 2: Law of Similarity / Homoeopathic Magic -->
+        <div class="panel" id="panel-2">
+            <h3>SUB-PROTOCOL 01.1: LAW OF SIMILARITY (IMITATIVE MAGIC)</h3>
+            <p>Magician infers he can produce any effect by <code>IMITATING IT</code>.</p>
+            <p>This is <strong>Homoeopathic or Imitative Magic</strong>.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Narcissus-Caravaggio_%281594-1596%29_restored.jpg/400px-Narcissus-Caravaggio_%281594-1596%29_restored.jpg" alt="Narcissus looking at reflection" loading="lazy">
+            <p class="image-caption">MIMICRY AS CAUSALITY. REFLECTION IS ACTION.</p>
+            <p class="citation">SOURCE: Frazer, J.G. (1922). <em>The Golden Bough</em>, p. 20a.</p>
+        </div>
+
+        <!-- Panel 3: Case Study: Hostile Imitation -->
+        <div class="panel" id="panel-3">
+            <h3>CASE STUDY: HOSTILE IMITATION - OJIBWAY</h3>
+            <p><code>DESTROY ENEMY</code> by injuring its image.</p>
+            <p>Ojibway: make wooden image, stick needle in head/heart = foe feels pain.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Voodoo-doll.jpg/400px-Voodoo-doll.jpg" alt="Voodoo doll" loading="lazy">
+            <p class="image-caption">EFFIGY. TARGET ACQUIRED. DIRECT DAMAGE TRANSLATION.</p>
+            <p class="citation">SOURCE: Frazer, J.G. (1922). <em>The Golden Bough</em>, p. 22a.</p>
+        </div>
+
+        <!-- Panel 4: Law of Contact / Contagious Magic -->
+        <div class="panel" id="panel-4">
+            <h3>SUB-PROTOCOL 01.2: LAW OF CONTACT (CONTAGIOUS MAGIC)</h3>
+            <p>Whatever is done to a material object affects the <code>PERSON ONCE IN CONTACT</code>.</p>
+            <p>This is <strong>Contagious Magic</strong>.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Collection_of_nail_clippings_-_St_Helens.jpg/400px-Collection_of_nail_clippings_-_St_Helens.jpg" alt="Collection of nail clippings" loading="lazy">
+            <p class="image-caption">BIOLOGICAL DATA. PHYSICAL CONTACT FOR REMOTE EFFECT.</p>
+            <p class="citation">SOURCE: Frazer, J.G. (1922). <em>The Golden Bough</em>, p. 20a.</p>
+        </div>
+
+        <!-- Panel 5: Case Study: Combined Malay Charm -->
+        <div class="panel" id="panel-5">
+            <h3>CASE STUDY: COMBINED MALAY CHARM</h3>
+            <p>Wax effigy + victim's hair/nails/spittle.</p>
+            <p>Scorch figure over lamp: <code>"IT IS NOT WAX... IT IS LIVER, HEART, SPLEEN..."</code></p>
+            <p><code>HOMOEOPATHIC + CONTAGIOUS</code> = maximized effect.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/A_figure_of_a_woman_with_pins_in_it_used_as_a_love_charm._Wellcome_V0010156.jpg/400px-A_figure_of_a_woman_with_pins_in_it_used_as_a_love_charm._Wellcome_V0010156.jpg" alt="Figure with pins (historical charm)" loading="lazy">
+            <p class="image-caption">HYBRID ASSAULT PROTOCOL. OBSERVATIONAL DATA.</p>
+            <p class="citation">SOURCE: Frazer, J.G. (1922). <em>The Golden Bough</em>, p. 22a-22b.</p>
+        </div>
+
+        <!-- Panel 6: Theoretical vs. Practical Magic -->
+        <div class="panel" id="panel-6">
+            <h3>PROTOCOL 02: THEORETICAL vs. PRACTICAL MAGIC</h3>
+            <p><strong>Theoretical Magic:</strong> Magic as "spurious system of natural law."</p>
+            <p><strong>Practical Magic:</strong> Magic as "set of precepts" to achieve ends.</p>
+            <p>Primitive practitioners know magic only on its <code>PRACTICAL SIDE</code>. It is <code>ART, NEVER SCIENCE</code>.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Alchemist-drawing-by-Pieter-Brueghel-the-Elder-1558.jpg/400px-Alchemist-drawing-by-Pieter-Brueghel-the-Elder-1558.jpg" alt="Alchemist's laboratory drawing" loading="lazy">
+            <p class="image-caption">ART VS. SCIENCE. FLAWED LOGIC. PSEUDO-DISCIPLINE.</p>
+            <p class="citation">SOURCE: Frazer, J.G. (1922). <em>The Golden Bough</em>, p. 20a-20b.</p>
+        </div>
+
+        <!-- Panel 7: The Fallacy - Association of Ideas -->
+        <div class="panel" id="panel-7">
+            <h3>PROTOCOL 02.1: THE FALLACY - ASSOCIATION OF IDEAS</h3>
+            <p>Frazer: Magic is a "misapplication of the association of ideas."</p>
+            <p><code>HOMOEOPATHIC:</code> mistake of assuming things which resemble each other ARE THE SAME.</p>
+            <p><code>CONTAGIOUS:</code> mistake of assuming things once in contact ARE ALWAYS IN CONTACT.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Phrenology_Diagram.svg/400px-Phrenology_Diagram.svg.png" alt="Phrenology Diagram (Pseudo-science example)" loading="lazy">
+            <p class="image-caption">COGNITIVE ERROR DETECTED. CORRELATION ≠ CAUSATION.</p>
+            <p class="citation">SOURCE: Frazer, J.G. (1922). <em>The Golden Bough</em>, p. 21b.</p>
+        </div>
+
+        <!-- Panel 8: Benevolent Imitation - Childbirth -->
+        <div class="panel" id="panel-8">
+            <h3>PROTOCOL 03: BENEVOLENT IMITATION - CHILDBIRTH</h3>
+            <p>Bataks (Sumatra): Barren woman holds <code>WOODEN IMAGE OF CHILD</code> to conceive.</p>
+            <p>Dyaks (Borneo): Wizard mimics labor movements with a stone representing baby.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Doll_-_TRC_2020.301.jpg/400px-Doll_-_TRC_2020.301.jpg" alt="Simple cloth doll" loading="lazy">
+            <p class="image-caption">REPLICATING LIFE. PROTOTYPE FOR FERTILITY.</p>
+            <p class="citation">SOURCE: Frazer, J.G. (1922). <em>The Golden Bough</em>, p. 23a.</p>
+        </div>
+
+        <!-- Panel 9: Benevolent Imitation - Healing -->
+        <div class="panel" id="panel-9">
+            <h3>PROTOCOL 03.1: BENEVOLENT IMITATION - HEALING</h3>
+            <p>Hindus (jaundice): Banish yellow to yellow birds, infuse red from <code>RED BULL</code>.</p>
+            <p>Stonecurlew: Draws out yellow jaundice via its <code>LARGE GOLDEN EYE</code>.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Mural_of_Shiva_on_Nandi_-_Jodhpur%2C_India.jpg/400px-Mural_of_Shiva_on_Nandi_-_Jodhpur%2C_India.jpg" alt="Mural of Shiva on Nandi Bull" loading="lazy">
+            <p class="image-caption">COLOR TRANSFER. BIO-REMEDIATION. AFFECT SIMILARLY.</p>
+            <p class="citation">SOURCE: Frazer, J.G. (1922). <em>The Golden Bough</em>, p. 24a-24b.</p>
+        </div>
+
+        <!-- Panel 10: Benevolent Imitation - Proxy Healing -->
+        <div class="panel" id="panel-10">
+            <h3>PROTOCOL 03.2: BENEVOLENT IMITATION - PROXY HEALING</h3>
+            <p>Perche (France): Doctor contorts to "unhook" his own stomach; patient relieved.</p>
+            <p>Dyak: Medicine-man pretends to die; sick person recovers.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/1897_cartoon_doctor_with_stethoscope.jpg/400px-1897_cartoon_doctor_with_stethoscope.jpg" alt="Old cartoon of a doctor" loading="lazy">
+            <p class="image-caption">SUBSTITUTIONAL ANGUISH. THE DOCTOR AS MIRROR.</p>
+            <p class="citation">SOURCE: Frazer, J.G. (1922). <em>The Golden Bough</em>, p. 25a.</p>
+        </div>
+
+        <!-- Panel 11: Resource Generation - Totems -->
+        <div class="panel" id="panel-11">
+            <h3>PROTOCOL 04: RESOURCE GENERATION - TOTEMS</h3>
+            <p>Central Australia: Totem clans multiply food (e.g., witchetty grubs) via <code>CEREMONIAL IMITATION</code>.</p>
+            <p>Arunta: Pantomime of grubs emerging to increase numbers.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Oenpelli_rock_art_witchetty_grubs.jpg/400px-Oenpelli_rock_art_witchetty_grubs.jpg" alt="Aboriginal rock art of witchetty grubs" loading="lazy">
+            <p class="image-caption">REPLICA FOR ABUNDANCE. RITUAL REPLICATION.</p>
+            <p class="citation">SOURCE: Frazer, J.G. (1922). <em>The Golden Bough</em>, p. 26a.</p>
+        </div>
+
+        <!-- Panel 12: Resource Generation - Hunting -->
+        <div class="panel" id="panel-12">
+            <h3>PROTOCOL 04.1: RESOURCE GENERATION - HUNTING</h3>
+            <p>Nootka (BC): Wizard makes <code>FISH IMAGE</code> and places it in water to lure fish.</p>
+            <p>Cambodian hunter: Simulates being caught in his own net to ensure real catch.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Cree_fish_spear.jpg/400px-Cree_fish_spear.jpg" alt="Cree fish spear" loading="lazy">
+            <p class="image-caption">MIMICRY FOR CAPTURE. THE SYMPATHETIC LURE.</p>
+            <p class="citation">SOURCE: Frazer, J.G. (1922). <em>The Golden Bough</em>, p. 26b.</p>
+        </div>
+
+        <!-- Panel 13: Negative Magic - Taboo -->
+        <div class="panel" id="panel-13">
+            <h3>PROTOCOL 05: NEGATIVE MAGIC - TABOO</h3>
+            <p>Prohibitions (Taboos) based on <code>LAWS OF SIMILARITY & CONTACT</code>.</p>
+            <p>Magic: "<code>DO THIS</code>" (Sorcery).</p>
+            <p>Taboo: "<code>DO NOT DO THIS</code>, lest so and so should happen."</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Taboo_sign.svg/400px-Taboo_sign.svg.png" alt="Taboo sign" loading="lazy">
+            <p class="image-caption">UNDESIRABLE EVENT AVOIDANCE. WARNING.</p>
+            <p class="citation">SOURCE: Frazer, J.G. (1922). <em>The Golden Bough</em>, p. 27a-27b.</p>
+        </div>
+
+        <!-- Panel 14: Case Study: Taboo - Cat's Cradle -->
+        <div class="panel" id="panel-14">
+            <h3>CASE STUDY: TABOO - CAT'S CRADLE</h3>
+            <p>Esquimaux boys: Forbidden to play <code>CAT'S CRADLE</code>.</p>
+            <p>WHY? Fingers might later entangle in harpoon line.</p>
+            <p><code>SIMILARITY-BASED AVOIDANCE</code>.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Cat%27s_cradle.jpg/400px-Cat%27s_cradle.jpg" alt="Cat's Cradle game" loading="lazy">
+            <p class="image-caption">INTERFERENCE PROTOCOL. PRE-EMPTIVE MEASURES.</p>
+            <p class="citation">SOURCE: Frazer, J.G. (1922). <em>The Golden Bough</em>, p. 27b.</p>
+        </div>
+
+        <!-- Panel 15: Case Study: Taboo - Spinning -->
+        <div class="panel" id="panel-15">
+            <h3>CASE STUDY: TABOO - SPINNING</h3>
+            <p>Huzul (Carpathians): Hunter's wife may not <code>SPIN</code> while he eats.</p>
+            <p>WHY? Game will "turn and wind like the spindle," hunter misses.</p>
+            <p>Another <code>SIMILARITY-BASED AVOIDANCE</code>.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Traditional_Spinning_Wheel.jpg/400px-Traditional_Spinning_Wheel.jpg" alt="Traditional Spinning Wheel" loading="lazy">
+            <p class="image-caption">DIVERGENT ACTION PREVENTION. AVOID UNWANTED EFFECTS.</p>
+            <p class="citation">SOURCE: Frazer, J.G. (1922). <em>The Golden Bough</em>, p. 27b.</p>
+        </div>
+
+        <!-- Panel 16: Final Protocol: Frazer's Conclusion -->
+        <div class="panel" id="panel-16">
+            <h3>FINAL PROTOCOL: FRAZER'S CONCLUSION</h3>
+            <p>Magic: "one great disastrous fallacy, a mistaken conception of the <code>ASSOCIATION OF IDEAS</code>."</p>
+            <p><code>SORCERY</code> (positive pole) vs. <code>TABOO</code> (negative pole).</p>
+            <p>Both are "vain and futile."</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Broken_mirror_cropped.jpg/400px-Broken_mirror_cropped.jpg" alt="Broken mirror" loading="lazy">
+            <p class="image-caption">FLAWED LOGIC. OBSERVE AND ADAPT. ERROR STATE.</p>
+            <p class="citation">SOURCE: Frazer, J.G. (1922). <em>The Golden Bough</em>, p. 27b.</p>
+        </div>
+
+        <!-- Panel 17: Mission Recap - Ethical Implications -->
+        <div class="panel" id="panel-17">
+            <h3>MISSION RECAP: ETHICAL IMPLICATIONS</h3>
+            <p>YOU ARE NOW ARMED WITH FRAZER'S FRAMEWORK.</p>
+            <p>ANALYZE DIGITAL AVATARS, DEEPFAKES, PROFILES, ONLINE COMMUNITIES.</p>
+            <p>APPLY FRAZER'S LENS TO ETHICAL CONCERNS:</p>
+            <p><code>AUTHENTICITY. CONSENT. OWNERSHIP. PRIVACY. HARM.</code></p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Tom_Sachs_%28cropped%29.jpg/400px-Tom_Sachs_%28cropped%29.jpg" alt="Tom Sachs portrait" loading="lazy">
+            <p class="image-caption">TOM SACHS, PROJECT LEAD: INITIATE ETHICAL DECONSTRUCTION. OVER AND OUT.</p>
+            <p class="citation">SOURCE: Tom Sachs. Ethical implications are conceptual application.</p>
+        </div>
+
+
+        <div class="navigation">
+            <button id="prevButton" class="nav-button">Previous Protocol</button>
+            <button id="nextButton" class="nav-button">Next Protocol</button>
+        </div>
+    </div>
+
+    <div class="status-bar">
+        <span class="status-indicator" id="statusBarIndicator"></span>
+        <span id="statusBarText">SYSTEM: OFFLINE</span>
+        <span id="pageCounter">PAGE 0/0</span>
+        <span id="debugLog">DEBUG: CONSOLE_LOG_ACTIVE</span>
+    </div>
+
+    <script>
+        // JS PROTOCOL: OPERATIONAL SEQUENCE
+
+        const panels = document.querySelectorAll('.panel');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+        const statusBarIndicator = document.getElementById('statusBarIndicator');
+        const statusBarText = document.getElementById('statusBarText');
+        const pageCounter = document.getElementById('pageCounter');
+        const debugLog = document.getElementById('debugLog'); // Placeholder for debug messages
+
+        let currentPanelIndex = 0; // START AT PANEL 0
+
+        // Function: Display specific panel
+        function showPanel(index) {
+            console.log(`DEBUG: Attempting to display panel ${index}.`);
+            panels.forEach((panel, i) => {
+                panel.style.display = (i === index) ? 'flex' : 'none'; /* Use flex for centering */
+            });
+            currentPanelIndex = index;
+            updateNavigation();
+            updateStatusBar();
+            console.log(`DEBUG: Panel ${index} successfully loaded.`);
+            window.scrollTo({ top: 0, behavior: 'smooth' }); // Smooth scroll to top of page
+        }
+
+        // Function: Update navigation button states
+        function updateNavigation() {
+            prevButton.disabled = currentPanelIndex === 0;
+            nextButton.disabled = currentPanelIndex === panels.length - 1;
+            console.log(`DEBUG: Navigation updated. Current panel: ${currentPanelIndex}. Prev disabled: ${prevButton.disabled}, Next disabled: ${nextButton.disabled}.`);
+        }
+
+        // Function: Update status bar
+        function updateStatusBar() {
+            statusBarIndicator.classList.add('online'); // Assume system is online once JS loads
+            statusBarText.textContent = `SYSTEM: OPERATIONAL | PROTOCOL ${currentPanelIndex + 1}/${panels.length} ACTIVE`;
+            pageCounter.textContent = `PAGE ${currentPanelIndex + 1}/${panels.length}`;
+            // Simulating a subtle 'malfunction' for Tom Sachs aesthetic
+            if (Math.random() < 0.1) { // 10% chance of a minor glitch
+                 debugLog.textContent = `DEBUG: SYSTEM_CHECK_ALERT (Minor Anomaly Detected)`;
+                 setTimeout(() => debugLog.textContent = `DEBUG: CONSOLE_LOG_ACTIVE`, 2000); // Clear after 2 seconds
+            } else {
+                 debugLog.textContent = `DEBUG: CONSOLE_LOG_ACTIVE`;
+            }
+            console.log(`DEBUG: Status bar updated.`);
+        }
+
+        // Event Listeners for navigation
+        prevButton.addEventListener('click', () => {
+            if (currentPanelIndex > 0) {
+                showPanel(currentPanelIndex - 1);
+                console.log('DEBUG: Previous button pressed.');
+            } else {
+                console.warn('WARNING: Attempted to go before first panel.');
+            }
+        });
+
+        nextButton.addEventListener('click', () => {
+            if (currentPanelIndex < panels.length - 1) {
+                showPanel(currentPanelIndex + 1);
+                console.log('DEBUG: Next button pressed.');
+            } else {
+                console.warn('WARNING: Attempted to go beyond last panel.');
+            }
+        });
+
+        // Initialize the presentation
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DEBUG: Document DOMContentLoaded. Initializing presentation.');
+            showPanel(currentPanelIndex); // Display the first panel
+        });
+
+        // Optional: Keyboard navigation (Sachs might approve of efficient control)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') { // Right arrow or spacebar for next
+                if (!nextButton.disabled) {
+                    nextButton.click();
+                }
+            } else if (e.key === 'ArrowLeft') { // Left arrow for previous
+                if (!prevButton.disabled) {
+                    prevButton.click();
+                }
+            }
+        });
+
+        console.log('DEBUG: Sympathetic Media Protocol JS initiated. Standby for further instructions.');
+
+    </script>
+</body>
+</html>
